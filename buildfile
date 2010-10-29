@@ -1,17 +1,6 @@
 require 'buildr_bnd'
 require 'buildr_iidea'
 
-basedir = File.expand_path(File.dirname(__FILE__))
-
-$LOAD_PATH.unshift(File.expand_path("#{basedir}/../domgen/lib"))
-
-require 'domgen'
-
-Domgen::LoadSchema.new("#{basedir}/databases/schema_set.rb")
-Domgen::GenerateTask.new(:iris, :jpa, [:jpa], "#{basedir}/generated/main/domgen") do |t|
-  t.description = 'Generates the Java code for the persistent objects'
-end
-
 desc "The Footprints project"
 define "footprints" do
   project.version = '0.9-SNAPSHOT'
