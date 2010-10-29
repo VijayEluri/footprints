@@ -5,7 +5,7 @@ Domgen.define_schema_set(:iris) do |ss|
 
   ss.define_schema('JavaNCSS') do |s|
     s.sql.schema = 'JavaNCSS'
-    s.java.package = 'footprints.javancss'
+    s.java.package = 'footprints.javancss.model'
 
     s.define_object_type(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
