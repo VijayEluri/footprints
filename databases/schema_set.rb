@@ -1,5 +1,5 @@
 
-Domgen.define_schema_set(:iris) do |ss|
+Domgen.define_schema_set(:footprints) do |ss|
   ss.define_generator(:sql)
   ss.define_generator(:jpa)
 
