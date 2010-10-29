@@ -12,7 +12,7 @@ define "footprints" do
   compile.enhance ["domgen:jpa"]
   compile.from _("generated/main/domgen/java")
 
-  compile.with :javancss, :jhbasic, :ccl, :core, :jpa, :asm, :antlr, :persistence, :validation, :transaction, :intellij_annotations, :jdom
+  compile.with :javancss, :jhbasic, :ccl, :core, :jpa, :asm, :antlr, :persistence, :validation, :transaction, :intellij_annotations
 
   resources.enhance ["domgen:jpa"]
   mkdir_p _("generated/main/domgen/java")

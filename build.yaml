@@ -17,7 +17,6 @@ artifacts:
   transaction: javax.transaction:jta:jar:1.1
   derby: org.apache.derby:derby:jar:10.6.1.0
   derbytools: org.apache.derby:derbytools:jar:10.6.1.0
-  jdom: org.jdom:jdom:jar:1.1
 
 repositories:
   remote:
