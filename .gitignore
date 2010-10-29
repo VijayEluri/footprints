@@ -1,4 +1,5 @@
 /generated
+/databases/generated
 /target
 /reports
 /*.iws
