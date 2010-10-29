@@ -1,0 +1,26 @@
+gems:
+  #- ci_reporter
+  - buildr >= 1.4.3
+  - buildr-iidea = 0.0.10
+
+artifacts:
+  javancss: org.codehaus.javancss:javancss:jar:32.53
+  jhbasic: javancss:jhbasic:jar:29.50
+  ccl: javancss:ccl:jar:29.50
+  core: org.eclipse.persistence:org.eclipse.persistence.core:jar:2.1.1
+  jpa: org.eclipse.persistence:org.eclipse.persistence.jpa:jar::2.1.1
+  asm: org.eclipse.persistence:org.eclipse.persistence.asm:jar::2.1.1
+  antlr: org.eclipse.persistence:org.eclipse.persistence.antlr:jar::2.1.1
+  persistence: org.eclipse.persistence:javax.persistence:jar::2.0.2
+  validation: javax.validation:validation-api:jar:1.0.0.GA
+  intellij_annotations: com.intellij:annotations:jar:9.0.3
+  transaction: javax.transaction:jta:jar:1.1
+  derby: org.apache.derby:derby:jar:10.6.1.0
+  derbytools: org.apache.derby:derbytools:jar:10.6.1.0
+
+repositories:
+  remote:
+   - http://www.ibiblio.org/maven2
+  release_to:
+    url: sftp://www.stocksoftware.com.au/www/stocksoftware/web/repositories/releases
+    permissions: 0664
