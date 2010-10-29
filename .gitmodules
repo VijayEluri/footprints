@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/dbt"]
+	path = vendor/plugins/dbt
+	url = git://github.com/stocksoftware/dbt.git
