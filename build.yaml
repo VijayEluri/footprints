@@ -7,14 +7,9 @@ artifacts:
   javancss: org.codehaus.javancss:javancss:jar:32.53
   jhbasic: javancss:jhbasic:jar:29.50
   ccl: javancss:ccl:jar:29.50
-  core: org.eclipse.persistence:org.eclipse.persistence.core:jar:2.1.1
-  jpa: org.eclipse.persistence:org.eclipse.persistence.jpa:jar::2.1.1
-  asm: org.eclipse.persistence:org.eclipse.persistence.asm:jar::2.1.1
-  antlr: org.eclipse.persistence:org.eclipse.persistence.antlr:jar::2.1.1
-  persistence: org.eclipse.persistence:javax.persistence:jar::2.0.2
   intellij_annotations: com.intellij:annotations:jar:9.0.3
-  transaction: javax.transaction:jta:jar:1.1
-  jtds: net.sourceforge.jtds:jtds:jar:1.2.4
+  javax_validation: javax.validation:validation-api:jar:1.0.0.GA
+  javaee_api: javax:javaee-api:jar:6.0
 
 repositories:
   remote:
