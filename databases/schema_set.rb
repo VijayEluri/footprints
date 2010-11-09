@@ -1,7 +1,10 @@
 
 Domgen.define_schema_set(:footprints) do |ss|
   ss.define_generator(:sql)
-  ss.define_generator(:jpa)
+  ss.define_generator(:jpa_model)
+  ss.define_generator(:jpa_ejb)
+
+  ss.jpa.provider = "org.hibernate.ejb.HibernatePersistence"
 
   ss.define_schema('JavaNCSS') do |s|
     s.sql.schema = 'JavaNCSS'
