@@ -1,7 +1,6 @@
 package footprints.javancss;
 
 import footprints.javancss.model.MethodMetric;
-import footprints.javancss.model.SchemaEntityManager;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -19,16 +18,9 @@ public class Main
     final File inputFile = new File( args[ 0 ] );
     final Collection<MethodEntry> entries = new OuputParser().parse( inputFile );
     System.out.println( "ParseTime: " + ( System.currentTimeMillis() - start ) + "ms" );
-    for ( final MethodEntry entry : entries )
-    {
-      //System.out.println( entry );
-    }
 
     final EntityManagerFactory factory = Persistence.createEntityManagerFactory( "footprints", createOverrides() );
-
     final EntityManager em = factory.createEntityManager();
-    System.exit( 0 );
-    SchemaEntityManager.bind( em );
     try
     {
       em.getTransaction().begin();
@@ -53,7 +45,6 @@ public class Main
     }
     finally
     {
-      SchemaEntityManager.unbind( em );
       em.close();
     }
   }
@@ -63,6 +54,8 @@ public class Main
     final Properties overrides = new Properties();
     overrides.setProperty( "javax.persistence.jdbc.driver", "net.sourceforge.jtds.jdbc.Driver" );
     overrides.setProperty( "javax.persistence.jdbc.url", "jdbc:jtds:sqlserver://PETER-PC/PD42_FOOTPRINTS_DEV;instance=SQLEXPRESS" );
+    overrides.setProperty( "javax.persistence.jdbc.user", "stock-dev" );
+    overrides.setProperty( "javax.persistence.jdbc.password", "letmein" );
 
     overrides.setProperty( "eclipselink.logging.level", "FINEST" );
     //overrides.setProperty( "eclipselink.jpa.uppercase-column-names", "false" );
