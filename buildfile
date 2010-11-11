@@ -1,7 +1,7 @@
 require 'buildr_bnd'
 require 'buildr_iidea'
 
-desc "The Footprints project"
+desc "Footprints: See whos been walking all over our code."
 define "footprints" do
   project.version = '0.9-SNAPSHOT'
   project.group = 'footprints'
