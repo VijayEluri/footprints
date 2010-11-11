@@ -1,6 +1,5 @@
 package footprints.javancss;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,14 +15,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class OutputParser
 {
-  public Collection<MethodEntry> parse( final File inputFile )
+  public Collection<MethodEntry> parse( final InputSource inputSource )
     throws Exception
   {
-    final Element element = loadNormalizedDocument( inputFile );
+    final Element element = loadNormalizedDocument( inputSource );
     final XPath xPath = XPathFactory.newInstance().newXPath();
     final HashSet<String> packages = extractPackageNames( element, xPath );
 
@@ -115,11 +115,11 @@ public class OutputParser
     return packages;
   }
 
-  private Element loadNormalizedDocument( final File inputFile )
+  private Element loadNormalizedDocument( final InputSource inputSource )
     throws ParserConfigurationException, SAXException, IOException
   {
     final DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    final Document doc = db.parse( inputFile );
+    final Document doc = db.parse( inputSource );
     final Element element = doc.getDocumentElement();
     element.normalize();
     return element;

@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.xml.sax.InputSource;
 
 public class Main
 {
@@ -16,7 +17,8 @@ public class Main
   {
     final long start = System.currentTimeMillis();
     final File inputFile = new File( args[ 0 ] );
-    final Collection<MethodEntry> entries = new OutputParser().parse( inputFile );
+    final InputSource inputSource = new InputSource( inputFile.toURI().toASCIIString() );
+    final Collection<MethodEntry> entries = new OutputParser().parse( inputSource );
     System.out.println( "ParseTime: " + ( System.currentTimeMillis() - start ) + "ms" );
 
     final EntityManagerFactory factory = Persistence.createEntityManagerFactory( "footprints", createOverrides() );
@@ -53,7 +55,8 @@ public class Main
   {
     final Properties overrides = new Properties();
     overrides.setProperty( "javax.persistence.jdbc.driver", "net.sourceforge.jtds.jdbc.Driver" );
-    overrides.setProperty( "javax.persistence.jdbc.url", "jdbc:jtds:sqlserver://PETER-PC/PD42_FOOTPRINTS_DEV;instance=SQLEXPRESS" );
+    overrides.setProperty( "javax.persistence.jdbc.url",
+                           "jdbc:jtds:sqlserver://PETER-PC/PD42_FOOTPRINTS_DEV;instance=SQLEXPRESS" );
     overrides.setProperty( "javax.persistence.jdbc.user", "stock-dev" );
     overrides.setProperty( "javax.persistence.jdbc.password", "letmein" );
 
