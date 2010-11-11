@@ -16,7 +16,7 @@ public class Main
   {
     final long start = System.currentTimeMillis();
     final File inputFile = new File( args[ 0 ] );
-    final Collection<MethodEntry> entries = new OuputParser().parse( inputFile );
+    final Collection<MethodEntry> entries = new OutputParser().parse( inputFile );
     System.out.println( "ParseTime: " + ( System.currentTimeMillis() - start ) + "ms" );
 
     final EntityManagerFactory factory = Persistence.createEntityManagerFactory( "footprints", createOverrides() );
