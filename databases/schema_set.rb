@@ -16,9 +16,9 @@ Domgen.define_schema_set(:footprints) do |ss|
     s.define_object_type(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Collection, :immutable => true)
-      t.string(:PackageName, 125, :immutable => true)
-      t.string(:ClassName, 125, :immutable => true)
-      t.string(:MethodName, 125, :immutable => true)
+      t.string(:PackageName, 500, :immutable => true)
+      t.string(:ClassName, 500, :immutable => true)
+      t.string(:MethodName, 500, :immutable => true)
 
       # Non commenting source statements
       t.integer(:NCSS, :immutable => true)
