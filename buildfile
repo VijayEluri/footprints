@@ -24,4 +24,11 @@ define "footprints" do
 
     package(:jar)
   end
+
+
+  define "web" do
+    compile.with projects("ejb")
+
+    package(:war)
+  end
 end
