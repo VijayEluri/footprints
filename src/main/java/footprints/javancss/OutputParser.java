@@ -52,7 +52,7 @@ public class OutputParser
   {
     final String name = extractString( element, "name" );
 
-    final int methodStart = name.lastIndexOf( '.' );
+    final int methodStart = name.lastIndexOf( '.', name.lastIndexOf( '(' ) );
     final String methodName = name.substring( methodStart + 1 );
 
     String packageName = "";
