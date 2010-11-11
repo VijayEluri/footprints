@@ -1,4 +1,5 @@
-/generated
+/ejb/ejb.iml
+/ejb/generated
 /databases/generated
 /target
 /reports
