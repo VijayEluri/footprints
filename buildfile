@@ -37,7 +37,7 @@ define_with_central_layout("footprints", true, false) do
       rm_rf _('generated')
     end
 
-    package(:jar)
+    package(:jar, :file => _(:target, :main, "#{project.id}.jar"))
   end
 
 
@@ -56,11 +56,13 @@ define_with_central_layout("footprints", true, false) do
       end
     end
 
-    package(:war)
+    package(:war, :file => _(:target, :main, "#{project.id}.war"))
   end
 
-  define "ear" do
-    package(:ear).tap do |ear|
+  define_with_central_layout("ear",false) do
+    project.no_iml
+    
+    package(:ear, :file => _(:target, :main, "footprints.ear")).tap do |ear|
       ear.display_name = "Footprints Code Dashboard"
       ear.add project("web").package(:war), :context_root => "footprints"
       ear.add :ejb => project('ejb'), :display_name => "Footprints Backend"
