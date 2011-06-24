@@ -24,22 +24,37 @@ EMF = [:eclipse_uml,
        :eclipse_resources]
 
 class CentralLayout < Layout::Default
-  def initialize(key, top_level, use_subdir)
+  # +key+ is the name of the project
+  # +prefix+ is the path to the parent directory for the target and dist directories
+  def initialize(key, prefix)
     super()
-    prefix = top_level ? '' : '../'
-    subdir = use_subdir ? "/#{key}" : ''
-    self[:target] = "#{prefix}target#{subdir}"
-    self[:target, :main] = "#{prefix}target#{subdir}"
-    self[:reports] = "#{prefix}reports#{subdir}"
+    self[:target] = "#{prefix}target/#{key}"
+    self[:target, :main] = "#{prefix}target/#{key}"
+    self[:reports] = "#{prefix}reports/#{key}"
+    self[:target, :generated] = "generated"
   end
 end
 
-def define_with_central_layout(name, top_level = false, use_subdir = true, & block)
-  define(name, :layout => CentralLayout.new(name, top_level, use_subdir), & block)
+# +key+ is the name of the project
+# +top_level+ if the base directory for project is the top level
+def define_with_central_layout(name, top_level = false, options = {}, &block)
+  options = options.dup
+  if !top_level
+    options[:layout] = CentralLayout.new(name, '../')
+  else
+    options[:layout] = CentralLayout.new(name, '')
+  end
+  define(name, options) do
+    project.instance_eval &block
+    project.iml.local_repository_env_override = nil if project.iml?
+    project.clean { rm_rf _(:target, :generated) }
+    project
+  end
 end
 
+
 desc "Footprints: See whos been walking all over our code."
-define_with_central_layout('footprints', true, false) do
+define_with_central_layout('footprints', true) do
   project.version = '0.9-SNAPSHOT'
   project.group = 'footprints'
 
@@ -49,7 +64,7 @@ define_with_central_layout('footprints', true, false) do
 
   project.no_ipr
 
-  define_with_central_layout('ejb',false) do
+  define_with_central_layout('ejb') do
 
     define_persistence_unit(project, :footprints, 'footprints/javancss/model/Collection.class')
 
@@ -63,7 +78,7 @@ define_with_central_layout('footprints', true, false) do
   end
 
 
-  define_with_central_layout('web',false) do
+  define_with_central_layout('web') do
     compile.with projects('ejb')
 
     iml.add_facet("Web","web") do |facet|
@@ -81,7 +96,7 @@ define_with_central_layout('footprints', true, false) do
     package(:war, :file => _(:target, :main, "#{project.id}.war"))
   end
 
-  define_with_central_layout("ear",false) do
+  define_with_central_layout('ear') do
     project.no_iml
     
     package(:ear, :file => _(:target, :main, "footprints.ear")).tap do |ear|
@@ -96,6 +111,14 @@ define_with_central_layout('footprints', true, false) do
 
   # Remove all generated directories
   project.clean { rm_rf "#{File.dirname(__FILE__)}/target" }
+
+    # Exclude intermediate dirs from IDEA projects
+  project.iml.excluded_directories << "#{File.dirname(__FILE__)}/target"
+  project.iml.excluded_directories << "#{File.dirname(__FILE__)}/reports"
+
+  doc.using :javadoc,
+            {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
+  doc.from projects('web', 'ejb')
 
 end
 
