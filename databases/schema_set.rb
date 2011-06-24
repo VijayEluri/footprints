@@ -1,19 +1,17 @@
+Domgen.define_repository(:footprints) do |repository|
+  repository.define_generator(:sql)
+  repository.define_generator(:jpa_model)
+  repository.define_generator(:jpa_ejb)
 
-Domgen.define_schema_set(:footprints) do |ss|
-  ss.define_generator(:sql)
-  ss.define_generator(:jpa_model)
-  ss.define_generator(:jpa_ejb)
+  repository.define_data_module(:JavaNCSS) do |data_module|
+    data_module.java.package = 'footprints.javancss.model'
 
-  ss.define_schema('JavaNCSS') do |s|
-    s.sql.schema = 'JavaNCSS'
-    s.java.package = 'footprints.javancss.model'
-
-    s.define_object_type(:Collection) do |t|
+    data_module.define_object_type(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:CollectedAt, :immutable => true)
     end
 
-    s.define_object_type(:MethodMetric) do |t|
+    data_module.define_object_type(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Collection, :immutable => true)
       t.string(:PackageName, 500, :immutable => true)
