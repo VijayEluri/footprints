@@ -2,8 +2,7 @@ junit: 4.8.2
 
 gems:
   #- ci_reporter
-  - buildr >= 1.4.3
-  - buildr-iidea = 0.0.10
+  - buildr >= 1.4.5
 
 artifacts:
   javancss: org.codehaus.javancss:javancss:jar:32.53
