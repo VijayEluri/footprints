@@ -23,3 +23,7 @@ test:
   database: <%= prefix %>FOOTPRINTS_TES
   <<: *devhost
 
+import:
+  database: <%= prefix %>FOOTPRINTS_DEV
+  <<: *devhost
+

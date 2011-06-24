@@ -30,7 +30,7 @@ def define_dbt_tasks(project)
     database.search_dirs = [generated_dir, "#{workspace_dir}/databases"]
     database.enable_domgen(:footprints, 'domgen:load', 'domgen:sql')
     database.add_import_assert_filters
-    database.enable_separate_import_task = false
+    database.enable_separate_import_task = true
     database.enable_db_doc(generated_dir)
   end
 end
