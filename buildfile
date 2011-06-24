@@ -74,6 +74,35 @@ define_with_central_layout('footprints', true) do
       rm_rf _('generated')
     end
 
+    iml.add_facet("EJB", "ejb") do |facet|
+      facet.configuration do |c|
+        c.descriptors do |d|
+          d.deploymentDescriptor :name => 'ejb-jar.xml',
+                                    :url => "file://$MODULE_DIR$/src/main/resources/META-INF/ejb-jar.xml"
+        end
+        c.ejbRoots do |e|
+          e.root :url => "file://$MODULE_DIR$/generated/main/domgen/java"
+          e.root :url => "file://$MODULE_DIR$/generated/main/domgen/resources"
+          e.root :url => "file://$MODULE_DIR$/src/main/java"
+          e.root :url => "file://$MODULE_DIR$/src/main/resources"
+        end
+      end
+    end
+
+    iml.add_facet("JPA", "jpa") do |f|
+      f.configuration do |c|
+        c.setting :name => "validation-enabled", :value => true
+        c.setting :name => "provider-name", :value => 'Hibernate'
+        c.tag!('datasource-mapping') do |ds|
+          ds.tag!('factory-entry', :name => "footprints")
+        end
+        c.descriptors do |d|
+          d.deploymentDescriptor :name => 'persistence.xml',
+                                    :url => "file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml"
+        end
+      end
+    end
+
     package(:jar, :file => _(:target, :main, "#{project.id}.jar"))
   end
 
@@ -81,14 +110,14 @@ define_with_central_layout('footprints', true) do
   define_with_central_layout('web') do
     compile.with projects('ejb')
 
-    iml.add_facet("Web","web") do |facet|
-      facet.configuration do |conf|
-        conf.descriptors do |desc|
-          desc.deploymentDescriptor :name => 'web.xml',
+    iml.add_facet("Web","web") do |f|
+      f.configuration do |c|
+        c.descriptors do |d|
+          d.deploymentDescriptor :name => 'web.xml',
             :url => "file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml", :optional => "false", :version => "3.0"
         end
-        conf.webroots do |webroots|
-          webroots.root :url => "file://$MODULE_DIR$/src/main/webapp", :relative => "/"
+        c.webroots do |w|
+          w.root :url => "file://$MODULE_DIR$/src/main/webapp", :relative => "/"
         end
       end
     end
@@ -103,6 +132,12 @@ define_with_central_layout('footprints', true) do
       ear.display_name = "Footprints Code Dashboard"
       ear.add project("web").package(:war), :context_root => "footprints"
       ear.add :ejb => project('ejb'), :display_name => "Footprints Backend"
+    end
+  end
+
+  iml.add_facet("JRuby", "JRUBY") do |f|
+    f.configuration(:number => 0) do |c|
+      c.JRUBY_FACET_CONFIG_ID :NAME => "JRUBY_SDK_NAME", :VALUE => "jruby-1.5.2-p249"
     end
   end
 
