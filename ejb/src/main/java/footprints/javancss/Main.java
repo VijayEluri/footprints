@@ -26,20 +26,20 @@ public class Main
     try
     {
       em.getTransaction().begin();
-      final footprints.javancss.model.Collection collection = new footprints.javancss.model.Collection();
-      collection.setCollectedAt( new Timestamp( System.currentTimeMillis() ) );
+      final footprints.javancss.model.Collection collection =
+        new footprints.javancss.model.Collection( new Timestamp( System.currentTimeMillis() ) );
       em.persist( collection );
 
       for ( final MethodEntry entry : entries )
       {
-        final MethodMetric metric = new MethodMetric();
-        metric.setCollection( collection );
-        metric.setCCN( entry.ccn );
-        metric.setJVDC( entry.jvdc );
-        metric.setNCSS( entry.ncss );
-        metric.setPackageName( entry.packageName );
-        metric.setClassName( entry.className );
-        metric.setMethodName( entry.methodName );
+        final MethodMetric metric =
+          new MethodMetric( collection,
+                            entry.packageName,
+                            entry.className,
+                            entry.methodName,
+                            entry.ncss,
+                            entry.ccn,
+                            entry.jvdc );
         em.persist( metric );
       }
 
