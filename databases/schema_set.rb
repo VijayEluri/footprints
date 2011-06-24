@@ -2,6 +2,7 @@ Domgen.define_repository(:footprints) do |repository|
   repository.define_generator(:sql)
   repository.define_generator(:jpa_model)
   repository.define_generator(:jpa_ejb)
+  repository.define_generator(:jpa_jta_persistence)
 
   repository.define_data_module(:JavaNCSS) do |data_module|
     data_module.java.package = 'footprints.javancss.model'
