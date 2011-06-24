@@ -102,10 +102,7 @@ define_with_central_layout('footprints', true) do
         end
       end
     end
-
-    package(:jar, :file => _(:target, :main, "#{project.id}.jar"))
   end
-
 
   define_with_central_layout('web') do
     compile.with projects('ejb')
@@ -122,7 +119,7 @@ define_with_central_layout('footprints', true) do
       end
     end
 
-    package(:war, :file => _(:target, :main, "#{project.id}.war"))
+    package(:war)
   end
 
   define_with_central_layout('ear') do
