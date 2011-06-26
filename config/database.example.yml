@@ -13,10 +13,6 @@ devhost: &devhost
   instance_registry_key: MSSQL10_50.SQLEXPRESS
   restore_from: <%= prefix %>FOOTPRINTS_DEV
 
-msdb:
-  database: msdb
-  <<: *devhost
-
 development:
   database: <%= prefix %>FOOTPRINTS_DEV
   <<: *devhost
