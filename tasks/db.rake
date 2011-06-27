@@ -64,6 +64,6 @@ task :dump_tables_to_fixtures => ['dbt:load_config', 'domgen:load'] do
       object_type.sql.qualified_table_name
     end
   end.flatten
-  DbTasks.init(:default, DbTasks::Config.environment)
+  DbTasks.init_database(:default)
   DbTasks.dump_tables_to_fixtures(tables, dir)
 end
