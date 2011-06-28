@@ -16,9 +16,16 @@ $LOAD_PATH.insert(0, "#{workspace_dir}/../dbt/lib")
 require 'db_tasks'
 
 DbTasks::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
-DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/database.yml")
 DbTasks::Config.log_filename = "#{workspace_dir}/target/dbt/logs/db.log"
 DbTasks.add_database_driver_hook { db_driver_setup }
+
+if ENV['DB_TYPE'] == 'postgres'
+  DbTasks::Config.driver = 'Postgres'
+  DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
+else
+  DbTasks::Config.driver = 'Mssql'
+  DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/mssql_database.yml")
+end
 
 def define_dbt_tasks(project)
   DbTasks.add_database(:default,

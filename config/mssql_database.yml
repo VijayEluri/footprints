@@ -1,0 +1,27 @@
+<% user_code = "PD42" %>
+<% prefix = "#{user_code}_" %>
+devhost: &devhost
+  adapter: mssql
+  appname: <%= user_code %>
+  username: stock-dev
+  password: letmein
+  timeout: 50000
+  host: PETER-PC
+  instance: SQLEXPRESS
+  force_drop: true
+  no_create: false
+  instance_registry_key: MSSQL10_50.SQLEXPRESS
+  restore_from: <%= prefix %>FOOTPRINTS_DEV
+
+development:
+  database: <%= prefix %>FOOTPRINTS_DEV
+  <<: *devhost
+
+test:
+  database: <%= prefix %>FOOTPRINTS_TES
+  <<: *devhost
+
+import:
+  database: <%= prefix %>FOOTPRINTS_DEV
+  <<: *devhost
+
