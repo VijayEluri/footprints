@@ -1,0 +1,21 @@
+<% user_code = "PD42" %>
+<% prefix = "#{user_code}_" %>
+devhost: &devhost
+  adapter: postgresql
+  username: postgres
+  password: letmein
+  host: localhost
+  port: 5432
+
+development:
+  database: <%= prefix %>FOOTPRINTS_DEV
+  <<: *devhost
+
+test:
+  database: <%= prefix %>FOOTPRINTS_TEST
+  <<: *devhost
+
+import:
+  database: <%= prefix %>FOOTPRINTS_DEV
+  <<: *devhost
+
