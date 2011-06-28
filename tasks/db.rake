@@ -41,6 +41,7 @@ def db_driver_setup
 end
 
 def load_jtds
+  require File.expand_path("#{iris_dir}/../../Program Files (x86)/PostgreSQL/pgJDBC/postgresql-8.4-702.jdbc4.jar")
   require File.expand_path("#{iris_dir}/vendor/jars/repository/net/sourceforge/jtds/jtds/1.2.4/jtds-1.2.4.jar")
 end
 
@@ -64,6 +65,7 @@ task :dump_tables_to_fixtures => ['dbt:load_config', 'domgen:load'] do
       object_type.sql.qualified_table_name
     end
   end.flatten
-  DbTasks.init_database(:default)
-  DbTasks.dump_tables_to_fixtures(tables, dir)
+  DbTasks.init_database(:default) do
+    DbTasks.dump_tables_to_fixtures(tables, dir)
+  end
 end
