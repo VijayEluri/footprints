@@ -6,7 +6,15 @@ require 'domgen'
 
 Domgen::LoadSchema.new("#{workspace_dir}/databases/schema_set.rb")
 
-generators = (ENV['DB_TYPE'] == 'postgres') ? [:pgsql] : [:mssql]
+generators = nil
+if is_postgres?
+  generators = [:pgsql]
+  Domgen::Sql.dialect = Domgen::Sql::PgDialect
+else
+  generators = [:mssql]
+  Domgen::Sql.dialect = Domgen::Sql::MssqlDialect
+end
+
 Domgen::GenerateTask.new(:footprints, "sql", generators, "#{workspace_dir}/databases/generated")
 Domgen::Xmi::GenerateXMITask.new(:footprints, "xmi", "#{workspace_dir}/target/xmi/footprints.xmi")
 
