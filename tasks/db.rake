@@ -6,6 +6,10 @@ def iris_dir
   File.expand_path("#{workspace_dir}/../iris")
 end
 
+def is_postgres?
+  ENV['DB_TYPE'] == 'postgres'
+end
+
 # TODO: Remove this cruft once dbt is AR free
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activesupport/lib")
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activerecord/lib")
@@ -19,7 +23,7 @@ DbTasks::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
 DbTasks::Config.log_filename = "#{workspace_dir}/target/dbt/logs/db.log"
 DbTasks.add_database_driver_hook { db_driver_setup }
 
-if ENV['DB_TYPE'] == 'postgres'
+if is_postgres?
   DbTasks::Config.driver = 'Postgres'
   DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
 else
@@ -38,7 +42,7 @@ def define_dbt_tasks(project)
     database.enable_domgen(:footprints, 'domgen:load', 'domgen:sql')
     database.add_import_assert_filters
     database.enable_separate_import_task = true
-    database.enable_db_doc(generated_dir)
+    #database.enable_db_doc(generated_dir)
   end
 end
 
@@ -48,8 +52,11 @@ def db_driver_setup
 end
 
 def load_jtds
-  require File.expand_path("#{iris_dir}/../../Program Files (x86)/PostgreSQL/pgJDBC/postgresql-8.4-702.jdbc4.jar")
-  require File.expand_path("#{iris_dir}/vendor/jars/repository/net/sourceforge/jtds/jtds/1.2.4/jtds-1.2.4.jar")
+  if is_postgres?
+    require File.expand_path("#{iris_dir}/../../Program Files (x86)/PostgreSQL/pgJDBC/postgresql-8.4-702.jdbc4.jar")
+  else
+    require File.expand_path("#{iris_dir}/vendor/jars/repository/net/sourceforge/jtds/jtds/1.2.4/jtds-1.2.4.jar")
+  end
 end
 
 def db_date_setup
