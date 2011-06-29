@@ -5,7 +5,9 @@ $LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../domgen/lib"))
 require 'domgen'
 
 Domgen::LoadSchema.new("#{workspace_dir}/databases/schema_set.rb")
-Domgen::GenerateTask.new(:footprints, "sql", [:sql], "#{workspace_dir}/databases/generated")
+
+generators = (ENV['DB_TYPE'] == 'postgres') ? [:pgsql] : [:mssql]
+Domgen::GenerateTask.new(:footprints, "sql", generators, "#{workspace_dir}/databases/generated")
 Domgen::Xmi::GenerateXMITask.new(:footprints, "xmi", "#{workspace_dir}/target/xmi/footprints.xmi")
 
 def define_persistence_unit(project, repository_key, classfile = nil)
