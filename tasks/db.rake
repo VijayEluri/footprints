@@ -10,6 +10,10 @@ def is_postgres?
   ENV['DB_TYPE'] == 'postgres'
 end
 
+def is_mssql?
+  ENV['DB_TYPE'].nil? || ENV['DB_TYPE'] == 'mssql'
+end
+
 # TODO: Remove this cruft once dbt is AR free
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activesupport/lib")
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activerecord/lib")
@@ -26,9 +30,11 @@ DbTasks.add_database_driver_hook { db_driver_setup }
 if is_postgres?
   DbTasks::Config.driver = 'Postgres'
   DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
-else
+elsif is_mssql?
   DbTasks::Config.driver = 'Mssql'
   DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/mssql_database.yml")
+else
+  raise "Unknown DB_TYPE = #{ENV['DB_TYPE']}"
 end
 
 def define_dbt_tasks(project)
