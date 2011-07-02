@@ -11,6 +11,9 @@ Domgen.define_repository(:footprints) do |repository|
     data_module.define_object_type(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:CollectedAt, :immutable => true)
+
+      t.sql.constraint("TestConstraint", :sql => "#{Domgen::Sql.dialect.quote("CollectedAt")} IS NOT NULL")
+      t.sql.index([:CollectedAt])
     end
 
     data_module.define_object_type(:MethodMetric) do |t|
