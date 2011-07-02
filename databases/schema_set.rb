@@ -43,7 +43,7 @@ Domgen.define_repository(:footprints) do |repository|
     data_module.define_object_type(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
-      t.integer(:B, :nullable => true)
+      t.datetime(:B, :nullable => true)
       t.integer(:C, :nullable => true)
       t.integer(:D, :nullable => true)
       t.integer(:E, :nullable => true)
@@ -60,6 +60,13 @@ Domgen.define_repository(:footprints) do |repository|
       t.dependency_constraint(:D, [:E])
       t.codependent_constraint([:E, :F])
 
+      t.relationship_constraint(:eq, :A, :B)
+      t.relationship_constraint(:neq, :A, :B)
+      t.relationship_constraint(:gt, :A, :B)
+      t.relationship_constraint(:lt, :A, :B)
+      t.relationship_constraint(:gte, :A, :B)
+      t.relationship_constraint(:lte, :A, :B)
+      t.relationship_constraint(:lte, :C, :D)
     end
   end
 end
