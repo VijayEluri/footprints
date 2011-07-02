@@ -13,7 +13,7 @@ Domgen.define_repository(:footprints) do |repository|
       t.datetime(:CollectedAt, :immutable => true)
 
       t.sql.constraint("TestConstraint", :sql => "#{Domgen::Sql.dialect.quote("CollectedAt")} IS NOT NULL")
-      t.sql.index([:CollectedAt])
+      t.sql.index([:CollectedAt], :filter => "#{Domgen::Sql.dialect.quote("CollectedAt")} IS NOT NULL", :unique => true)
     end
 
     data_module.define_object_type(:MethodMetric) do |t|
