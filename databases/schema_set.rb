@@ -15,7 +15,7 @@ Domgen.define_repository(:footprints) do |repository|
 
     data_module.define_object_type(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:Collection, :immutable => true)
+      t.reference(:Collection, :immutable => true, :inverse_traversable => true)
       t.string(:PackageName, 500, :immutable => true)
       t.string(:ClassName, 500, :immutable => true)
       t.string(:MethodName, 500, :immutable => true)
