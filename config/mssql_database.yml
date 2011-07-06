@@ -1,4 +1,4 @@
-<% user_code = "MYUSER" %>
+<% user_code = "PD42" %>
 <% prefix = "#{user_code}_" %>
 devhost: &devhost
   adapter: mssql
@@ -6,8 +6,8 @@ devhost: &devhost
   username: stock-dev
   password: letmein
   timeout: 50000
-  host: vw-firesql-104
-  instance: mssql01
+  host: PETER-PC
+  instance: SQLEXPRESS
   force_drop: true
   no_create: false
   instance_registry_key: MSSQL10_50.SQLEXPRESS

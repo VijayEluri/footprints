@@ -1,15 +1,8 @@
+junit: 4.8.2
+
 gems:
   #- ci_reporter
-  - buildr >= 1.4.3
-  - buildr-iidea = 0.0.10
-
-artifacts:
-  javancss: org.codehaus.javancss:javancss:jar:32.53
-  jhbasic: javancss:jhbasic:jar:29.50
-  ccl: javancss:ccl:jar:29.50
-  intellij_annotations: com.intellij:annotations:jar:9.0.3
-  javax_validation: javax.validation:validation-api:jar:1.0.0.GA
-  javaee_api: javax:javaee-api:jar:6.0
+  - buildr >= 1.4.5
 
 repositories:
   remote:
@@ -17,3 +10,49 @@ repositories:
   release_to:
     url: sftp://www.stocksoftware.com.au/www/stocksoftware/web/repositories/releases
     permissions: 0664
+
+artifacts:
+  junit: junit:junit:jar:4.8.2
+  intellij_annotations: com.intellij:annotations:jar:9.0.3
+  commons_collections: commons-collections:commons-collections:jar:3.1
+  slf4j_api: org.slf4j:slf4j-api:jar:1.5.8
+  slf4j_jdk14: org.slf4j:slf4j-jdk14:jar:1.5.8
+  jcl_over_slf4j: org.slf4j:jcl-over-slf4j:jar:1.5.8
+  jdbc_ext: jdbc:jdbc-stdext:jar:2.0
+  hibernate_persistence: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:1.0.0.Final
+  hibernate_annotations: org.hibernate:hibernate-annotations:jar:3.5.3-Final
+  hibernate_commons_annotations: org.hibernate:hibernate-commons-annotations:jar:3.2.0.Final
+  hibernate_validator: org.hibernate:hibernate-validator:jar:4.0.2.GA
+  hibernate_entitymanager: org.hibernate:hibernate-entitymanager:jar:3.5.1-Final
+  hibernate_ehcache: org.hibernate:hibernate-ehcache:jar:3.5.1-Final
+  hibernate_core: org.hibernate:hibernate-core:jar:3.5.1-Final
+  hibernate_c3p0: org.hibernate:hibernate-c3p0:jar:3.5.1-Final
+  javax_validation: javax.validation:validation-api:jar:1.0.0.GA
+  javax_transaction: javax.transaction:jta:jar:1.1
+  javassist: javassist:javassist:jar:3.9.0.GA
+  dom4j: dom4j:dom4j:jar:1.6.1
+  antlr: antlr:antlr:jar:2.7.6
+  c3p0: c3p0:c3p0:jar:0.9.1
+  jtds: net.sourceforge.jtds:jtds:jar:1.2.4
+  jmock_junit3: org.jmock:jmock-junit3:jar:2.5.1
+  ehcache: net.sf.ehcache:ehcache:jar:1.5.0
+  backport_util_concurrent: backport-util-concurrent:backport-util-concurrent:jar:3.1
+  asm: asm:asm:jar:1.5.3
+  eclipse_uml: org.eclipse.uml2:org.eclipse.uml2.uml:jar:3.1.0.v201006071150
+  eclipse_common: org.eclipse.uml2:org.eclipse.uml2.common:jar:1.5.0.v201005031530
+  eclipse_resources: org.eclipse.uml2:org.eclipse.uml2.uml.resources:jar:3.1.0.v201005031530
+  eclipse_ecore: org.eclipse.emf:org.eclipse.emf.ecore:jar:2.6.0.v20100614-1136
+  eclipse_emf_common: org.eclipse.emf:org.eclipse.emf.common:jar:2.6.0.v20100614-1136
+  eclipse_ecore2xml: org.eclipse.emf:org.eclipse.emf.mapping.ecore2xml:jar:2.5.0.v20100521-1847
+  eclipse_ecore_xmi: org.eclipse.emf:org.eclipse.emf.ecore.xmi:jar:2.5.0.v20100521-1846
+  spice_cli: spice:spice-cli:jar:1.0
+  ejb_api: org.apache.geronimo.specs:geronimo-ejb_3.1_spec:jar:1.0.2
+  xhtmlrenderer: org.xhtmlrenderer:core-renderer:jar:R8pre2
+  itext: com.lowagie:itext:jar:2.0.8
+  bouncycastle_bcmail: bouncycastle:bcmail-jdk14:jar:136
+  bouncycastle: bouncycastle:bcprov-jdk14:jar:136
+  javancss: org.codehaus.javancss:javancss:jar:32.53
+  jhbasic: javancss:jhbasic:jar:29.50
+  ccl: javancss:ccl:jar:29.50
+  javaee_api: javax:javaee-api:jar:6.0
+

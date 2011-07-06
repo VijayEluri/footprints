@@ -1,40 +1,73 @@
-workspace_dir = File.expand_path(File.dirname(__FILE__) + '/..')
-iris_dir = File.expand_path("#{workspace_dir}/../../iris/trunk")
+def workspace_dir
+  File.expand_path(File.dirname(__FILE__) + '/..')
+end
+
+def iris_dir
+  File.expand_path("#{workspace_dir}/../../iris/trunk")
+end
+
+def is_postgres?
+  ENV['DB_TYPE'] == 'postgres'
+end
+
+def is_mssql?
+  ENV['DB_TYPE'].nil? || ENV['DB_TYPE'] == 'mssql'
+end
 
 # TODO: Remove this cruft once dbt is AR free
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activesupport/lib")
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activerecord/lib")
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/gems/activerecord-jdbc-adapter-1.0.0/lib")
 
-$LOAD_PATH.insert(0, "#{workspace_dir}/vendor/plugins/dbt/lib")
+$LOAD_PATH.insert(0, "#{workspace_dir}/../dbt/lib")
 
 require 'db_tasks'
 
 DbTasks::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
-DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/database.yml")
 DbTasks::Config.log_filename = "#{workspace_dir}/target/dbt/logs/db.log"
-DbTasks::Config.search_dirs = ["#{workspace_dir}/databases/generated", "#{workspace_dir}/databases" ]
 DbTasks.add_database_driver_hook { db_driver_setup }
-DbTasks.add_database :default, [:JavaNCSS]
-DbTasks.define_table_order_resolver do |schema_key|
-  Domgen.schema_set_by_name(:footprints).schema_by_name(schema_key.to_s).
-    object_types.select{|object_type| !object_type.abstract?}.collect do |object_type|
-    sql_schema = object_type.schema.sql.default_schema? ? '' : "#{object_type.schema.sql.schema}."
-    "#{sql_schema}#{object_type.sql.table_name}"
+
+if is_postgres?
+  DbTasks::Config.driver = 'Postgres'
+  DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
+elsif is_mssql?
+  DbTasks::Config.driver = 'Mssql'
+  DbTasks::Config.config_filename = File.expand_path("#{workspace_dir}/config/mssql_database.yml")
+else
+  raise "Unknown DB_TYPE = #{ENV['DB_TYPE']}"
+end
+
+def define_dbt_tasks(project)
+  DbTasks.add_database(:default,
+                       :imports => {:default => {}},
+                       :backup => true,
+                       :restore => true) do |database|
+    database.version = project.version
+    generated_dir = "#{workspace_dir}/databases/generated"
+    database.search_dirs = [generated_dir, "#{workspace_dir}/databases"]
+    database.enable_domgen(:footprints, 'domgen:load', 'domgen:sql')
+    database.add_import_assert_filters
+    database.enable_separate_import_task = true
+    #database.enable_db_doc(generated_dir)
   end
 end
 
 def db_driver_setup
-  DbTasks::Config.app_version = Buildr.project("footprints").version
   load_jtds
   db_date_setup
 end
 
 def load_jtds
-  require File.expand_path("#{File.dirname(__FILE__)}/../../iris/vendor/jars/repository/net/sourceforge/jtds/jtds/1.2.4/jtds-1.2.4.jar")
+  if is_postgres?
+    require File.expand_path("#{iris_dir}/../../Program Files (x86)/PostgreSQL/pgJDBC/postgresql-8.4-702.jdbc4.jar")
+  else
+    require File.expand_path("#{iris_dir}/vendor/jars/repository/net/sourceforge/jtds/jtds/1.2.4/jtds-1.2.4.jar")
+  end
 end
 
 def db_date_setup
+  require 'activerecord'
+
   ::ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS[:default] = '%d %b %Y'
   ::ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS[:default] = '%d %b %Y'
 
@@ -43,4 +76,16 @@ def db_date_setup
   ::ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:db => '%d %b %Y %H:%M:%S')
 end
 
-task 'dbt:pre_build' => 'domgen:sql'
+desc "Test dump_tables_to_fixtures"
+task :dump_tables_to_fixtures => ['dbt:load_config', 'domgen:load'] do
+  dir = "#{workspace_dir}/target/fixtures"
+  FileUtils.mkdir_p dir
+  tables = Domgen.repository_by_name(:footprints).data_modules.collect do |data_module|
+    data_module.object_types.select { |object_type| !object_type.abstract? }.collect do |object_type|
+      object_type.sql.qualified_table_name
+    end
+  end.flatten
+  DbTasks.init_database(:default) do
+    DbTasks.dump_tables_to_fixtures(tables, dir)
+  end
+end

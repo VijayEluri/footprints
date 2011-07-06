@@ -1,7 +1,6 @@
 package footprints.javancss;
 
 import footprints.javancss.model.MethodMetric;
-import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -15,7 +14,7 @@ import org.xml.sax.InputSource;
 
 @Stateless
 @WebService
-@TransactionAttribute( TransactionAttributeType.REQUIRED)
+@TransactionAttribute( TransactionAttributeType.REQUIRED )
 public class JavaNcssEJB
 {
   @PersistenceContext( unitName = "footprints" )
@@ -45,20 +44,20 @@ public class JavaNcssEJB
                                final Collection<MethodEntry> entries )
   {
 
-    final footprints.javancss.model.Collection collection = new footprints.javancss.model.Collection();
-    collection.setCollectedAt( new Timestamp( System.currentTimeMillis() ) );
+    final footprints.javancss.model.Collection collection =
+      new footprints.javancss.model.Collection( new Timestamp( System.currentTimeMillis() ) );
     em.persist( collection );
 
     for ( final MethodEntry entry : entries )
     {
-      final MethodMetric metric = new MethodMetric();
-      metric.setCollection( collection );
-      metric.setCCN( entry.ccn );
-      metric.setJVDC( entry.jvdc );
-      metric.setNCSS( entry.ncss );
-      metric.setPackageName( entry.packageName );
-      metric.setClassName( entry.className );
-      metric.setMethodName( entry.methodName );
+      final MethodMetric metric =
+        new MethodMetric( collection,
+                          entry.packageName,
+                          entry.className,
+                          entry.methodName,
+                          entry.ncss,
+                          entry.ccn,
+                          entry.jvdc );
       try
       {
         em.persist( metric );
