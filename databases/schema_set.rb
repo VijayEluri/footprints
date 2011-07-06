@@ -15,7 +15,9 @@ Domgen.define_repository(:footprints) do |repository|
 
     data_module.define_object_type(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:Collection, :immutable => true, :inverse_traversable => true)
+      t.reference(:Collection, :immutable => true) do |a|
+        a.inverse.traversable = true
+      end
       t.string(:PackageName, 500, :immutable => true)
       t.string(:ClassName, 500, :immutable => true)
       t.string(:MethodName, 500, :immutable => true)
@@ -48,8 +50,13 @@ Domgen.define_repository(:footprints) do |repository|
       t.integer(:D, :nullable => true)
       t.integer(:E, :nullable => true)
       t.integer(:F, :nullable => true)
-      t.reference(:Foo, :immutable => true)
-      t.reference(:Bar)
+      t.reference(:Foo, :immutable => true) do |a|
+        a.inverse.multiplicity = :one
+        a.inverse.traversable = true
+      end
+      t.reference(:Bar) do |a|
+        a.inverse.traversable = true
+      end
 
       t.sql.constraint("TestConstraint", :sql => "#{Domgen::Sql.dialect.quote("A")} IS NOT NULL")
       t.sql.index([:B], :filter => "#{Domgen::Sql.dialect.quote("B")} IS NOT NULL", :unique => true)
