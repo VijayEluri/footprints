@@ -1,5 +1,5 @@
 workspace_dir = File.expand_path(File.dirname(__FILE__) + '/..')
-iris_dir = File.expand_path("#{workspace_dir}/../iris")
+iris_dir = File.expand_path("#{workspace_dir}/../../iris/trunk")
 
 # TODO: Remove this cruft once dbt is AR free
 $LOAD_PATH.insert(0, "#{iris_dir}/vendor/rails-2.2.2/activesupport/lib")
