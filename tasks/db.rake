@@ -3,7 +3,7 @@ def workspace_dir
 end
 
 def iris_dir
-  File.expand_path("#{workspace_dir}/../iris")
+  File.expand_path("#{workspace_dir}/../../iris/trunk")
 end
 
 def is_postgres?
