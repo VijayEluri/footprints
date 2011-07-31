@@ -7,6 +7,19 @@ gems:
 repositories:
   remote:
    - http://www.ibiblio.org/maven2
+   - http://www.stocksoftware.com.au/repositories/external
+   - http://www.stocksoftware.com.au/repositories/releases
+   - http://www.stocksoftware.com.au/repositories/dse
+   - https://repository.apache.org/content/repositories/releases
+   - http://www.ibiblio.org/maven2
+   - http://www.aQute.biz/repo
+   - http://repository.ops4j.org/maven2
+   - http://download.java.net/maven/2
+   - http://repository.buschmais.com/releases
+   - http://repository.springsource.com/maven/bundles/external
+   - http://repository.code-house.org/content/repositories/release
+   - http://repository.jboss.org/maven2 # For velocity 1.5
+   - https://repository.jboss.org/nexus/content/groups/public/ # For hibernate
   release_to:
     url: sftp://www.stocksoftware.com.au/www/stocksoftware/web/repositories/releases
     permissions: 0664
