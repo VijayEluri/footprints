@@ -62,7 +62,8 @@ define_with_central_layout('footprints', true) do
   compile.options.target = '1.6'
   compile.options.lint = 'all'
 
-  project.no_ipr
+  project.ipr.extra_modules << "../dbt/dbt.iml"
+  project.ipr.extra_modules << "../domgen/domgen.iml"
 
   define_with_central_layout('ejb') do
 
