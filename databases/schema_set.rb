@@ -7,6 +7,25 @@ Domgen.define_repository(:footprints) do |repository|
 
   repository.define_data_module(:JavaNCSS) do |data_module|
     data_module.java.package = 'footprints.javancss.model'
+    data_module.define_generator(:ejb)
+
+    data_module.define_service(:Collector) do |s|
+
+      s.description("Test Service definition")
+
+      s.method(:RunAllTheTests) do |m|
+        m.description("All the F*! time!")
+        m.parameter(:Force, :boolean) do |p|
+          p.description("Should we run all the tests or stop at first failing?")
+        end
+        m.exception(:TestsFailed)
+      end
+
+      s.method(:CalculateResultValue) do |m|
+        m.parameter(:Input, "java.math.BigDecimal")
+        m.returns("java.math.BigDecimal", :nullable => true)
+      end
+    end
 
     data_module.define_object_type(:Collection) do |t|
       t.integer(:ID, :primary_key => true)

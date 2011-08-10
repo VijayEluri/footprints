@@ -43,3 +43,7 @@ def define_persistence_unit(project, repository_key, classfile = nil)
     it.should contain(classfile) if classfile
   end
 end
+
+Domgen::GenerateTask.new(:footprints, "ejb", [:ejb], "#{workspace_dir}/ejb/generated/main/domgen") do |t|
+  t.description = 'Generates the EJB Service interfaces'
+end
