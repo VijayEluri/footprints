@@ -1,13 +1,11 @@
 Domgen.define_repository(:footprints) do |repository|
-  repository.define_generator(:mssql)
-  repository.define_generator(:pgsql)
-  repository.define_generator(:jpa_model)
-  repository.define_generator(:jpa_ejb)
-  repository.define_generator(:jpa_jta_persistence)
+  repository.enable_facet(:sql)
+  repository.enable_facet(:java)
+  repository.enable_facet(:jpa)
+  repository.enable_facet(:ejb)
 
   repository.define_data_module(:JavaNCSS) do |data_module|
     data_module.java.package = 'footprints.javancss.model'
-    data_module.define_generator(:ejb)
 
     data_module.define_service(:Collector) do |s|
 
