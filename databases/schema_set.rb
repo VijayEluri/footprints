@@ -92,5 +92,13 @@ Domgen.define_repository(:footprints) do |repository|
       t.relationship_constraint(:lte, :A, :B)
       t.relationship_constraint(:lte, :C, :D)
     end
+
+    data_module.define_object_type(:BaseX) do |t|
+      t.integer(:ID, :primary_key => true)
+    end
+
+    data_module.define_object_type(:ExtendedX, :extends => :BaseX) do |t|
+      t.string(:Name, :immutable => true)
+    end
   end
 end
