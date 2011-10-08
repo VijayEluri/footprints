@@ -1,27 +1,37 @@
 Domgen.define_repository(:footprints) do |repository|
   repository.enable_facet(:sql)
-  repository.enable_facet(:java)
+  #repository.enable_facet(:java)
   repository.enable_facet(:jpa)
+  repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
 
   repository.define_data_module(:JavaNCSS) do |data_module|
-    data_module.java.package = 'footprints.javancss.model'
+    data_module.jpa.entity_package = 'footprints.javancss.model'
 
     data_module.define_service(:Collector) do |s|
 
       s.description("Test Service definition")
 
       s.method(:RunAllTheTests) do |m|
-        m.description("All the F*! time!")
+        m.description("All the F#####g time!")
         m.parameter(:Force, :boolean) do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
         m.exception(:TestsFailed)
+        m.exception(:Foo)
       end
 
       s.method(:CalculateResultValue) do |m|
         m.parameter(:Input, "java.math.BigDecimal")
         m.returns("java.math.BigDecimal", :nullable => true)
+        m.exception(:Foo)
+      end
+    end
+
+    data_module.define_service(:MyService) do |s|
+
+      s.method(:DoStuff) do |m|
+        m.exception(:Foo)
       end
     end
 
@@ -91,6 +101,23 @@ Domgen.define_repository(:footprints) do |repository|
       t.relationship_constraint(:gte, :A, :B)
       t.relationship_constraint(:lte, :A, :B)
       t.relationship_constraint(:lte, :C, :D)
+      t.i_enum(:LinkType, {"URL" => 0, "JAVA" => 1}) do |a|
+        a.description(<<TEXT)
+  The type of the link.
+
+  * A link that starts an external browser using the URL derived from the Target attribute.
+  * A link that invokes some java code with the class name specified in the Target attribute.
+TEXT
+        t.s_enum(:ElementType, {"PhysicalUnit" => "PhysicalUnit",
+                                "Crew" => "Crew",
+                                "RoleType" => "RoleType",
+                                "SpecificTask" => "SpecificTask",
+                                "TemplateTask" => "TemplateTask",
+                                "ManagementProject" => "ManagementProject",
+                                "TaskClassification" => "TaskClassification",
+                                "Classification" => "Classification"})
+      end
+
     end
 
     data_module.define_object_type(:BaseX, :final => false) do |t|
