@@ -1,6 +1,5 @@
 Domgen.repository(:footprints) do |repository|
   repository.enable_facet(:sql)
-  #repository.enable_facet(:java)
   repository.enable_facet(:jpa)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
@@ -35,12 +34,12 @@ Domgen.repository(:footprints) do |repository|
       end
     end
 
-    data_module.object_type(:Collection) do |t|
+    data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:CollectedAt, :immutable => true)
     end
 
-    data_module.object_type(:MethodMetric) do |t|
+    data_module.entity(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Collection, :immutable => true) do |a|
         a.inverse.traversable = true
@@ -59,17 +58,17 @@ Domgen.repository(:footprints) do |repository|
       t.integer(:JVDC, :immutable => true)
     end
 
-    data_module.object_type(:Foo) do |t|
+    data_module.entity(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
     end
 
-    data_module.object_type(:Bar) do |t|
+    data_module.entity(:Bar) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Foo, :immutable => true)
     end
 
-    data_module.object_type(:Tester) do |t|
+    data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
       t.datetime(:B, :nullable => true)
@@ -120,11 +119,11 @@ TEXT
 
     end
 
-    data_module.object_type(:BaseX, :final => false) do |t|
+    data_module.entity(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
     end
 
-    data_module.object_type(:ExtendedX, :extends => :BaseX) do |t|
+    data_module.entity(:ExtendedX, :extends => :BaseX) do |t|
       t.string(:Name, 50, :immutable => true)
     end
   end
