@@ -69,7 +69,7 @@ define_with_central_layout('footprints', true) do
 
     define_persistence_unit(project, :footprints, 'footprints/javancss/model/Collection.class')
 
-    compile.with :javancss, :jhbasic, :ccl, :intellij_annotations, :javaee_api, :javax_validation
+    compile.with :javancss, :jhbasic, :ccl, :intellij_annotations, :javaee_api, :javax_validation, :javax_annotation
 
     task :clean do
       rm_rf _('generated')

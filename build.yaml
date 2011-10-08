@@ -69,4 +69,5 @@ artifacts:
   jhbasic: javancss:jhbasic:jar:29.50
   ccl: javancss:ccl:jar:29.50
   javaee_api: javax:javaee-api:jar:6.0
+  javax_annotation: com.google.code.findbugs:jsr305:jar:1.3.9
 
