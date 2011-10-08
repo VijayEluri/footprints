@@ -1,14 +1,14 @@
-Domgen.define_repository(:footprints) do |repository|
+Domgen.repository(:footprints) do |repository|
   repository.enable_facet(:sql)
   #repository.enable_facet(:java)
   repository.enable_facet(:jpa)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
 
-  repository.define_data_module(:JavaNCSS) do |data_module|
+  repository.data_module(:JavaNCSS) do |data_module|
     data_module.jpa.entity_package = 'footprints.javancss.model'
 
-    data_module.define_service(:Collector) do |s|
+    data_module.service(:Collector) do |s|
 
       s.description("Test Service definition")
 
@@ -28,19 +28,19 @@ Domgen.define_repository(:footprints) do |repository|
       end
     end
 
-    data_module.define_service(:MyService) do |s|
+    data_module.service(:MyService) do |s|
 
       s.method(:DoStuff) do |m|
         m.exception(:Foo)
       end
     end
 
-    data_module.define_object_type(:Collection) do |t|
+    data_module.object_type(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:CollectedAt, :immutable => true)
     end
 
-    data_module.define_object_type(:MethodMetric) do |t|
+    data_module.object_type(:MethodMetric) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Collection, :immutable => true) do |a|
         a.inverse.traversable = true
@@ -59,17 +59,17 @@ Domgen.define_repository(:footprints) do |repository|
       t.integer(:JVDC, :immutable => true)
     end
 
-    data_module.define_object_type(:Foo) do |t|
+    data_module.object_type(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
     end
 
-    data_module.define_object_type(:Bar) do |t|
+    data_module.object_type(:Bar) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:Foo, :immutable => true)
     end
 
-    data_module.define_object_type(:Tester) do |t|
+    data_module.object_type(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
       t.datetime(:B, :nullable => true)
@@ -120,11 +120,11 @@ TEXT
 
     end
 
-    data_module.define_object_type(:BaseX, :final => false) do |t|
+    data_module.object_type(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
     end
 
-    data_module.define_object_type(:ExtendedX, :extends => :BaseX) do |t|
+    data_module.object_type(:ExtendedX, :extends => :BaseX) do |t|
       t.string(:Name, 50, :immutable => true)
     end
   end
