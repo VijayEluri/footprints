@@ -34,19 +34,13 @@ Domgen.repository(:footprints) do |repository|
     end
   end
 
-  repository.data_module(:BaseTestModule) do |data_module|
-    data_module.jpa.entity_package = 'footprints.base_tester.model'
-    data_module.imit.imitation_package = 'footprints.base_tester.imit'
+  repository.data_module(:TestModule) do |data_module|
+    data_module.jpa.entity_package = 'footprints.tester.model'
+    data_module.imit.imitation_package = 'footprints.tester.imit'
 
     data_module.entity(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
     end
-  end
-
-
-  repository.data_module(:TestModule) do |data_module|
-    data_module.jpa.entity_package = 'footprints.tester.model'
-    data_module.imit.imitation_package = 'footprints.tester.imit'
 
     data_module.service(:Collector) do |s|
 
@@ -136,7 +130,7 @@ TEXT
 
     end
 
-    data_module.entity(:ExtendedX, :extends => :"BaseTestModule.BaseX", :final => false) do |t|
+    data_module.entity(:ExtendedX, :extends => :BaseX, :final => false) do |t|
       t.string(:Name, 50, :immutable => true)
     end
 
