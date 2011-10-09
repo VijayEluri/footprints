@@ -45,7 +45,7 @@ def define_dbt_tasks(project)
     database.version = project.version
     generated_dir = "#{workspace_dir}/databases/generated"
     database.search_dirs = [generated_dir, "#{workspace_dir}/databases"]
-    database.enable_domgen(:footprints, 'domgen:load', 'domgen:sql')
+    database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
     database.add_import_assert_filters
     database.enable_separate_import_task = true
     #database.enable_db_doc(generated_dir)
@@ -80,7 +80,7 @@ desc "Test dump_tables_to_fixtures"
 task :dump_tables_to_fixtures => ['dbt:load_config', 'domgen:load'] do
   dir = "#{workspace_dir}/target/fixtures"
   FileUtils.mkdir_p dir
-  tables = Domgen.repository_by_name(:footprints).data_modules.collect do |data_module|
+  tables = Domgen.repository_by_name(:Footprints).data_modules.collect do |data_module|
     data_module.object_types.select { |object_type| !object_type.abstract? }.collect do |object_type|
       object_type.sql.qualified_table_name
     end

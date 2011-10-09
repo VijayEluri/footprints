@@ -67,7 +67,7 @@ define_with_central_layout('footprints', true) do
 
   define_with_central_layout('ejb') do
 
-    define_persistence_unit(project, :footprints, 'footprints/javancss/model/Collection.class')
+    define_persistence_unit(project, :Footprints, 'footprints/javancss/model/Collection.class')
 
     compile.with :javancss, :jhbasic, :ccl, :intellij_annotations, :javaee_api, :javax_validation, :javax_annotation, :json
 
