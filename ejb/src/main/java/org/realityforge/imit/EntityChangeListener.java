@@ -1,4 +1,4 @@
-package footprints.javancss.imit;
+package org.realityforge.imit;
 
 
 public interface EntityChangeListener

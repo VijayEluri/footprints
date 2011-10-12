@@ -1,6 +1,6 @@
-package footprints.javancss.imit;
+package org.realityforge.imit;
 
-import footprints.javancss.imit.EntityChangeEvent.Type;
+import org.realityforge.imit.EntityChangeEvent.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package footprints.javancss.imit;
+package org.realityforge.imit;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
