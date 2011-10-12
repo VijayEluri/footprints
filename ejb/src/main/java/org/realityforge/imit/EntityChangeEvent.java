@@ -2,17 +2,17 @@ package org.realityforge.imit;
 
 public final class EntityChangeEvent
 {
-  public static enum Type
-  {
-    ATTRIBUTE_CHANGED, RELATED_ADDED, RELATED_REMOVED, OBJECT_DELETED
-  }
-
-  private final Type _type;
+  private final EntityChangeType _type;
   private final Object _object;
   private final String _name;
   private final Object _value;
 
-  public EntityChangeEvent( final Type type,
+  public EntityChangeEvent( final EntityChangeType type, final Object object )
+  {
+    this( type, object, null, null );
+  }
+
+  public EntityChangeEvent( final EntityChangeType type,
                             final Object object,
                             final String name,
                             final Object value )
@@ -23,7 +23,7 @@ public final class EntityChangeEvent
     _value = value;
   }
 
-  public final Type getType()
+  public final EntityChangeType getType()
   {
     return _type;
   }

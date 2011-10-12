@@ -1,6 +1,5 @@
 package org.realityforge.imit;
 
-import org.realityforge.imit.EntityChangeEvent.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -111,34 +110,34 @@ public final class EntityChangeBroker
 
   public final void attributeChanged( final EntityChangeEvent event )
   {
-    sendTypedEvent( event, Type.ATTRIBUTE_CHANGED );
+    sendTypedEvent( event, EntityChangeType.ATTRIBUTE_CHANGED );
   }
 
   public final void relatedAdded( final EntityChangeEvent event )
   {
-    sendTypedEvent( event, Type.RELATED_ADDED );
+    sendTypedEvent( event, EntityChangeType.RELATED_ADDED );
   }
 
   public final void relatedRemoved( final EntityChangeEvent event )
   {
-    sendTypedEvent( event, Type.RELATED_REMOVED );
+    sendTypedEvent( event, EntityChangeType.RELATED_REMOVED );
   }
 
-  public final void objectDeleted( final EntityChangeEvent event )
+  public final void entityDeleted( final EntityChangeEvent event )
   {
-    sendTypedEvent( event, Type.OBJECT_DELETED );
+    sendTypedEvent( event, EntityChangeType.ENTITY_DELETED );
   }
 
-  private void sendTypedEvent( final EntityChangeEvent event, final Type expected )
+  private void sendTypedEvent( final EntityChangeEvent event, final EntityChangeType expected )
   {
     verifyType( event, expected );
     sendEvent( event );
   }
 
   private void verifyType( final EntityChangeEvent event,
-                           final Type expected )
+                           final EntityChangeType expected )
   {
-    final Type type = event.getType();
+    final EntityChangeType type = event.getType();
     if( expected != type )
     {
       final String message = "Attempting to distribute event with type " + type + " when expecting " + expected;
@@ -203,11 +202,11 @@ public final class EntityChangeBroker
     }
 
     final Object object = event.getObject();
-    final Type type = event.getType();
+    final EntityChangeType type = event.getType();
 
     String name = event.getName();
 
-    if( type == Type.RELATED_ADDED || type == Type.RELATED_REMOVED )
+    if( type == EntityChangeType.RELATED_ADDED || type == EntityChangeType.RELATED_REMOVED )
     {
       final Object other = event.getValue();
       name = other.getClass().getName() + name;
@@ -249,7 +248,7 @@ public final class EntityChangeBroker
   {
     for( final EntityChangeListener listener : listenersCopy )
     {
-      final Type type = event.getType();
+      final EntityChangeType type = event.getType();
       try
       {
         switch( type )
@@ -263,8 +262,8 @@ public final class EntityChangeBroker
           case RELATED_REMOVED:
             listener.relatedRemoved( event );
             break;
-          case OBJECT_DELETED:
-            listener.objectDeleted( event );
+          case ENTITY_DELETED:
+            listener.entityDeleted( event );
             break;
           default:
             throw new IllegalStateException( "Unknown type: " + type );

@@ -3,7 +3,7 @@ package org.realityforge.imit;
 
 public interface EntityChangeListener
 {
-  void objectDeleted( EntityChangeEvent event );
+  void entityDeleted( EntityChangeEvent event );
 
   void attributeChanged( EntityChangeEvent event );
 
