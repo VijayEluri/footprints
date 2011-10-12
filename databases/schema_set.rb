@@ -52,20 +52,20 @@ Domgen.repository(:Footprints) do |repository|
           p.description("Should we run all the tests or stop at first failing?")
         end
         m.exception(:TestsFailed)
-        m.exception(:Foo)
+        m.exception(:Problem)
       end
 
       s.method(:CalculateResultValue) do |m|
         m.parameter(:Input, "java.math.BigDecimal")
         m.returns("java.math.BigDecimal", :nullable => true)
-        m.exception(:Foo)
+        m.exception(:Problem)
       end
     end
 
     data_module.service(:MyService) do |s|
 
       s.method(:DoStuff) do |m|
-        m.exception(:Foo)
+        m.exception(:Problem)
       end
     end
 
