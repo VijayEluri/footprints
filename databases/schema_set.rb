@@ -72,6 +72,8 @@ Domgen.repository(:Footprints) do |repository|
     data_module.entity(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:A, :immutable => true)
+      t.string(:ZX, 44, :immutable => true)
+      t.text(:ZY, :immutable => true)
     end
 
     data_module.entity(:Bar) do |t|
