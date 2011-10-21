@@ -40,6 +40,11 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
+
+      t.jpa.query('LookAtMe', "O.ID = :Foo OR O.ID = :ID") do |q|
+        q.description("Some reason to do stuff")
+        q.integer(:Foo, :nullable => true )
+      end
     end
 
     data_module.service(:Collector) do |s|
