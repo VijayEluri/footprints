@@ -7,6 +7,7 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.data_module(:CodeMetrics) do |data_module|
     data_module.jpa.entity_package = 'footprints.javancss.model'
+    data_module.ejb.service_package = 'footprints.javancss.service'
     data_module.imit.imitation_package = 'footprints.javancss.imit'
 
     data_module.entity(:Collection) do |t|
@@ -47,6 +48,7 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.data_module(:TestModule) do |data_module|
     data_module.jpa.entity_package = 'footprints.tester.model'
+    data_module.ejb.service_package = 'footprints.tester.service'
     data_module.imit.imitation_package = 'footprints.tester.imit'
 
     data_module.entity(:BaseX, :final => false) do |t|
