@@ -1,7 +1,6 @@
-package footprints.javancss;
+package footprints.javancss.parse;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,7 +19,7 @@ import org.xml.sax.SAXException;
 
 public class OutputParser
 {
-  public Collection<MethodEntry> parse( final InputSource inputSource )
+  public LinkedList<MethodEntry> parse( final InputSource inputSource )
     throws Exception
   {
     final Element element = loadNormalizedDocument( inputSource );

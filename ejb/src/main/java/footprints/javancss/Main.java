@@ -1,9 +1,12 @@
 package footprints.javancss;
 
+import footprints.javancss.model.Collection;
 import footprints.javancss.model.MethodMetric;
+import footprints.javancss.parse.MethodEntry;
+import footprints.javancss.parse.OutputParser;
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +21,7 @@ public class Main
     final long start = System.currentTimeMillis();
     final File inputFile = new File( args[ 0 ] );
     final InputSource inputSource = new InputSource( inputFile.toURI().toASCIIString() );
-    final Collection<MethodEntry> entries = new OutputParser().parse( inputSource );
+    final LinkedList<MethodEntry> entries = new OutputParser().parse( inputSource );
     System.out.println( "ParseTime: " + ( System.currentTimeMillis() - start ) + "ms" );
 
     final EntityManagerFactory factory = Persistence.createEntityManagerFactory( "footprints", createOverrides() );
@@ -26,20 +29,19 @@ public class Main
     try
     {
       em.getTransaction().begin();
-      final footprints.javancss.model.Collection collection =
-        new footprints.javancss.model.Collection( new Timestamp( System.currentTimeMillis() ) );
+      final Collection collection = new Collection( new Timestamp( System.currentTimeMillis() ) );
       em.persist( collection );
 
       for ( final MethodEntry entry : entries )
       {
         final MethodMetric metric =
           new MethodMetric( collection,
-                            entry.packageName,
-                            entry.className,
-                            entry.methodName,
-                            entry.ncss,
-                            entry.ccn,
-                            entry.jvdc );
+                            entry.getPackageName(),
+                            entry.getClassName(),
+                            entry.getMethodName(),
+                            entry.getNcss(),
+                            entry.getCcn(),
+                            entry.getJvdc() );
         em.persist( metric );
       }
 

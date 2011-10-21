@@ -1,71 +1,74 @@
 package footprints.javancss;
 
+import footprints.javancss.model.Collection;
 import footprints.javancss.model.MethodMetric;
+import footprints.javancss.model.dao.CollectionDAO;
+import footprints.javancss.model.dao.MethodMetricDAO;
+import footprints.javancss.parse.MethodEntry;
+import footprints.javancss.parse.OutputParser;
+import footprints.service.code_metrics.FormatErrorException;
+import footprints.service.code_metrics.JavaNcss;
 import java.io.StringReader;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.LinkedList;
+import javax.annotation.Nonnull;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.jws.WebService;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.xml.sax.InputSource;
 
-@Stateless
+@Stateless( name = JavaNcss.EJB_NAME )
 @WebService
 @TransactionAttribute( TransactionAttributeType.REQUIRED )
 public class JavaNcssEJB
+    implements JavaNcss
 {
-  @PersistenceContext( unitName = "footprints" )
-  private EntityManager em;
+  @EJB
+  private CollectionDAO _collectionDAO;
+  @EJB
+  private MethodMetricDAO _methodMetricDAO;
 
-  public void uploadJavaNcssOutput( final String project,
-                                    final String branch,
-                                    final String version,
-                                    final String output )
-    throws Exception
+  public void uploadJavaNcssOutput( @Nonnull final String project,
+                                    @Nonnull final String branch,
+                                    @Nonnull final String version,
+                                    @Nonnull final String output )
+      throws FormatErrorException
   {
-    final Collection<MethodEntry> entries;
-    try
-    {
-      entries = new OutputParser().parse( new InputSource( new StringReader( output ) ) );
-    }
-    catch ( final Exception e )
-    {
-      throw new Exception( "Error parsing the output supplied", e );
-    }
-    saveStatistics( project, branch, version, entries );
+    saveStatistics( parseOutput( output ) );
   }
 
-  private void saveStatistics( final String project,
-                               final String branch,
-                               final String version,
-                               final Collection<MethodEntry> entries )
+  private LinkedList<MethodEntry> parseOutput( final String output )
+      throws FormatErrorException
+  {
+    try
+    {
+      return new OutputParser().parse( new InputSource( new StringReader( output ) ) );
+    }
+    catch( final Exception e )
+    {
+      throw new FormatErrorException( "Error parsing the output supplied", e );
+    }
+  }
+
+  private void saveStatistics( final LinkedList<MethodEntry> entries )
   {
 
-    final footprints.javancss.model.Collection collection =
-      new footprints.javancss.model.Collection( new Timestamp( System.currentTimeMillis() ) );
-    em.persist( collection );
+    final Collection collection = new Collection( new Timestamp( System.currentTimeMillis() ) );
+    _collectionDAO.persist( collection );
 
-    for ( final MethodEntry entry : entries )
+    for( final MethodEntry entry : entries )
     {
       final MethodMetric metric =
-        new MethodMetric( collection,
-                          entry.packageName,
-                          entry.className,
-                          entry.methodName,
-                          entry.ncss,
-                          entry.ccn,
-                          entry.jvdc );
-      try
-      {
-        em.persist( metric );
-      }
-      catch ( final Throwable e )
-      {
-        throw new IllegalStateException( "Attempting to persist " + metric );
-      }
+          new MethodMetric( collection,
+                            entry.getPackageName(),
+                            entry.getClassName(),
+                            entry.getMethodName(),
+                            entry.getNcss(),
+                            entry.getCcn(),
+                            entry.getJvdc() );
+      _methodMetricDAO.persist( metric );
     }
   }
 }
