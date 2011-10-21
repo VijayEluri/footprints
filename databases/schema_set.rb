@@ -32,6 +32,17 @@ Domgen.repository(:Footprints) do |repository|
       #Javadoc comments
       t.integer(:JVDC, :immutable => true)
     end
+
+
+    data_module.service(:JavaNcss) do |s|
+      s.method(:UploadJavaNcssOutput) do |m|
+        m.text(:Project)
+        m.text(:Branch)
+        m.text(:Version)
+        m.text(:Output)
+        m.exception(:FormatError)
+      end
+    end
   end
 
   repository.data_module(:TestModule) do |data_module|
