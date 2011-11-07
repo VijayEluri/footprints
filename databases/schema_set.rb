@@ -110,6 +110,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
+      t.date(:ADate, :immutable => true)
       t.datetime(:A, :immutable => true)
       t.datetime(:B, :nullable => true)
       t.integer(:C, :nullable => true)
