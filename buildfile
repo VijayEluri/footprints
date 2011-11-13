@@ -63,13 +63,23 @@ define_with_central_layout('footprints', true) do
   compile.options.lint = 'all'
 
   project.ipr.extra_modules << "../dbt/dbt.iml"
+  project.ipr.extra_modules << "../replicant/replicant.iml"
   project.ipr.extra_modules << "../domgen/domgen.iml"
 
   define_with_central_layout('ejb') do
 
     define_persistence_unit(project, :Footprints, 'footprints/javancss/model/Collection.class')
 
-    compile.with :javancss, :jhbasic, :ccl, :intellij_annotations, :javaee_api, :javax_validation, :javax_annotation, :replicant, :json
+    compile.with :javancss,
+                 :jhbasic,
+                 :ccl,
+                 :intellij_annotations,
+                 :javaee_api,
+                 :javax_validation,
+                 :javax_annotation,
+                 :replicant,
+                 :json,
+                 :gwt_user
 
     task :clean do
       rm_rf _('generated')
