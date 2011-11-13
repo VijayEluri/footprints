@@ -4,11 +4,14 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
   repository.enable_facet(:imit)
+  repository.enable_facet(:gwt)
 
   repository.data_module(:CodeMetrics) do |data_module|
     data_module.jpa.entity_package = 'footprints.javancss.model'
     data_module.ejb.service_package = 'footprints.javancss.service'
-    data_module.imit.imitation_package = 'footprints.javancss.imit'
+    data_module.imit.entity_package = 'footprints.javancss.imit'
+        data_module.gwt.enabled = true
+
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -49,7 +52,8 @@ Domgen.repository(:Footprints) do |repository|
   repository.data_module(:TestModule) do |data_module|
     data_module.jpa.entity_package = 'footprints.tester.model'
     data_module.ejb.service_package = 'footprints.tester.service'
-    data_module.imit.imitation_package = 'footprints.tester.imit'
+    data_module.imit.entity_package = 'footprints.tester.imit'
+    data_module.gwt.enabled = true
 
     data_module.entity(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
@@ -69,6 +73,15 @@ Domgen.repository(:Footprints) do |repository|
       end
     end
 
+    data_module.enumeration(:CloneAction, :integer, :values => {"CLONE" => 0, "MOVE" => 1, "SKIP" => 2}) do |e|
+      e.description(<<-TEXT)
+        The action that should be taken on resources when cloning the containing CrewRequirement or PositionRequirement.
+        * CLONE : The resources should be copied into new structure
+        * MOVE : The resources should be moved into new structure
+        * SKIP : The resources should be left in the old structure
+      TEXT
+    end
+
     data_module.service(:Collector) do |s|
 
       s.description("Test Service definition")
@@ -84,8 +97,19 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:CalculateResultValue) do |m|
         m.parameter(:Input, "java.math.BigDecimal")
+        m.reference(:BaseX)
+        m.s_enum(:Zang, { "X" => "X", "Y" => "Y" })
         m.returns("java.math.BigDecimal", :nullable => true)
         m.exception(:Problem)
+      end
+      s.method(:CalculateResultValue2) do |m|
+        m.returns(:reference, :references => :BaseX)
+      end
+      s.method(:CalculateResultValue3) do |m|
+        m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction))
+      end
+      s.method(:CalculateResultValue4) do |m|
+        m.returns(:reference, :references => :BaseX, :nullable => true)
       end
     end
 
