@@ -30,10 +30,7 @@ public class JavaNcssEJB
   @EJB
   private MethodMetricDAO _methodMetricDAO;
 
-  public void uploadJavaNcssOutput( @Nonnull final String project,
-                                    @Nonnull final String branch,
-                                    @Nonnull final String version,
-                                    @Nonnull final String output )
+  public void uploadJavaNcssOutput( @Nonnull final String output )
       throws FormatErrorException
   {
     saveStatistics( parseOutput( output ) );

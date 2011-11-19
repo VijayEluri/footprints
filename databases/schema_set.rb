@@ -40,9 +40,6 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.service(:JavaNcss) do |s|
       s.method(:UploadJavaNcssOutput) do |m|
-        m.text(:Project)
-        m.text(:Branch)
-        m.text(:Version)
         m.text(:Output)
         m.exception(:FormatError)
       end
