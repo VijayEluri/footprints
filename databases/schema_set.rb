@@ -55,6 +55,12 @@ Domgen.repository(:Footprints) do |repository|
     data_module.imit.entity_package = 'footprints.tester.imit'
     data_module.gwt.enabled = true
 
+    data_module.struct(:Fooish) do |s|
+      s.text(:Project)
+      s.text(:Branch)
+      s.text(:Version)
+    end
+
     data_module.entity(:BaseX, :final => false) do |t|
       t.integer(:ID, :primary_key => true)
 
