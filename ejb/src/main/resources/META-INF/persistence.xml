@@ -20,7 +20,7 @@
     -->
 
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>jdbc/SQLEXPRESS</jta-data-source>
+    <jta-data-source>jdbc/__default</jta-data-source>
 
     <!--<validation-mode>NONE</validation-mode>-->
     <properties>
