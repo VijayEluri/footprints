@@ -55,8 +55,11 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.struct(:Fooish) do |s|
       s.text(:Project)
-      s.text(:Branch)
-      s.text(:Version)
+      s.text(:ProjectNotes, :nullable => true)
+      s.boolean(:Branch)
+      s.integer(:Version) do |a|
+        a.jaxb.element = true
+      end
     end
 
     data_module.entity(:BaseX, :final => false) do |t|
