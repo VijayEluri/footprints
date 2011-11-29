@@ -38,6 +38,26 @@ Domgen.repository(:Footprints) do |repository|
       t.integer(:JVDC, :immutable => true)
     end
 
+    data_module.struct(:MethodDTO) do |ss|
+        ss.string(:PackageName, 500)
+        ss.string(:ClassName, 500)
+        ss.string(:MethodName, 500)
+
+        # Non commenting source statements
+        ss.integer(:NCSS)
+
+        #Cyclomatic complexity
+        ss.integer(:CCN)
+
+        #Javadoc comments
+        ss.integer(:JVDC)
+      end
+
+    data_module.struct(:CollectionDTO) do |s|
+      s.integer(:ID)
+      s.datetime(:CollectedAt)
+      s.struct(:Method, :MethodDTO, :collection_type => :sequence)
+    end
 
     data_module.service(:JavaNcss) do |s|
       s.method(:UploadJavaNcssOutput) do |m|
@@ -60,6 +80,10 @@ Domgen.repository(:Footprints) do |repository|
       s.integer(:Version) do |a|
         a.jaxb.element = true
       end
+      s.substruct(:Foo2) do |s2|
+        s2.text(:Project2)
+      end
+      s.struct(:SomeName, :FooishFoo2)
     end
 
     data_module.entity(:BaseX, :final => false) do |t|

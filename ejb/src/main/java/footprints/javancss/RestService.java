@@ -1,5 +1,7 @@
 package footprints.javancss;
 
+import code_metrics.CollectionDTO;
+import code_metrics.MethodDTO;
 import footprints.javancss.model.Collection;
 import footprints.javancss.model.MethodMetric;
 import footprints.javancss.model.dao.CollectionDAO;
@@ -65,8 +67,7 @@ public class RestService
     for( final MethodMetric methodMetric : collection.getMethodMetrics() )
     {
       final MethodDTO dto =
-        new MethodDTO( methodMetric.getID(),
-                       methodMetric.getPackageName(),
+        new MethodDTO( methodMetric.getPackageName(),
                        methodMetric.getClassName(),
                        methodMetric.getMethodName(),
                        methodMetric.getNCSS(),
