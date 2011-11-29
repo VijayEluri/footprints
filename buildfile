@@ -79,6 +79,9 @@ define_with_central_layout('footprints', true) do
                  :javax_annotation,
                  :replicant,
                  :json,
+                 :google_guice,
+                 :google_guice_assistedinject,
+                 :gwt_gin,
                  :gwt_user
 
     task :clean do
