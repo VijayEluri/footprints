@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import org.xml.sax.InputSource;
 
@@ -23,21 +24,21 @@ import org.xml.sax.InputSource;
 @WebService
 @TransactionAttribute( TransactionAttributeType.REQUIRED )
 public class JavaNcssEJB
-    implements JavaNcss
+  implements JavaNcss
 {
   @EJB
   private CollectionDAO _collectionDAO;
   @EJB
   private MethodMetricDAO _methodMetricDAO;
 
-  public void uploadJavaNcssOutput( @Nonnull final String output )
-      throws FormatErrorException
+  public void uploadJavaNcssOutput( @WebParam( name = "output" ) @Nonnull final String output )
+    throws FormatErrorException
   {
     saveStatistics( parseOutput( output ) );
   }
 
   private LinkedList<MethodEntry> parseOutput( final String output )
-      throws FormatErrorException
+    throws FormatErrorException
   {
     try
     {
@@ -58,13 +59,13 @@ public class JavaNcssEJB
     for( final MethodEntry entry : entries )
     {
       final MethodMetric metric =
-          new MethodMetric( collection,
-                            entry.getPackageName(),
-                            entry.getClassName(),
-                            entry.getMethodName(),
-                            entry.getNcss(),
-                            entry.getCcn(),
-                            entry.getJvdc() );
+        new MethodMetric( collection,
+                          entry.getPackageName(),
+                          entry.getClassName(),
+                          entry.getMethodName(),
+                          entry.getNcss(),
+                          entry.getCcn(),
+                          entry.getJvdc() );
       _methodMetricDAO.persist( metric );
     }
   }
