@@ -73,6 +73,7 @@ artifacts:
   json: org.json:json:jar:20090211
   replicant: org.realityforge:replicant:jar:0.2.14
   gwt_user: com.google.gwt:gwt-user:jar:2.3.0
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.3.0
   google_guice: com.google.inject:guice:jar:3.0
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
   gwt_gin: com.google.gwt.inject:gin:jar:1.5.0

@@ -82,7 +82,8 @@ define_with_central_layout('footprints', true) do
                  :google_guice,
                  :google_guice_assistedinject,
                  :gwt_gin,
-                 :gwt_user
+                 :gwt_user,
+                 :gwt_dev
 
     task :clean do
       rm_rf _('generated')
