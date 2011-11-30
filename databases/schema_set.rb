@@ -222,6 +222,6 @@ TEXT
     data_module.entity(:ExtendedExtendedX, :extends => :ExtendedX) do |t|
       t.string(:Description, 50, :immutable => true)
     end
-  end
+  end if false
 
 end
