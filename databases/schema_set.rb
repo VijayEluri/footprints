@@ -7,11 +7,14 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:imit)
   repository.enable_facet(:gwt)
 
-  repository.data_module(:CodeMetrics) do |data_module|
-    data_module.jpa.entity_package = 'footprints.javancss.model'
-    data_module.ejb.service_package = 'footprints.javancss.service'
+  repository.data_module(:CodeMetrics,
+                         :"jpa.entity_package" => 'footprints.javancss.model',
+                         :"ejb.service_package" => 'footprints.javancss.service',
+                         :"gwt.enabled" => true) do |data_module|
+    #data_module.jpa.entity_package = 'footprints.javancss.model'
+    #data_module.ejb.service_package = 'footprints.javancss.service'
     data_module.imit.entity_package = 'footprints.javancss.imit'
-        data_module.gwt.enabled = true
+    #data_module.gwt.enabled = true
 
 
     data_module.entity(:Collection) do |t|
@@ -39,19 +42,19 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.struct(:MethodDTO) do |ss|
-        ss.string(:PackageName, 500)
-        ss.string(:ClassName, 500)
-        ss.string(:MethodName, 500)
+      ss.string(:PackageName, 500)
+      ss.string(:ClassName, 500)
+      ss.string(:MethodName, 500)
 
-        # Non commenting source statements
-        ss.integer(:NCSS)
+      # Non commenting source statements
+      ss.integer(:NCSS)
 
-        #Cyclomatic complexity
-        ss.integer(:CCN)
+      #Cyclomatic complexity
+      ss.integer(:CCN)
 
-        #Javadoc comments
-        ss.integer(:JVDC)
-      end
+      #Javadoc comments
+      ss.integer(:JVDC)
+    end
 
     data_module.struct(:CollectionDTO) do |s|
       s.integer(:ID)
@@ -104,7 +107,7 @@ Domgen.repository(:Footprints) do |repository|
       end
     end
 
-    data_module.enumeration(:CloneAction, :integer, :values => {"CLONE" => 0, "MOVE" => 1, "SKIP" => 2}) do |e|
+    data_module.enumeration(:CloneAction, :integer, :values => { "CLONE" => 0, "MOVE" => 1, "SKIP" => 2 }) do |e|
       e.description(<<-TEXT)
         The action that should be taken on resources when cloning the containing CrewRequirement or PositionRequirement.
         * CLONE : The resources should be copied into new structure
