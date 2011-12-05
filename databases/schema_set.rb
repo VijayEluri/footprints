@@ -7,6 +7,8 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:imit)
   repository.enable_facet(:gwt)
 
+  repository.jpa.provider = :eclipselink
+
   repository.data_module(:CodeMetrics,
                          :"jpa.entity_package" => 'footprints.javancss.model',
                          :"ejb.service_package" => 'footprints.javancss.service',
