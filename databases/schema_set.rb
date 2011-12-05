@@ -11,13 +11,9 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.data_module(:CodeMetrics,
                          :"jpa.entity_package" => 'footprints.javancss.model',
-                         :"ejb.service_package" => 'footprints.javancss.service',
-                         :"gwt.enabled" => true) do |data_module|
-    #data_module.jpa.entity_package = 'footprints.javancss.model'
-    #data_module.ejb.service_package = 'footprints.javancss.service'
+                         :"ejb.service_package" => 'footprints.javancss.service') do |data_module|
     data_module.imit.entity_package = 'footprints.javancss.imit'
-    #data_module.gwt.enabled = true
-
+    data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -76,7 +72,7 @@ Domgen.repository(:Footprints) do |repository|
     data_module.jpa.entity_package = 'footprints.tester.model'
     data_module.ejb.service_package = 'footprints.tester.service'
     data_module.imit.entity_package = 'footprints.tester.imit'
-    data_module.gwt.enabled = true
+    data_module.disable_facet(:gwt)
 
     data_module.struct(:Fooish) do |s|
       s.text(:Project)
@@ -227,6 +223,6 @@ TEXT
     data_module.entity(:ExtendedExtendedX, :extends => :ExtendedX) do |t|
       t.string(:Description, 50, :immutable => true)
     end
-  end if false
+  end
 
 end
