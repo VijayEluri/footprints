@@ -2,18 +2,20 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:sql)
   repository.enable_facet(:jpa)
   repository.enable_facet(:jaxb)
-  repository.enable_facet(:ruby)
+  #repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
-  repository.enable_facet(:imit)
-  repository.enable_facet(:gwt)
+  repository.enable_facet(:jws)
+  #repository.enable_facet(:imit)
+  #repository.enable_facet(:gwt)
 
   repository.jpa.provider = :eclipselink
 
   repository.data_module(:CodeMetrics,
                          :"jpa.entity_package" => 'footprints.javancss.model',
                          :"ejb.service_package" => 'footprints.javancss.service') do |data_module|
-    data_module.imit.entity_package = 'footprints.javancss.imit'
-    data_module.disable_facet(:gwt)
+    data_module.jws.service_package = 'footprints.javancss.service'
+    #data_module.imit.entity_package = 'footprints.javancss.imit'
+    #data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
