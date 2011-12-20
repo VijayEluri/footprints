@@ -73,6 +73,7 @@ Domgen.repository(:Footprints) do |repository|
     data_module.ejb.service_package = 'footprints.tester.service'
     data_module.imit.entity_package = 'footprints.tester.imit'
     data_module.disable_facet(:gwt)
+    data_module.disable_facet(:imit)
 
     data_module.struct(:Fooish) do |s|
       s.text(:Project)
