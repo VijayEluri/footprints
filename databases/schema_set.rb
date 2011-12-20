@@ -67,6 +67,15 @@ Domgen.repository(:Footprints) do |repository|
         m.text(:Output)
         m.exception(:FormatError)
       end
+      s.method(:GetCollections) do |m|
+        m.returns(:struct,
+                  :struct => data_module.struct_by_name(:CollectionDTO),
+                  :collection_type => :sequence)
+      end
+      s.method(:GetCollection) do |m|
+        m.integer(:ID)
+        m.returns(:struct, :struct => data_module.struct_by_name(:CollectionDTO))
+      end
     end
   end
 

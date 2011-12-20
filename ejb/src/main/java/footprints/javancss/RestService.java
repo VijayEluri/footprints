@@ -1,14 +1,8 @@
 package footprints.javancss;
 
 import code_metrics.CollectionDTO;
-import code_metrics.MethodDTO;
-import footprints.javancss.model.Collection;
-import footprints.javancss.model.MethodMetric;
-import footprints.javancss.model.dao.CollectionDAO;
-import footprints.javancss.model.dao.MethodMetricDAO;
 import footprints.javancss.service.FormatErrorException;
 import footprints.javancss.service.JavaNcss;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -28,10 +22,6 @@ public class RestService
 {
   @EJB
   private JavaNcss _service;
-  @EJB
-  private CollectionDAO _collectionDAO;
-  @EJB
-  private MethodMetricDAO _methodMetricDAO;
 
   @Consumes( "application/xml" )
   @PUT
@@ -44,12 +34,7 @@ public class RestService
   @GET
   public List<CollectionDTO> getCollections()
   {
-    final ArrayList<CollectionDTO> collections = new ArrayList<CollectionDTO>();
-    for( final Collection collection : _collectionDAO.findAll() )
-    {
-      collections.add( toCollection( collection ) );
-    }
-    return collections;
+    return _service.getCollections();
   }
 
   @GET
@@ -57,25 +42,6 @@ public class RestService
   @Path( "/{id}" )
   public CollectionDTO getCollection( @PathParam( "id" ) int id )
   {
-    final Collection collection = _collectionDAO.getByID( id );
-    return toCollection( collection );
-  }
-
-  private CollectionDTO toCollection( final Collection collection )
-  {
-    final ArrayList<MethodDTO> methods = new ArrayList<MethodDTO>();
-    for( final MethodMetric methodMetric : collection.getMethodMetrics() )
-    {
-      final MethodDTO dto =
-        new MethodDTO( methodMetric.getPackageName(),
-                       methodMetric.getClassName(),
-                       methodMetric.getMethodName(),
-                       methodMetric.getNCSS(),
-                       methodMetric.getCCN(),
-                       methodMetric.getJVDC() );
-      methods.add( dto );
-    }
-
-    return new CollectionDTO( collection.getID(), collection.getCollectedAt(), methods );
+    return _service.getCollection( id );
   }
 }
