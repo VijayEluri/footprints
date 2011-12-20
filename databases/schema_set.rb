@@ -130,6 +130,7 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:CalculateResultValue) do |m|
         m.parameter(:Input, "java.math.BigDecimal")
+        m.struct(:X,:Fooish)
         m.reference(:BaseX)
         m.s_enum(:Zang, { "X" => "X", "Y" => "Y" })
         m.returns("java.math.BigDecimal", :nullable => true)
