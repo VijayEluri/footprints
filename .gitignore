@@ -2,6 +2,7 @@
 /ejb/generated
 /web/web.iml
 /databases/generated
+/artifacts
 /target
 /reports
 /*.iws
