@@ -22,7 +22,7 @@ import org.xml.sax.InputSource;
 
 @Stateless( name = JavaNcss.EJB_NAME )
 @TransactionAttribute( TransactionAttributeType.REQUIRED )
-@WebService( endpointInterface = JavaNcssWS.WS_NAME )
+@WebService( endpointInterface = JavaNcssWS.SERVICE_NAME )
 public class JavaNcssEJB
   implements JavaNcss, JavaNcssWS
 {
