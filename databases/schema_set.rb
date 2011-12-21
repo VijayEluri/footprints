@@ -2,11 +2,11 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:sql)
   repository.enable_facet(:jpa)
   repository.enable_facet(:jaxb)
-  #repository.enable_facet(:ruby)
+  repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
-  #repository.enable_facet(:imit)
-  #repository.enable_facet(:gwt)
+  repository.enable_facet(:imit)
+  repository.enable_facet(:gwt)
 
   repository.jpa.provider = :eclipselink
 
@@ -14,8 +14,8 @@ Domgen.repository(:Footprints) do |repository|
                          :"jpa.entity_package" => 'footprints.javancss.model',
                          :"ejb.service_package" => 'footprints.javancss.service') do |data_module|
     data_module.jws.service_package = 'footprints.javancss.service'
-    #data_module.imit.entity_package = 'footprints.javancss.imit'
-    #data_module.disable_facet(:gwt)
+    data_module.imit.entity_package = 'footprints.javancss.imit'
+    data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -63,6 +63,7 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.service(:JavaNcss) do |s|
+      s.ejb.generate_facade = true
       s.method(:UploadJavaNcssOutput) do |m|
         m.text(:Output)
         m.exception(:FormatError)
@@ -127,6 +128,7 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.service(:Collector) do |s|
+      s.ejb.generate_facade = true
 
       s.description("Test Service definition")
 
@@ -140,6 +142,7 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:CalculateResultValue) do |m|
+        m.disable_facet(:jws)
         m.parameter(:Input, "java.math.BigDecimal")
         m.struct(:X,:Fooish)
         m.reference(:BaseX)
@@ -148,20 +151,15 @@ Domgen.repository(:Footprints) do |repository|
         m.exception(:Problem)
       end
       s.method(:CalculateResultValue2) do |m|
+        m.disable_facet(:jws)
         m.returns(:reference, :references => :BaseX)
       end
       s.method(:CalculateResultValue3) do |m|
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction))
       end
       s.method(:CalculateResultValue4) do |m|
+        m.disable_facet(:jws)
         m.returns(:reference, :references => :BaseX, :nullable => true)
-      end
-    end
-
-    data_module.service(:MyService) do |s|
-
-      s.method(:DoStuff) do |m|
-        m.exception(:Problem)
       end
     end
 
@@ -236,6 +234,6 @@ TEXT
     data_module.entity(:ExtendedExtendedX, :extends => :ExtendedX) do |t|
       t.string(:Description, 50, :immutable => true)
     end
-  end if false
+  end
 
 end
