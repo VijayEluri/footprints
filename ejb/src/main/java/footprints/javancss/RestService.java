@@ -1,8 +1,8 @@
 package footprints.javancss;
 
-import code_metrics.CollectionDTO;
-import footprints.javancss.service.FormatErrorException;
-import footprints.javancss.service.JavaNcss;
+import footprints.server.data_type.code_metrics.CollectionDTO;
+import footprints.server.service.code_metrics.FormatErrorException;
+import footprints.server.service.code_metrics.JavaNcss;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

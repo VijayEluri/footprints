@@ -1,18 +1,18 @@
 package footprints.javancss;
 
-import footprints.tester.model.BaseX;
-import footprints.tester.model.CalculateResultValueZang;
-import footprints.tester.model.CloneAction;
-import footprints.tester.service.Collector;
-import footprints.tester.service.ProblemException;
-import footprints.tester.service.TestsFailedException;
+import footprints.server.data_type.test_module.CalculateResultValueZang;
+import footprints.server.data_type.test_module.CloneAction;
+import footprints.server.data_type.test_module.Fooish;
+import footprints.server.entity.test_module.BaseX;
+import footprints.server.service.test_module.Collector;
+import footprints.server.service.test_module.ProblemException;
+import footprints.server.service.test_module.TestsFailedException;
 import java.math.BigDecimal;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import test_module.Fooish;
 
 /**
  * Dummy service implementation so that application can be deployed

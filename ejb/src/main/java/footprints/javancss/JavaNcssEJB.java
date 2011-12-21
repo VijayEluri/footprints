@@ -1,15 +1,16 @@
 package footprints.javancss;
 
-import code_metrics.CollectionDTO;
-import code_metrics.MethodDTO;
-import footprints.javancss.model.Collection;
-import footprints.javancss.model.MethodMetric;
-import footprints.javancss.model.dao.CollectionDAO;
-import footprints.javancss.model.dao.MethodMetricDAO;
+
 import footprints.javancss.parse.MethodEntry;
 import footprints.javancss.parse.OutputParser;
-import footprints.javancss.service.FormatErrorException;
-import footprints.javancss.service.JavaNcss;
+import footprints.server.data_type.code_metrics.CollectionDTO;
+import footprints.server.data_type.code_metrics.MethodDTO;
+import footprints.server.entity.code_metrics.Collection;
+import footprints.server.entity.code_metrics.MethodMetric;
+import footprints.server.entity.code_metrics.dao.CollectionDAO;
+import footprints.server.entity.code_metrics.dao.MethodMetricDAO;
+import footprints.server.service.code_metrics.FormatErrorException;
+import footprints.server.service.code_metrics.JavaNcss;
 import java.io.StringReader;
 import java.sql.Timestamp;
 import java.util.ArrayList;

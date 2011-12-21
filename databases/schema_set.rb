@@ -10,12 +10,8 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.jpa.provider = :eclipselink
 
-  repository.data_module(:CodeMetrics,
-                         :"jpa.entity_package" => 'footprints.javancss.model',
-                         :"ejb.service_package" => 'footprints.javancss.service') do |data_module|
-    data_module.jws.service_package = 'footprints.javancss.service'
-    data_module.imit.entity_package = 'footprints.javancss.imit'
-    data_module.disable_facet(:gwt)
+  repository.data_module(:CodeMetrics) do |data_module|
+    #data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -81,11 +77,6 @@ Domgen.repository(:Footprints) do |repository|
   end
 
   repository.data_module(:TestModule) do |data_module|
-    data_module.jpa.entity_package = 'footprints.tester.model'
-    data_module.ejb.service_package = 'footprints.tester.service'
-    data_module.imit.entity_package = 'footprints.tester.imit'
-    data_module.disable_facet(:gwt)
-    data_module.disable_facet(:imit)
 
     data_module.struct(:Fooish) do |s|
       s.text(:Project)
