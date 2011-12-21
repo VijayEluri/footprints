@@ -120,6 +120,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.service(:Collector) do |s|
       s.ejb.generate_facade = true
+      s.ejb.remote = true
 
       s.description("Test Service definition")
 
