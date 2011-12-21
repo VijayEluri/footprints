@@ -10,7 +10,6 @@ import footprints.javancss.parse.MethodEntry;
 import footprints.javancss.parse.OutputParser;
 import footprints.javancss.service.FormatErrorException;
 import footprints.javancss.service.JavaNcss;
-import footprints.javancss.service.JavaNcssWS;
 import java.io.StringReader;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,14 +20,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.jws.WebService;
 import org.xml.sax.InputSource;
 
 @Stateless( name = JavaNcss.EJB_NAME )
 @TransactionAttribute( TransactionAttributeType.REQUIRED )
-@WebService( endpointInterface = JavaNcssWS.SERVICE_NAME )
 public class JavaNcssEJB
-  implements JavaNcss, JavaNcssWS
+  implements JavaNcss
 {
   @EJB
   private CollectionDAO _collectionDAO;
