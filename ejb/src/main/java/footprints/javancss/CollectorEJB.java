@@ -3,6 +3,7 @@ package footprints.javancss;
 import footprints.server.data_type.test_module.CalculateResultValueZang;
 import footprints.server.data_type.test_module.CloneAction;
 import footprints.server.data_type.test_module.Fooish;
+import footprints.server.data_type.test_module.RunAllTheTestsZing;
 import footprints.server.entity.test_module.BaseX;
 import footprints.server.service.test_module.Collector;
 import footprints.server.service.test_module.ProblemException;
@@ -23,7 +24,7 @@ public class CollectorEJB
   implements Collector
 {
   @Override
-  public void runAllTheTests( final boolean force )
+  public void runAllTheTests( final boolean force, @Nonnull final RunAllTheTestsZing zing )
     throws TestsFailedException, ProblemException
   {
   }

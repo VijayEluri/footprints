@@ -59,7 +59,7 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.service(:JavaNcss) do |s|
-      s.ejb.generate_facade = true
+      s.ejb.generate_boundary = true
       s.method(:UploadJavaNcssOutput) do |m|
         m.text(:Output)
         m.exception(:FormatError)
@@ -119,7 +119,7 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.service(:Collector) do |s|
-      s.ejb.generate_facade = true
+      s.ejb.generate_boundary = true
       s.ejb.remote = true
 
       s.description("Test Service definition")
@@ -129,6 +129,7 @@ Domgen.repository(:Footprints) do |repository|
         m.parameter(:Force, :boolean) do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
+        m.s_enum(:Zing, { "X" => "X", "Y" => "Y" })
         m.exception(:TestsFailed)
         m.exception(:Problem)
       end
