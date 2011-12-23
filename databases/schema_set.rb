@@ -126,12 +126,22 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:RunAllTheTests) do |m|
         m.description("All the F#####g time!")
-        m.parameter(:Force, :boolean) do |p|
+        m.boolean(:Force) do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
         m.s_enum(:Zing, { "X" => "X", "Y" => "Y" })
         m.exception(:TestsFailed)
         m.exception(:Problem)
+      end
+
+      s.method(:Subscribe) do |m|
+        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
+      end
+
+      s.method(:SubscribeWithGuff) do |m|
+        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
+        m.text(:PermutationName, :"gwt.environment_key" => "request:permutation-strong-name")
+        m.text(:SomeOtherParam)
       end
 
       s.method(:CalculateResultValue) do |m|

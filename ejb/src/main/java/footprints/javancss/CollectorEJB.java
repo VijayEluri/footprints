@@ -30,6 +30,17 @@ public class CollectorEJB
   }
 
   @Override
+  public void subscribe( @Nonnull final String sessionID )
+  {
+  }
+
+  @Override
+  public void subscribeWithGuff(
+    @Nonnull final String sessionID, @Nonnull final String permutationName, @Nonnull final String someOtherParam )
+  {
+  }
+
+  @Override
   @Nullable
   public BigDecimal calculateResultValue(
     @Nonnull final BigDecimal input,
