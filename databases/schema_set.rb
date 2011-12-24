@@ -178,6 +178,10 @@ Domgen.repository(:Footprints) do |repository|
       t.reference(:Foo, :immutable => true)
     end
 
+    data_module.message(:TimeRecorded) do |m|
+      m.integer(:TimeEntryID, :collection_type => :set)
+    end
+
     data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.date(:ADate, :immutable => true)
