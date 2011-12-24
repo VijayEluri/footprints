@@ -79,9 +79,9 @@ Domgen.repository(:Footprints) do |repository|
   repository.data_module(:TestModule) do |data_module|
 
     data_module.struct(:Fooish) do |s|
-      s.text(:Project)
+      s.text(:Project, :collection_type => :set)
       s.text(:ProjectNotes, :nullable => true)
-      s.boolean(:Branch)
+      s.boolean(:Branch, :collection_type => :sequence)
       s.integer(:Version) do |a|
         a.jaxb.element = true
       end
@@ -129,7 +129,7 @@ Domgen.repository(:Footprints) do |repository|
         m.boolean(:Force) do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
-        m.s_enum(:Zing, { "X" => "X", "Y" => "Y" })
+        m.s_enum(:Zing, { "X" => "X", "Y" => "Y" }, :collection_type => :sequence)
         m.exception(:TestsFailed)
         m.exception(:Problem)
       end
@@ -141,28 +141,28 @@ Domgen.repository(:Footprints) do |repository|
       s.method(:SubscribeWithGuff) do |m|
         m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
         m.text(:PermutationName, :"gwt.environment_key" => "request:permutation-strong-name")
-        m.text(:SomeOtherParam)
+        m.text(:SomeOtherParam, :collection_type => :set)
       end
 
       s.method(:CalculateResultValue) do |m|
         m.disable_facet(:jws)
         m.parameter(:Input, "java.math.BigDecimal")
         m.struct(:X,:Fooish)
-        m.reference(:BaseX)
-        m.s_enum(:Zang, { "X" => "X", "Y" => "Y" })
-        m.returns("java.math.BigDecimal", :nullable => true)
+        m.reference(:BaseX, :collection_type => :set)
+        m.s_enum(:Zang, { "X" => "X", "Y" => "Y" }, :collection_type => :set)
+        m.returns("java.math.BigDecimal", :nullable => true, :collection_type => :sequence)
         m.exception(:Problem)
       end
       s.method(:CalculateResultValue2) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX)
+        m.returns(:reference, :references => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue3) do |m|
-        m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction))
+        m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX, :nullable => true)
+        m.returns(:reference, :references => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
 

@@ -9,6 +9,9 @@ import footprints.server.service.test_module.Collector;
 import footprints.server.service.test_module.ProblemException;
 import footprints.server.service.test_module.TestsFailedException;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ejb.Stateless;
@@ -24,7 +27,7 @@ public class CollectorEJB
   implements Collector
 {
   @Override
-  public void runAllTheTests( final boolean force, @Nonnull final RunAllTheTestsZing zing )
+  public void runAllTheTests( final boolean force, @Nonnull final List<RunAllTheTestsZing> zing )
     throws TestsFailedException, ProblemException
   {
   }
@@ -36,15 +39,15 @@ public class CollectorEJB
 
   @Override
   public void subscribeWithGuff(
-    @Nonnull final String sessionID, @Nonnull final String permutationName, @Nonnull final String someOtherParam )
+    @Nonnull final String sessionID, @Nonnull final String permutationName, @Nonnull final Set<String> someOtherParam )
   {
   }
 
   @Override
   @Nullable
-  public BigDecimal calculateResultValue(
+  public List<BigDecimal> calculateResultValue(
     @Nonnull final BigDecimal input,
-    @Nonnull final Fooish x, @Nonnull final BaseX baseX, @Nonnull final CalculateResultValueZang zang )
+    @Nonnull final Fooish x, @Nonnull final Set<BaseX> baseX, @Nonnull final Set<CalculateResultValueZang> zang )
     throws ProblemException
   {
     return null;
@@ -52,21 +55,21 @@ public class CollectorEJB
 
   @Override
   @Nonnull
-  public BaseX calculateResultValue2()
+  public Set<BaseX> calculateResultValue2()
   {
     throw new IllegalStateException();
   }
 
   @Override
   @Nonnull
-  public CloneAction calculateResultValue3()
+  public Set<CloneAction> calculateResultValue3()
   {
-    return CloneAction.CLONE;
+    return new HashSet<CloneAction>(  );
   }
 
   @Override
   @Nullable
-  public BaseX calculateResultValue4()
+  public Set<BaseX> calculateResultValue4()
   {
     return null;
   }
