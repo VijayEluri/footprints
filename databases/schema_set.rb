@@ -78,6 +78,11 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.data_module(:TestModule) do |data_module|
 
+    data_module.struct(:TaskDefinition) do |s|
+      s.text(:Name)
+      s.struct(:Child, :TaskDefinition, :collection_type => :set)
+    end
+
     data_module.struct(:Fooish) do |s|
       s.text(:Project, :collection_type => :set)
       s.text(:ProjectNotes, :nullable => true)
