@@ -27,7 +27,7 @@ def define_persistence_unit(project, repository_key, classfile = nil)
   base_generated_dir = project._(:target, :generated, "main/domgen")
 
   generators = []
-  generators += [:jaxb_model, :jpa_model, :jpa_ejb, :ejb, :jpa_persistence]
+  generators += [:ee_data_types, :jpa_model, :jpa_ejb, :ejb, :jpa_persistence]
   generators += [:ejb_facades, :imit_jpa, :gwt_shared_service, :gwt_server_service, :jws]
   generators += [:imit, :imit_json, :gwt_client_service, :gwt_client_service_test, :imit_gwt_proxy, :imit_gwt_proxy_service_test]
 

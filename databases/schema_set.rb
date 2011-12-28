@@ -1,5 +1,6 @@
 Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:sql)
+  repository.enable_facet(:ee)
   repository.enable_facet(:jpa)
   repository.enable_facet(:jaxb)
   repository.enable_facet(:ruby)

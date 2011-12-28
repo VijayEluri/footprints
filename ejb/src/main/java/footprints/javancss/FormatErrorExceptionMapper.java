@@ -1,6 +1,6 @@
 package footprints.javancss;
 
-import footprints.server.service.code_metrics.FormatErrorException;
+import footprints.server.data_type.code_metrics.FormatErrorException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
