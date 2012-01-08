@@ -12,7 +12,8 @@ Domgen.repository(:Footprints) do |repository|
   repository.jpa.provider = :eclipselink
 
   repository.data_module(:CodeMetrics) do |data_module|
-    #data_module.disable_facet(:gwt)
+    data_module.disable_facet(:imit)
+    data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -174,7 +175,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:A, :immutable => true)
+      t.date(:A, :immutable => true)
       t.string(:ZX, 44, :immutable => true)
       t.text(:ZY, :immutable => true)
     end
@@ -191,8 +192,8 @@ Domgen.repository(:Footprints) do |repository|
     data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.date(:ADate, :immutable => true)
-      t.datetime(:A, :immutable => true)
-      t.datetime(:B, :nullable => true)
+      t.date(:A, :immutable => true)
+      t.date(:B, :nullable => true)
       t.integer(:C, :nullable => true)
       t.integer(:D, :nullable => true)
       t.integer(:E, :nullable => true)
