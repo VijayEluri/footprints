@@ -18,7 +18,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:CollectedAt, :immutable => true)
+      t.datetime(:CollectedAt, :immutable => true, :"imit.client_side" => false)
     end
 
     data_module.entity(:MethodMetric) do |t|
@@ -176,7 +176,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:A, :immutable => true)
+      t.datetime(:A, :immutable => true, :"imit.client_side" => false)
       t.string(:ZX, 44, :immutable => true)
       t.text(:ZY, :immutable => true)
     end
@@ -193,8 +193,8 @@ Domgen.repository(:Footprints) do |repository|
     data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.date(:ADate, :immutable => true)
-      t.datetime(:A, :immutable => true)
-      t.datetime(:B, :nullable => true)
+      t.datetime(:A, :immutable => true, :"imit.client_side" => false)
+      t.datetime(:B, :nullable => true, :"imit.client_side" => false)
       t.integer(:C, :nullable => true)
       t.integer(:D, :nullable => true)
       t.integer(:E, :nullable => true)
