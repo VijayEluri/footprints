@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../domgen/lib"))
 
 require 'domgen'
 
-Domgen::LoadSchema.new("#{workspace_dir}/databases/schema_set.rb")
+Domgen::LoadSchema.new("#{workspace_dir}/architecture.rb")
 
 generators = nil
 if is_postgres?
