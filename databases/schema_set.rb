@@ -2,6 +2,8 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:sql)
   repository.enable_facet(:ee)
   repository.enable_facet(:jpa)
+  repository.enable_facet(:xml)
+  repository.enable_facet(:json)
   repository.enable_facet(:jaxb)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
@@ -89,7 +91,7 @@ Domgen.repository(:Footprints) do |repository|
       s.text(:ProjectNotes, :nullable => true)
       s.boolean(:Branch, :collection_type => :sequence)
       s.integer(:Version) do |a|
-        a.jaxb.element = true
+        a.xml.element = true
       end
       s.substruct(:Foo2) do |s2|
         s2.text(:Project2)
