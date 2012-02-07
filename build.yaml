@@ -7,7 +7,7 @@ gems:
 repositories:
   remote:
    - http://repo.fire.dse.vic.gov.au/content/groups/fisg
-   - http://http://repo1.maven.org/
+   - http://repo1.maven.org
   release_to:
     url: sftp://www.stocksoftware.com.au/www/stocksoftware/web/repositories/releases
     permissions: 0664
