@@ -167,6 +167,8 @@ Domgen.repository(:Footprints) do |repository|
         m.returns(:reference, :references => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue3) do |m|
+        m.disable_facet(:gwt)
+        m.disable_facet(:imit)
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
