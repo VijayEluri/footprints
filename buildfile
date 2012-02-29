@@ -127,6 +127,7 @@ define_with_central_layout('footprints', true) do
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
   doc.from projects('web', 'ejb')
 
+  ipr.extra_modules << '../replicant/replicant.iml'
 end
 
 define_dbt_tasks(Buildr.project("footprints"))
