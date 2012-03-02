@@ -166,6 +166,14 @@ Domgen.repository(:Footprints) do |repository|
         m.disable_facet(:jws)
         m.returns(:reference, :references => :BaseX, :collection_type => :set)
       end
+      s.method(:CalculateResultValue2B) do |m|
+        m.disable_facet(:jws)
+        m.returns(:struct, :struct => data_module.struct_by_name(:TaskDefinition), :collection_type => :set)
+      end
+      s.method(:CalculateResultValue2C) do |m|
+        m.disable_facet(:jws)
+        m.returns(:struct, :struct => data_module.struct_by_name(:TaskDefinition) )
+      end
       s.method(:CalculateResultValue3) do |m|
         m.disable_facet(:gwt)
         m.disable_facet(:imit)
