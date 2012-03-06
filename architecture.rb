@@ -4,6 +4,7 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:jpa)
   repository.enable_facet(:xml)
   repository.enable_facet(:json)
+  repository.enable_facet(:jackson)
   repository.enable_facet(:jaxb)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
