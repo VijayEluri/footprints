@@ -70,13 +70,11 @@ Domgen.repository(:Footprints) do |repository|
         m.exception(:FormatError)
       end
       s.method(:GetCollections) do |m|
-        m.returns(:struct,
-                  :struct => data_module.struct_by_name(:CollectionDTO),
-                  :collection_type => :sequence)
+        m.returns(:struct, :referenced_struct => :CollectionDTO, :collection_type => :sequence)
       end
       s.method(:GetCollection) do |m|
         m.integer(:ID)
-        m.returns(:struct, :struct => data_module.struct_by_name(:CollectionDTO))
+        m.returns(:struct, :referenced_struct => :CollectionDTO)
       end
     end
   end
@@ -165,15 +163,15 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:CalculateResultValue2) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :referenced_entity_name => :BaseX, :collection_type => :set)
+        m.returns(:reference, :referenced_entity => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue2B) do |m|
         m.disable_facet(:jws)
-        m.returns(:struct, :struct => data_module.struct_by_name(:TaskDefinition), :collection_type => :set)
+        m.returns(:struct, :referenced_struct => :TaskDefinition, :collection_type => :set)
       end
       s.method(:CalculateResultValue2C) do |m|
         m.disable_facet(:jws)
-        m.returns(:struct, :struct => data_module.struct_by_name(:TaskDefinition) )
+        m.returns(:struct, :referenced_struct => data_module.struct_by_name(:TaskDefinition) )
       end
       s.method(:CalculateResultValue3) do |m|
         m.disable_facet(:gwt)
@@ -182,7 +180,7 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:CalculateResultValue4) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :referenced_entity_name => :BaseX, :nullable => true, :collection_type => :set)
+        m.returns(:reference, :referenced_entity => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
 
