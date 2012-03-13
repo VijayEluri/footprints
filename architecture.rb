@@ -165,7 +165,7 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:CalculateResultValue2) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX, :collection_type => :set)
+        m.returns(:reference, :referenced_entity_name => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue2B) do |m|
         m.disable_facet(:jws)
@@ -182,7 +182,7 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:CalculateResultValue4) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX, :nullable => true, :collection_type => :set)
+        m.returns(:reference, :referenced_entity_name => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
 
