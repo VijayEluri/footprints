@@ -83,7 +83,10 @@ define_with_central_layout('footprints', true) do
                  :google_guice_assistedinject,
                  :gwt_gin,
                  :gwt_user,
-                 :gwt_dev
+                 :gwt_dev,
+                 :jackson_core,
+                 :jackson_xc,
+                 :jackson_mapper
 
     task :clean do
       rm_rf _('generated')

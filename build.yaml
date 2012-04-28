@@ -6,6 +6,7 @@ gems:
 
 repositories:
   remote:
+   - http://repository.codehaus.org
    - http://repo.fire.dse.vic.gov.au/content/groups/fisg
    - http://repo1.maven.org
   release_to:
@@ -64,4 +65,6 @@ artifacts:
   google_guice: com.google.inject:guice:jar:3.0
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
   gwt_gin: com.google.gwt.inject:gin:jar:1.5.0
-
+  jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.3
+  jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.3
+  jackson_xc: org.codehaus.jackson:jackson-xc:jar:1.9.4

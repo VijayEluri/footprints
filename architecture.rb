@@ -8,17 +8,18 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
-  repository.enable_facet(:imit)
-  repository.enable_facet(:gwt)
+  repository.enable_facet(:jmx)
+  repository.enable_facet(:jackson)
+  #repository.enable_facet(:imit)
+  #repository.enable_facet(:gwt)
 
   repository.jpa.provider = :eclipselink
 
   repository.data_module(:CodeMetrics) do |data_module|
-    #data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:CollectedAt, :immutable => true, :"imit.client_side" => false)
+      t.datetime(:CollectedAt, :immutable => true)#, :"imit.client_side" => false)
     end
 
     data_module.entity(:MethodMetric) do |t|
@@ -69,12 +70,12 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:GetCollections) do |m|
         m.returns(:struct,
-                  :struct => data_module.struct_by_name(:CollectionDTO),
+                  :referenced_struct => data_module.struct_by_name(:CollectionDTO),
                   :collection_type => :sequence)
       end
       s.method(:GetCollection) do |m|
         m.integer(:ID)
-        m.returns(:struct, :struct => data_module.struct_by_name(:CollectionDTO))
+        m.returns(:struct, :referenced_struct => data_module.struct_by_name(:CollectionDTO))
       end
     end
   end
@@ -143,12 +144,12 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe) do |m|
-        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
+        m.text(:SessionID) #, :"gwt.environment_key" => "request:session:id")
       end
 
       s.method(:SubscribeWithGuff) do |m|
-        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
-        m.text(:PermutationName, :"gwt.environment_key" => "request:permutation-strong-name")
+        m.text(:SessionID) #, :"gwt.environment_key" => "request:session:id")
+        m.text(:PermutationName) #, :"gwt.environment_key" => "request:permutation-strong-name")
         m.text(:SomeOtherParam, :collection_type => :set)
       end
 
@@ -163,20 +164,20 @@ Domgen.repository(:Footprints) do |repository|
       end
       s.method(:CalculateResultValue2) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX, :collection_type => :set)
+        m.returns(:reference, :referenced_entity => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue3) do |m|
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
         m.disable_facet(:jws)
-        m.returns(:reference, :references => :BaseX, :nullable => true, :collection_type => :set)
+        m.returns(:reference, :referenced_entity => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
 
     data_module.entity(:Foo) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:A, :immutable => true, :"imit.client_side" => false)
+      t.datetime(:A, :immutable => true)#, :"imit.client_side" => false)
       t.string(:ZX, 44, :immutable => true)
       t.text(:ZY, :immutable => true)
     end
@@ -193,8 +194,8 @@ Domgen.repository(:Footprints) do |repository|
     data_module.entity(:Tester) do |t|
       t.integer(:ID, :primary_key => true)
       t.date(:ADate, :immutable => true)
-      t.datetime(:A, :immutable => true, :"imit.client_side" => false)
-      t.datetime(:B, :nullable => true, :"imit.client_side" => false)
+      t.datetime(:A, :immutable => true)#, :"imit.client_side" => false)
+      t.datetime(:B, :nullable => true)#, :"imit.client_side" => false)
       t.integer(:C, :nullable => true)
       t.integer(:D, :nullable => true)
       t.integer(:E, :nullable => true)
