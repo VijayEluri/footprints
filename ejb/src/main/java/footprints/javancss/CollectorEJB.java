@@ -4,6 +4,7 @@ import footprints.server.data_type.test_module.CalculateResultValueZang;
 import footprints.server.data_type.test_module.CloneAction;
 import footprints.server.data_type.test_module.Fooish;
 import footprints.server.data_type.test_module.RunAllTheTestsZing;
+import footprints.server.data_type.test_module.TaskDefinition;
 import footprints.server.entity.test_module.BaseX;
 import footprints.server.service.test_module.Collector;
 import footprints.server.service.test_module.ProblemException;
@@ -70,6 +71,20 @@ public class CollectorEJB
   @Override
   @Nullable
   public Set<BaseX> calculateResultValue4()
+  {
+    return null;
+  }
+
+  @Override
+  @Nonnull
+  public Set<TaskDefinition> calculateResultValue2B()
+  {
+    return null;
+  }
+
+  @Override
+  @Nonnull
+  public TaskDefinition calculateResultValue2C()
   {
     return null;
   }

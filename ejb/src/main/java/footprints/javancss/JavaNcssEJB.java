@@ -1,6 +1,5 @@
 package footprints.javancss;
 
-
 import footprints.javancss.parse.MethodEntry;
 import footprints.javancss.parse.OutputParser;
 import footprints.server.data_type.code_metrics.CollectionDTO;
