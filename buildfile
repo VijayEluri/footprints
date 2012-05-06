@@ -63,7 +63,6 @@ define_with_central_layout('footprints', true) do
   compile.options.lint = 'all'
 
   project.ipr.extra_modules << "../dbt/dbt.iml"
-  project.ipr.extra_modules << "../replicant/replicant.iml"
   project.ipr.extra_modules << "../domgen/domgen.iml"
 
   define_with_central_layout('ejb') do
@@ -77,15 +76,9 @@ define_with_central_layout('footprints', true) do
                  :javaee_api,
                  :javax_validation,
                  :javax_annotation,
-                 :replicant,
                  :json,
                  :jackson_core,
-                 :jackson_mapper,
-                 :google_guice,
-                 :google_guice_assistedinject,
-                 :gwt_gin,
-                 :gwt_user,
-                 :gwt_dev
+                 :jackson_mapper
 
     task :clean do
       rm_rf _('generated')

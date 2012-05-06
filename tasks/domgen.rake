@@ -28,8 +28,8 @@ def define_persistence_unit(project, repository_key, classfile = nil)
 
   generators = []
   generators += [:ee_data_types, :jpa_model, :jpa_ejb, :ejb, :jpa_persistence]
-  generators += [:ejb_facades, :imit_jpa, :gwt_shared_service, :gwt_server_service, :jws]
-  generators += [:imit, :imit_json, :gwt_client_service, :gwt_client_service_test, :imit_gwt_proxy, :imit_gwt_proxy_service_test]
+  generators += [:ejb_facades, :jws]
+  generators += [:imit, :imit_json]
 
   task = Domgen::GenerateTask.new(repository_key, "server", generators, base_generated_dir) do |t|
     t.description = 'Generates the Java code for the persistent objects'

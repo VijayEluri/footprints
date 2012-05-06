@@ -1,22 +1,13 @@
 Domgen.repository(:Footprints) do |repository|
-  repository.enable_facet(:sql)
-  repository.enable_facet(:ee)
   repository.enable_facet(:jpa)
-  repository.enable_facet(:xml)
-  repository.enable_facet(:json)
   repository.enable_facet(:jackson)
-  repository.enable_facet(:jaxb)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
-  repository.enable_facet(:imit)
-  repository.enable_facet(:gwt)
 
   repository.jpa.provider = :eclipselink
 
   repository.data_module(:CodeMetrics) do |data_module|
-    data_module.disable_facet(:imit)
-    data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -143,12 +134,12 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe) do |m|
-        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
+        m.text(:SessionID)
       end
 
       s.method(:SubscribeWithGuff) do |m|
-        m.text(:SessionID, :"gwt.environment_key" => "request:session:id")
-        m.text(:PermutationName, :"gwt.environment_key" => "request:permutation-strong-name")
+        m.text(:SessionID)
+        m.text(:PermutationName)
         m.text(:SomeOtherParam, :collection_type => :set)
       end
 
@@ -174,8 +165,6 @@ Domgen.repository(:Footprints) do |repository|
         m.returns(:struct, :referenced_struct => data_module.struct_by_name(:TaskDefinition) )
       end
       s.method(:CalculateResultValue3) do |m|
-        m.disable_facet(:gwt)
-        m.disable_facet(:imit)
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
