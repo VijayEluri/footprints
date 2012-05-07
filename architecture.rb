@@ -246,4 +246,5 @@ TEXT
     end
   end
 
+  repository.enable_facet(:gwt)
 end
