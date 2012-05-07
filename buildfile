@@ -54,7 +54,7 @@ end
 
 desc "Footprints: See who has been walking all over our code."
 define_with_central_layout('footprints', true) do
-  project.version = '0.9-SNAPSHOT'
+  project.version = `git describe --tags --always`.strip
   project.group = 'footprints'
 
   compile.options.source = '1.6'
