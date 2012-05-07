@@ -33,7 +33,7 @@ def define_persistence_unit(project, repository_key, classfile = nil)
 
   task = Domgen::GenerateTask.new(repository_key, "server", generators, base_generated_dir) do |t|
     t.description = 'Generates the Java code for the persistent objects'
-    #t.verbose = true
+    t.verbose = true
   end
 
   project.compile.enhance [task.task_name]
