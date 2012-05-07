@@ -144,7 +144,7 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:CalculateResultValue) do |m|
-        m.disable_facet(:jws)
+        #m.disable_facet(:jws)
         m.parameter(:Input, "java.math.BigDecimal")
         m.struct(:X,:Fooish)
         m.reference(:BaseX, :collection_type => :set)
@@ -153,22 +153,18 @@ Domgen.repository(:Footprints) do |repository|
         m.exception(:Problem)
       end
       s.method(:CalculateResultValue2) do |m|
-        m.disable_facet(:jws)
         m.returns(:reference, :referenced_entity => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue2B) do |m|
-        m.disable_facet(:jws)
         m.returns(:struct, :referenced_struct => :TaskDefinition, :collection_type => :set)
       end
       s.method(:CalculateResultValue2C) do |m|
-        m.disable_facet(:jws)
         m.returns(:struct, :referenced_struct => data_module.struct_by_name(:TaskDefinition) )
       end
       s.method(:CalculateResultValue3) do |m|
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
-        m.disable_facet(:jws)
         m.returns(:reference, :referenced_entity => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
