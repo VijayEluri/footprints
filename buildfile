@@ -52,8 +52,7 @@ def define_with_central_layout(name, top_level = false, options = {}, &block)
   end
 end
 
-
-desc "Footprints: See whos been walking all over our code."
+desc "Footprints: See who has been walking all over our code."
 define_with_central_layout('footprints', true) do
   project.version = '0.9-SNAPSHOT'
   project.group = 'footprints'
