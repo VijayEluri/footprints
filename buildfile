@@ -52,10 +52,9 @@ def define_with_central_layout(name, top_level = false, options = {}, &block)
   end
 end
 
-
-desc "Footprints: See whos been walking all over our code."
+desc "Footprints: See who has been walking all over our code."
 define_with_central_layout('footprints', true) do
-  project.version = '0.9-SNAPSHOT'
+  project.version = `git describe --tags --always`.strip
   project.group = 'footprints'
 
   compile.options.source = '1.6'
@@ -78,14 +77,6 @@ define_with_central_layout('footprints', true) do
                  :javax_annotation,
                  :json,
                  :jackson_core,
-                 :jackson_mapper,
-                 :google_guice,
-                 :google_guice_assistedinject,
-                 :gwt_gin,
-                 :gwt_user,
-                 :gwt_dev,
-                 :jackson_core,
-                 :jackson_xc,
                  :jackson_mapper
 
     task :clean do

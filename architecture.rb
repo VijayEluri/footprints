@@ -9,8 +9,6 @@ Domgen.repository(:Footprints) do |repository|
   repository.jpa.provider = :eclipselink
 
   repository.data_module(:CodeMetrics) do |data_module|
-    data_module.disable_facet(:imit)
-    data_module.disable_facet(:gwt)
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -137,17 +135,17 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe) do |m|
-        m.text(:SessionID) #, :"gwt.environment_key" => "request:session:id")
+        m.text(:SessionID)
       end
 
       s.method(:SubscribeWithGuff) do |m|
-        m.text(:SessionID) #, :"gwt.environment_key" => "request:session:id")
-        m.text(:PermutationName) #, :"gwt.environment_key" => "request:permutation-strong-name")
+        m.text(:SessionID)
+        m.text(:PermutationName)
         m.text(:SomeOtherParam, :collection_type => :set)
       end
 
       s.method(:CalculateResultValue) do |m|
-        m.disable_facet(:jws)
+        #m.disable_facet(:jws)
         m.parameter(:Input, "java.math.BigDecimal")
         m.struct(:X,:Fooish)
         m.reference(:BaseX, :collection_type => :set)
@@ -156,24 +154,18 @@ Domgen.repository(:Footprints) do |repository|
         m.exception(:Problem)
       end
       s.method(:CalculateResultValue2) do |m|
-        m.disable_facet(:jws)
         m.returns(:reference, :referenced_entity => :BaseX, :collection_type => :set)
       end
       s.method(:CalculateResultValue2B) do |m|
-        m.disable_facet(:jws)
         m.returns(:struct, :referenced_struct => :TaskDefinition, :collection_type => :set)
       end
       s.method(:CalculateResultValue2C) do |m|
-        m.disable_facet(:jws)
         m.returns(:struct, :referenced_struct => data_module.struct_by_name(:TaskDefinition) )
       end
       s.method(:CalculateResultValue3) do |m|
-        m.disable_facet(:gwt)
-        m.disable_facet(:imit)
         m.returns(:enumeration, :enumeration => data_module.enumeration_by_name(:CloneAction), :collection_type => :set)
       end
       s.method(:CalculateResultValue4) do |m|
-        m.disable_facet(:jws)
         m.returns(:reference, :referenced_entity => :BaseX, :nullable => true, :collection_type => :set)
       end
     end
@@ -255,4 +247,5 @@ TEXT
     end
   end
 
+  repository.enable_facet(:gwt)
 end
