@@ -19,7 +19,7 @@ Domgen::GenerateTask.new(:Footprints, "sql", generators, "#{workspace_dir}/datab
   t.verbose = true
 end
 Domgen::Xmi::GenerateXMITask.new(:Footprints, "xmi", "#{workspace_dir}/target/xmi/footprints.xmi")
-Domgen::GenerateTask.new(:Footprints, "active_record", [:active_record], "#{workspace_dir}/target/generated/ruby") do |t|
+Domgen::GenerateTask.new(:Footprints, "active_record", [:active_record], "#{workspace_dir}/target/generated/main/ruby") do |t|
   t.description = 'Generates the ActiveRecord code for the persistent objects'
 end
 
@@ -32,8 +32,8 @@ def define_persistence_unit(project, repository_key, classfile = nil)
   end
 
   project.compile.enhance [task.task_name]
-  project.compile.from "#{base_generated_dir}/java"
-  project.iml.main_source_directories << "#{base_generated_dir}/resources"
+  project.compile.from "#{base_generated_dir}/main/java"
+  project.iml.main_source_directories << "#{base_generated_dir}/main/resources"
 
   project.compile.with ::HIBERNATE, :intellij_annotations, :ejb_api
   project.package(:jar)
