@@ -26,12 +26,7 @@ end
 def define_persistence_unit(project, repository_key, classfile = nil)
   base_generated_dir = project._(:target, :generated, "main/domgen")
 
-  generators = []
-  generators += [:ee_data_types, :jpa_model, :jpa_ejb, :ejb, :jpa_persistence]
-  generators += [:ejb_facades, :jws, :jmx]
-  generators += [:imit, :imit_json]
-
-  task = Domgen::GenerateTask.new(repository_key, "server", generators, base_generated_dir) do |t|
+  task = Domgen::GenerateTask.new(repository_key, "server", [:ee], base_generated_dir) do |t|
     t.description = 'Generates the Java code for the persistent objects'
     t.verbose = true
   end
