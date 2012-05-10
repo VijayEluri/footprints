@@ -55,6 +55,14 @@ Domgen.repository(:Footprints) do |repository|
       s.struct(:Method, :MethodDTO, :collection_type => :sequence)
     end
 
+    data_module.exception(:BaseFormatError, :final => false) do |e|
+      e.text(:File)
+    end
+
+    data_module.exception(:FormatError, :extends => :BaseFormatError) do |e|
+      e.integer(:Line)
+    end
+
     data_module.service(:JavaNcss) do |s|
       s.ejb.generate_boundary = true
       s.method(:UploadJavaNcssOutput) do |m|

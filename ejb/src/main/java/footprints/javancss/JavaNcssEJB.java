@@ -85,7 +85,7 @@ public class JavaNcssEJB
     }
     catch( final Exception e )
     {
-      throw new FormatErrorException( "Error parsing the output supplied", e );
+      throw new FormatErrorException( "MyFile.xml", 1, "Error parsing the output supplied", e );
     }
   }
 
