@@ -66,9 +66,19 @@ define_with_central_layout('footprints', true) do
 
   define_with_central_layout('ejb') do
 
-    define_persistence_unit(project, :Footprints, 'footprints/server/entity/code_metrics/Collection.class')
+    Domgen::GenerateTask.new(:Footprints,
+                             "server",
+                             [:ee],
+                             _(:target, :generated, "main/domgen"),
+                             project) do |t|
+      t.description = 'Generates the Java code for the persistent objects'
+      t.verbose = true
+    end
 
-    compile.with :javancss,
+
+    compile.with ::HIBERNATE,
+                 :ejb_api,
+                 :javancss,
                  :jhbasic,
                  :ccl,
                  :intellij_annotations,
@@ -78,6 +88,13 @@ define_with_central_layout('footprints', true) do
                  :json,
                  :jackson_core,
                  :jackson_mapper
+
+    project.package(:jar)
+
+    check package(:jar), "should contain resources and generated classes" do
+      it.should contain("META-INF/persistence.xml")
+      it.should contain('footprints/server/entity/code_metrics/Collection.class')
+    end
 
     task :clean do
       rm_rf _('generated')
