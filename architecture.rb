@@ -1,4 +1,5 @@
 Domgen.repository(:Footprints) do |repository|
+  repository.enable_facet(:auto_bean)
   repository.enable_facet(:jpa)
   repository.enable_facet(:jackson)
   repository.enable_facet(:ruby)

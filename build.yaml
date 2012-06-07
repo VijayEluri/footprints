@@ -61,3 +61,4 @@ artifacts:
   json: org.json:json:jar:20090211
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
+  gwt_user: com.google.gwt:gwt-user:jar:2.4.0

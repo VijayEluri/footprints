@@ -68,7 +68,7 @@ define_with_central_layout('footprints', true) do
 
     Domgen::GenerateTask.new(:Footprints,
                              "server",
-                             [:ee],
+                             [:ee, :auto_bean],
                              _(:target, :generated, "main/domgen"),
                              project) do |t|
       t.description = 'Generates the Java code for the persistent objects'
@@ -81,13 +81,15 @@ define_with_central_layout('footprints', true) do
                  :javancss,
                  :jhbasic,
                  :ccl,
-                 :intellij_annotations,
+                 :gwt_user,
                  :javaee_api,
                  :javax_validation,
                  :javax_annotation,
                  :json,
                  :jackson_core,
                  :jackson_mapper
+
+    test.using :testng
 
     project.package(:jar)
 
