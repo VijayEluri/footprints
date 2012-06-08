@@ -105,20 +105,7 @@ Domgen.repository(:Footprints) do |repository|
 
       t.query('LookAtMe2') do |q|
         q.description("Some reason to do stuff")
-        q.integer(:Foo, :nullable => true)
-        q.s_enum(:ElementType, { "PhysicalUnit" => "PhysicalUnit",
-                                 "Crew" => "Crew",
-                                 "RoleType" => "RoleType",
-                                 "SpecificTask" => "SpecificTask",
-                                 "TemplateTask" => "TemplateTask",
-                                 "ManagementProject" => "ManagementProject",
-                                 "TaskClassification" => "TaskClassification",
-                                 "Classification" => "Classification" })
-
-      end
-
-      t.jpa.query('LookAtMe', "O.ID = :Foo OR O.ID = :ID OR :ElementType = '22'") do |q|
-        q.description("Some reason to do stuff")
+        q.jpa.jpql = "O.ID = :Foo OR O.ID = :ID OR :ElementType = '22'"
         q.integer(:Foo, :nullable => true)
         q.s_enum(:ElementType, { "PhysicalUnit" => "PhysicalUnit",
                                  "Crew" => "Crew",
