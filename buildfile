@@ -72,7 +72,7 @@ define_with_central_layout('footprints', true) do
                              _(:target, :generated, "main/domgen"),
                              project) do |t|
       t.description = 'Generates the Java code for the persistent objects'
-      t.verbose = true
+      t.verbose = !!ENV['DEBUG_DOMGEN']
     end
 
 
