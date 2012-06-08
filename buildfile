@@ -68,7 +68,7 @@ define_with_central_layout('footprints', true) do
 
     Domgen::GenerateTask.new(:Footprints,
                              "server",
-                             [:ee, :auto_bean],
+                             [:ee, :auto_bean, :gwt],
                              _(:target, :generated, "main/domgen"),
                              project) do |t|
       t.description = 'Generates the Java code for the persistent objects'
@@ -81,7 +81,13 @@ define_with_central_layout('footprints', true) do
                  :javancss,
                  :jhbasic,
                  :ccl,
+                 :gwt_dev,
                  :gwt_user,
+                 :google_guice,
+                 :google_guice_assistedinject,
+                 :aopalliance,
+                 :gwt_gin,
+                 :replicant,
                  :javaee_api,
                  :javax_validation,
                  :javax_annotation,
@@ -90,6 +96,7 @@ define_with_central_layout('footprints', true) do
                  :jackson_mapper
 
     test.using :testng
+    test.compile.with :mockito
 
     project.package(:jar)
 

@@ -6,6 +6,8 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
   repository.enable_facet(:jmx)
+  repository.enable_facet(:gwt)
+  repository.enable_facet(:imit)
 
   repository.jpa.provider = :eclipselink
 
@@ -90,7 +92,7 @@ Domgen.repository(:Footprints) do |repository|
     data_module.struct(:Fooish) do |s|
       s.text(:Project, :collection_type => :set)
       s.text(:ProjectNotes, :nullable => true)
-      s.boolean(:Branch, :collection_type => :sequence)
+      #s.boolean(:Branch, :collection_type => :sequence)
       s.integer(:Version) do |a|
         a.xml.element = true
       end
@@ -256,6 +258,4 @@ TEXT
       t.string(:Description, 50, :immutable => true)
     end
   end
-
-  repository.enable_facet(:gwt)
 end
