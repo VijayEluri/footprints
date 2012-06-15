@@ -98,11 +98,13 @@ define_with_central_layout('footprints', true) do
     test.using :testng
     test.compile.with :mockito
 
-    project.package(:jar)
+    project.package(:war)
 
-    check package(:jar), "should contain resources and generated classes" do
-      it.should contain("META-INF/persistence.xml")
-      it.should contain('footprints/server/entity/code_metrics/Collection.class')
+    check package(:war), "should contain resources and generated classes" do
+      it.should contain('WEB-INF/web.xml')
+      it.should contain('WEB-INF/classes/META-INF/persistence.xml')
+      it.should contain('WEB-INF/classes/META-INF/orm.xml')
+      it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
     end
 
     task :clean do
@@ -111,24 +113,7 @@ define_with_central_layout('footprints', true) do
 
     iml.add_ejb_facet
     iml.add_jpa_facet
-  end
-
-  define_with_central_layout('web') do
-    compile.with projects('ejb')
-
     iml.add_web_facet
-
-    package(:war)
-  end
-
-  define_with_central_layout('ear') do
-    project.no_iml
-
-    package(:ear, :file => _(:target, :main, "footprints.ear")).tap do |ear|
-      ear.display_name = "Footprints Code Dashboard"
-      ear.add project("web").package(:war), :context_root => "footprints"
-      ear.add :ejb => project('ejb'), :display_name => "Footprints Backend"
-    end
   end
 
   iml.add_jruby_facet
@@ -145,7 +130,7 @@ define_with_central_layout('footprints', true) do
 
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
-  doc.from projects('web', 'ejb')
+  doc.from projects('ejb')
 
   ipr.extra_modules << '../replicant/replicant.iml'
 end
