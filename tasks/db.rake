@@ -75,17 +75,3 @@ def db_date_setup
   ::ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:db => '%d %b %Y')
   ::ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:db => '%d %b %Y %H:%M:%S')
 end
-
-desc "Test dump_tables_to_fixtures"
-task :dump_tables_to_fixtures => ['dbt:load_config', 'domgen:load'] do
-  dir = "#{workspace_dir}/target/fixtures"
-  FileUtils.mkdir_p dir
-  tables = Domgen.repository_by_name(:Footprints).data_modules.collect do |data_module|
-    data_module.object_types.select { |object_type| !object_type.abstract? }.collect do |object_type|
-      object_type.sql.qualified_table_name
-    end
-  end.flatten
-  DbTasks.init_database(:default) do
-    DbTasks.dump_tables_to_fixtures(tables, dir)
-  end
-end
