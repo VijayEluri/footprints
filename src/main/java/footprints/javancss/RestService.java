@@ -13,9 +13,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @Path( "/collections" )
-@Produces( { "application/json", "application/xml" } )
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML } )
 @RequestScoped
 @Stateless
 public class RestService
@@ -23,7 +24,7 @@ public class RestService
   @EJB
   private JavaNcss _service;
 
-  @Consumes( "application/xml" )
+  @Consumes( MediaType.APPLICATION_XML )
   @PUT
   public void uploadCollection( final String content )
     throws FormatErrorException
@@ -38,7 +39,7 @@ public class RestService
   }
 
   @GET
-  @Produces( "application/json" )
+  @Produces( MediaType.APPLICATION_JSON )
   @Path( "/{id}" )
   public CollectionDTO getCollection( @PathParam( "id" ) int id )
   {
