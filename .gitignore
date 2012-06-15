@@ -1,6 +1,4 @@
-/ejb/ejb.iml
-/ejb/generated
-/web/web.iml
+/generated
 /databases/generated
 /artifacts
 /target

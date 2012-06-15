@@ -23,37 +23,11 @@ EMF = [:eclipse_uml,
        :eclipse_ecore_xmi,
        :eclipse_resources]
 
-class CentralLayout < Layout::Default
-  # +key+ is the name of the project
-  # +prefix+ is the path to the parent directory for the target and dist directories
-  def initialize(key, prefix)
-    super()
-    self[:target] = "#{prefix}target/#{key}"
-    self[:target, :main] = "#{prefix}target/#{key}"
-    self[:reports] = "#{prefix}reports/#{key}"
-    self[:target, :generated] = "generated"
-  end
-end
-
-# +key+ is the name of the project
-# +top_level+ if the base directory for project is the top level
-def define_with_central_layout(name, top_level = false, options = {}, &block)
-  options = options.dup
-  if !top_level
-    options[:layout] = CentralLayout.new(name, '../')
-  else
-    options[:layout] = CentralLayout.new(name, '')
-  end
-  define(name, options) do
-    project.instance_eval &block
-    project.iml.local_repository_env_override = nil if project.iml?
-    project.clean { rm_rf _(:target, :generated) }
-    project
-  end
-end
+layout = Layout::Default.new
+layout[:target, :generated] = "generated"
 
 desc "Footprints: See who has been walking all over our code."
-define_with_central_layout('footprints', true) do
+define 'footprints', :layout => layout do
   project.version = `git describe --tags --always`.strip
   project.group = 'footprints'
 
@@ -61,78 +35,69 @@ define_with_central_layout('footprints', true) do
   compile.options.target = '1.6'
   compile.options.lint = 'all'
 
-  project.ipr.extra_modules << "../dbt/dbt.iml"
-  project.ipr.extra_modules << "../domgen/domgen.iml"
-
-  define_with_central_layout('ejb') do
-
-    Domgen::GenerateTask.new(:Footprints,
-                             "server",
-                             [:ee, :auto_bean, :gwt],
-                             _(:target, :generated, "main/domgen"),
-                             project) do |t|
-      t.description = 'Generates the Java code for the persistent objects'
-      t.verbose = !!ENV['DEBUG_DOMGEN']
-    end
-
-
-    compile.with ::HIBERNATE,
-                 :ejb_api,
-                 :javancss,
-                 :jhbasic,
-                 :ccl,
-                 :gwt_dev,
-                 :gwt_user,
-                 :google_guice,
-                 :google_guice_assistedinject,
-                 :aopalliance,
-                 :gwt_gin,
-                 :replicant,
-                 :javaee_api,
-                 :javax_validation,
-                 :javax_annotation,
-                 :json,
-                 :jackson_core,
-                 :jackson_mapper
-
-    test.using :testng
-    test.compile.with :mockito
-
-    project.package(:war)
-
-    check package(:war), "should contain resources and generated classes" do
-      it.should contain('WEB-INF/web.xml')
-      it.should contain('WEB-INF/classes/META-INF/persistence.xml')
-      it.should contain('WEB-INF/classes/META-INF/orm.xml')
-      it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
-    end
-
-    task :clean do
-      rm_rf _('generated')
-    end
-
-    iml.add_ejb_facet
-    iml.add_jpa_facet
-    iml.add_web_facet
+  Domgen::GenerateTask.new(:Footprints,
+                           "server",
+                           [:ee, :auto_bean, :gwt],
+                           _(:target, :generated, "main/domgen"),
+                           project) do |t|
+    t.description = 'Generates the Java code for the persistent objects'
+    t.verbose = !!ENV['DEBUG_DOMGEN']
   end
 
-  iml.add_jruby_facet
+  compile.with ::HIBERNATE,
+               :ejb_api,
+               :javancss,
+               :jhbasic,
+               :ccl,
+               :gwt_dev,
+               :gwt_user,
+               :google_guice,
+               :google_guice_assistedinject,
+               :aopalliance,
+               :gwt_gin,
+               :replicant,
+               :javaee_api,
+               :javax_validation,
+               :javax_annotation,
+               :json,
+               :jackson_core,
+               :jackson_mapper
 
-    # Remove generated database directories
+  test.using :testng
+  test.compile.with :mockito
+
+  project.package(:war)
+
+  check package(:war), "should contain resources and generated classes" do
+    it.should contain('WEB-INF/web.xml')
+    it.should contain('WEB-INF/classes/META-INF/persistence.xml')
+    it.should contain('WEB-INF/classes/META-INF/orm.xml')
+    it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
+  end
+
+  # Remove generated database directories
   project.clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
 
   # Remove all generated directories
+  project.clean { rm_rf _(:target, :generated) }
   project.clean { rm_rf "#{File.dirname(__FILE__)}/target" }
 
-    # Exclude intermediate dirs from IDEA projects
-  project.iml.excluded_directories << "#{File.dirname(__FILE__)}/target"
-  project.iml.excluded_directories << "#{File.dirname(__FILE__)}/reports"
 
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
-  doc.from projects('ejb')
 
   ipr.extra_modules << '../replicant/replicant.iml'
+  ipr.extra_modules << '../dbt/dbt.iml'
+  ipr.extra_modules << '../domgen/domgen.iml'
+  # Exclude intermediate dirs from IDEA projects
+  #iml.excluded_directories << "#{File.dirname(__FILE__)}/target"
+  #iml.excluded_directories << "#{File.dirname(__FILE__)}/reports"
+
+  iml.local_repository_env_override = nil
+  iml.add_ejb_facet
+  iml.add_jpa_facet
+  iml.add_web_facet
+  iml.add_jruby_facet
 end
 
 define_dbt_tasks(Buildr.project("footprints"))
