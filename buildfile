@@ -94,3 +94,11 @@ define 'footprints', :layout => layout do
 end
 
 define_dbt_tasks(Buildr.project("footprints"))
+
+Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints'),
+                                                           :name => 'footprints',
+                                                           :enable_ejb => true,
+                                                           :enable_jpa => true,
+                                                           :enable_war => true,
+                                                           :output_dir => project('footprints')._(:artifacts, "footprints"),
+                                                           :dependencies => [project('footprints')])
