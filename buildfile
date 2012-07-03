@@ -37,8 +37,8 @@ define 'footprints', :layout => layout do
 
   Domgen::GenerateTask.new(:Footprints,
                            "server",
-                           [:ee, :auto_bean, :gwt],
-                           _(:target, :generated, "main/domgen"),
+                           [:ee],
+                           _(:target, :generated, "domgen"),
                            project) do |t|
     t.description = 'Generates the Java code for the persistent objects'
     t.verbose = !!ENV['DEBUG_DOMGEN']
@@ -49,13 +49,6 @@ define 'footprints', :layout => layout do
                :javancss,
                :jhbasic,
                :ccl,
-               :gwt_dev,
-               :gwt_user,
-               :google_guice,
-               :google_guice_assistedinject,
-               :aopalliance,
-               :gwt_gin,
-               :replicant,
                :javaee_api,
                :javax_validation,
                :javax_annotation,
