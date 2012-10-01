@@ -128,7 +128,7 @@ module Buildr
       after_define do |project|
         unless project.test.compile.target.nil? || !project.jacoco.enabled?
           project.test.setup do
-            agent_jar = Buildr.artifacts(Buildr::JaCoCo.agent_spec).each(&:invoke).map(&:to_s)
+            agent_jar = Buildr.artifacts(Buildr::JaCoCo.agent_spec).each(&:invoke).map(&:to_s).join('')
             options = []
             ["destfile",
              "append",
