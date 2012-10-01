@@ -75,6 +75,8 @@ define 'footprints', :layout => layout do
   project.clean { rm_rf _(:target, :generated) }
   project.clean { rm_rf "#{File.dirname(__FILE__)}/target" }
 
+  project.jacoco.generate_xml = true
+  project.jacoco.generate_html = true
 
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
