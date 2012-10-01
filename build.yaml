@@ -1,9 +1,5 @@
 junit: 4.8.2
 
-gems:
-  #- ci_reporter
-  - buildr >= 1.4.5
-
 repositories:
   remote:
    - http://repository.codehaus.org
