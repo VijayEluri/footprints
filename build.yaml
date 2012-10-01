@@ -1,5 +1,3 @@
-junit: 4.8.2
-
 repositories:
   remote:
    - http://repository.codehaus.org
