@@ -68,44 +68,10 @@ module Buildr
         @excludes ||= []
       end
 
-      def html_enabled?
-        File.exist?(self.style_file)
-      end
-
-      attr_writer :config_directory
-
-      def config_directory
-        @config_directory || project._(:source, :main, :etc, :jacoco)
-      end
-
       attr_writer :report_dir
 
       def report_dir
         @report_dir || project._(:reports, :jacoco)
-      end
-
-      attr_writer :fail_on_error
-
-      def fail_on_error?
-        @fail_on_error.nil? ? false : @fail_on_error
-      end
-
-      attr_writer :xml_output_file
-
-      def xml_output_file
-        @xml_output_file || "#{self.report_dir}/jacoco.xml"
-      end
-
-      attr_writer :html_output_file
-
-      def html_output_file
-        @html_output_file || "#{self.report_dir}/jacoco.html"
-      end
-
-      attr_writer :style_file
-
-      def style_file
-        @style_file || "#{self.config_directory}/jacoco-report.xsl"
       end
 
       protected
