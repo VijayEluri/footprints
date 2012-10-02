@@ -84,6 +84,14 @@ module Buildr
         @report_dir || project._(:reports, :jacoco)
       end
 
+      def report_includes
+        @report_includes ||= []
+      end
+
+      def report_excludes
+        @report_excludes ||= []
+      end
+
       attr_writer :generate_xml
 
       def generate_xml?
@@ -164,12 +172,26 @@ module Buildr
                     ant.structure(:name => project.name) do |ant|
                       if project.compile.target
                         ant.classfiles do |ant|
-                          ant.fileset :dir => project.compile.target
+                          ant.fileset :dir => project.compile.target do |ant|
+                            project.jacoco.report_excludes.each do |exclude|
+                              ant.exclude :name => "#{exclude.gsub('.','/')}.class"
+                            end
+                            project.jacoco.report_includes.each do |include|
+                              ant.include :name => "#{include.gsub('.','/')}.class"
+                            end
+                          end
                         end
                       end
                       ant.sourcefiles(:encoding => "UTF-8") do |ant|
                         project.compile.sources.each do |path|
-                          ant.fileset :dir => path.to_s
+                          ant.fileset :dir => path.to_s do |ant|
+                            project.jacoco.report_excludes.each do |exclude|
+                              ant.exclude :name => "#{exclude.gsub('.','/')}.java"
+                            end
+                            project.jacoco.report_includes.each do |include|
+                              ant.include :name => "#{include.gsub('.','/')}.java"
+                            end
+                          end
                         end
                       end
                     end
