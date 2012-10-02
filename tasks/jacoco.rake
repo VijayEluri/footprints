@@ -78,6 +78,10 @@ module Buildr
         @excludes ||= []
       end
 
+      def include_projects
+        @include_projects ||= []
+      end
+
       attr_writer :report_dir
 
       def report_dir
@@ -170,26 +174,31 @@ module Buildr
                     end
 
                     ant.structure(:name => project.name) do |ant|
-                      if project.compile.target
-                        ant.classfiles do |ant|
-                          ant.fileset :dir => project.compile.target do |ant|
-                            project.jacoco.report_excludes.each do |exclude|
-                              ant.exclude :name => "#{exclude.gsub('.','/')}.class"
-                            end
-                            project.jacoco.report_includes.each do |include|
-                              ant.include :name => "#{include.gsub('.','/')}.class"
+                      projects = project.jacoco.include_projects.collect { |project_name| project.project(project_name) } + [project]
+                      ant.classfiles do |ant|
+                        projects.each do |p|
+                          if p.compile.target
+                            ant.fileset :dir => p.compile.target do |ant|
+                              p.jacoco.report_excludes.each do |exclude|
+                                ant.exclude :name => "#{exclude.gsub('.', '/')}.class"
+                              end
+                              p.jacoco.report_includes.each do |include|
+                                ant.include :name => "#{include.gsub('.', '/')}.class"
+                              end
                             end
                           end
                         end
                       end
                       ant.sourcefiles(:encoding => "UTF-8") do |ant|
-                        project.compile.sources.each do |path|
-                          ant.fileset :dir => path.to_s do |ant|
-                            project.jacoco.report_excludes.each do |exclude|
-                              ant.exclude :name => "#{exclude.gsub('.','/')}.java"
-                            end
-                            project.jacoco.report_includes.each do |include|
-                              ant.include :name => "#{include.gsub('.','/')}.java"
+                        projects.each do |p|
+                          p.compile.sources.each do |path|
+                            ant.fileset :dir => path.to_s do |ant|
+                              p.jacoco.report_excludes.each do |exclude|
+                                ant.exclude :name => "#{exclude.gsub('.', '/')}.java"
+                              end
+                              p.jacoco.report_includes.each do |include|
+                                ant.include :name => "#{include.gsub('.', '/')}.java"
+                              end
                             end
                           end
                         end
