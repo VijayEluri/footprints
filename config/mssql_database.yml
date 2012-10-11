@@ -6,7 +6,7 @@ devhost: &devhost
   username: stock-dev
   password: letmein
   timeout: 50000
-  host: PETER-PC
+  host: 10.1.1.6
   instance: SQLEXPRESS
   force_drop: true
   no_create: false
