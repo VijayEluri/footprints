@@ -82,6 +82,8 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.data_module(:TestModule) do |data_module|
 
+    data_module.sql.schema = "TM"
+
     data_module.struct(:TaskDefinition) do |s|
       s.text(:Name)
       s.struct(:Child, :TaskDefinition, :collection_type => :set)
