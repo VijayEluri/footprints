@@ -39,6 +39,7 @@ def define_dbt_tasks(project)
     database.add_import_assert_filters
     database.enable_import_task_as_part_of_create = false
     database.enable_separate_import_task = false
+    database.package_dir = "_tmp"
     #database.enable_db_doc(generated_dir)
   end
 end
