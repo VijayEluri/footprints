@@ -81,7 +81,6 @@ define 'footprints', :layout => layout do
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
 
-  ipr.extra_modules << '../replicant/replicant.iml'
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
 
