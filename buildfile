@@ -84,9 +84,6 @@ define 'footprints', :layout => layout do
   ipr.extra_modules << '../replicant/replicant.iml'
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
-  # Exclude intermediate dirs from IDEA projects
-  #iml.excluded_directories << "#{File.dirname(__FILE__)}/target"
-  #iml.excluded_directories << "#{File.dirname(__FILE__)}/reports"
 
   define 'db', :layout => layout do
     define_dbt_tasks(project)
