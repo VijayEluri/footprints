@@ -88,14 +88,17 @@ define 'footprints', :layout => layout do
   #iml.excluded_directories << "#{File.dirname(__FILE__)}/target"
   #iml.excluded_directories << "#{File.dirname(__FILE__)}/reports"
 
+  define 'db', :layout => layout do
+    define_dbt_tasks(project)
+    Dbt.define_database_package(:default, project)
+  end
+
   iml.local_repository_env_override = nil
   iml.add_ejb_facet
   iml.add_jpa_facet
   iml.add_web_facet
   iml.add_jruby_facet
 end
-
-define_dbt_tasks(Buildr.project("footprints"))
 
 Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints'),
                                                            :name => 'footprints',
