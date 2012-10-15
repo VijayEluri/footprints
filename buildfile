@@ -28,8 +28,7 @@ layout[:target, :generated] = "generated"
 
 desc "Footprints: See who has been walking all over our code."
 define 'footprints', :layout => layout do
-  project.version = `git describe --tags --always`.strip
-  project.group = 'footprints'
+  project.group = 'org.realityforge.footprints'
 
   compile.options.source = '1.6'
   compile.options.target = '1.6'
