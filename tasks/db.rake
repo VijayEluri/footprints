@@ -15,7 +15,6 @@ $LOAD_PATH.insert(0, "#{workspace_dir}/../dbt/lib")
 require 'dbt'
 
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
-Dbt.add_database_driver_hook { db_driver_setup }
 
 if is_postgres?
   Dbt::Config.driver = 'Postgres'
@@ -41,15 +40,5 @@ def define_dbt_tasks(project)
     database.enable_separate_import_task = false
     database.package_dir = "_tmp"
     #database.enable_db_doc(generated_dir)
-  end
-end
-
-def db_driver_setup
-  if is_postgres?
-    Buildr.artifact(:pgsql).invoke
-    require Buildr.artifact(:pgsql).to_s
-  else
-    Buildr.artifact(:jtds).invoke
-    require Buildr.artifact(:jtds).to_s
   end
 end
