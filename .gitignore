@@ -6,6 +6,7 @@
 /*.iws
 /*.ipr
 /*.iml
+/**/*.iml
 /_buildr.rb
 /config/database.yml
 /javancss.xml
