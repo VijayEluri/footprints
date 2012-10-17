@@ -109,19 +109,12 @@ Domgen.repository(:Footprints) do |repository|
         q.description("Some reason to do stuff")
         q.jpa.jpql = "O.ID = :Foo OR O.ID = :ID OR :ElementType = '22'"
         q.integer(:Foo, :nullable => true)
-        q.s_enum(:ElementType, { "PhysicalUnit" => "PhysicalUnit",
-                                 "Crew" => "Crew",
-                                 "RoleType" => "RoleType",
-                                 "SpecificTask" => "SpecificTask",
-                                 "TemplateTask" => "TemplateTask",
-                                 "ManagementProject" => "ManagementProject",
-                                 "TaskClassification" => "TaskClassification",
-                                 "Classification" => "Classification" })
+        q.s_enum(:ElementType, %w(PhysicalUnit Crew RoleType SpecificTask TemplateTask ManagementProject TaskClassification Classification))
 
       end
     end
 
-    data_module.enumeration(:CloneAction, :integer, :values => { "CLONE" => 0, "MOVE" => 1, "SKIP" => 2 }) do |e|
+    data_module.enumeration(:CloneAction, :integer, :values => %w(CLONE MOVE SKIP)) do |e|
       e.description(<<-TEXT)
         The action that should be taken on resources when cloning the containing CrewRequirement or PositionRequirement.
         * CLONE : The resources should be copied into new structure
@@ -141,7 +134,7 @@ Domgen.repository(:Footprints) do |repository|
         m.boolean(:Force) do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
-        m.s_enum(:Zing, { "X" => "X", "Y" => "Y" }, :collection_type => :sequence)
+        m.s_enum(:Zing, %w(X Y), :collection_type => :sequence)
         m.exception(:TestsFailed)
         m.exception(:Problem)
       end
@@ -161,7 +154,7 @@ Domgen.repository(:Footprints) do |repository|
         m.parameter(:Input, "java.math.BigDecimal")
         m.struct(:X,:Fooish)
         m.reference(:BaseX, :collection_type => :set)
-        m.s_enum(:Zang, { "X" => "X", "Y" => "Y" }, :collection_type => :set)
+        m.s_enum(:Zang, %w(X Y), :collection_type => :set)
         m.returns("java.math.BigDecimal", :nullable => true, :collection_type => :sequence)
         m.exception(:Problem)
       end
@@ -231,21 +224,14 @@ Domgen.repository(:Footprints) do |repository|
       t.relationship_constraint(:gte, :A, :B)
       t.relationship_constraint(:lte, :A, :B)
       t.relationship_constraint(:lte, :C, :D)
-      t.i_enum(:LinkType, { "URL" => 0, "JAVA" => 1 }) do |a|
+      t.i_enum(:LinkType, %w(URL JAVA)) do |a|
         a.description(<<TEXT)
   The type of the link.
 
   * A link that starts an external browser using the URL derived from the Target attribute.
   * A link that invokes some java code with the class name specified in the Target attribute.
 TEXT
-        t.s_enum(:ElementType, { "PhysicalUnit" => "PhysicalUnit",
-                                 "Crew" => "Crew",
-                                 "RoleType" => "RoleType",
-                                 "SpecificTask" => "SpecificTask",
-                                 "TemplateTask" => "TemplateTask",
-                                 "ManagementProject" => "ManagementProject",
-                                 "TaskClassification" => "TaskClassification",
-                                 "Classification" => "Classification" })
+        t.s_enum(:ElementType, %w(PhysicalUnit Classification))
       end
 
     end
