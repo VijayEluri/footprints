@@ -27,16 +27,16 @@ else
 end
 
 def define_dbt_tasks(project)
-  Dbt.add_database(:default,
-                   :imports => {:default => {}},
-                   :backup => true,
-                   :restore => true) do |database|
-    database.version = project.version
-    generated_dir = "#{workspace_dir}/databases/generated"
-    database.search_dirs = [generated_dir, "#{workspace_dir}/databases"]
-    database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
-    database.add_import_assert_filters
-    database.enable_import_task_as_part_of_create = false
-    database.enable_separate_import_task = false
-  end
+  Dbt.database_for_key(:default).version = project.version
+end
+
+Dbt.add_database(:default,
+                 :imports => {:default => {}},
+                 :backup => true,
+                 :restore => true) do |database|
+  database.search_dirs = ["#{workspace_dir}/databases/generated", "#{workspace_dir}/databases"]
+  database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
+  database.add_import_assert_filters
+  database.enable_import_task_as_part_of_create = false
+  database.enable_separate_import_task = false
 end
