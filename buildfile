@@ -1,3 +1,5 @@
+Rake::FileUtilsExt.verbose_flag = false
+
 SLF4J = [:slf4j_api, :slf4j_jdk14, :jcl_over_slf4j]
 
 HIBERNATE = [:hibernate_persistence,
