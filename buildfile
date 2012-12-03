@@ -1,4 +1,4 @@
-Rake::FileUtilsExt.verbose_flag = false
+require 'buildr/git_auto_version'
 
 SLF4J = [:slf4j_api, :slf4j_jdk14, :jcl_over_slf4j]
 
