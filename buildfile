@@ -30,7 +30,7 @@ layout[:target, :generated] = "generated"
 
 desc "Footprints: See who has been walking all over our code."
 define 'footprints', :layout => layout do
-  group = 'org.realityforge.footprints'
+  project.group = 'org.realityforge.footprints'
 
   compile.options.source = '1.6'
   compile.options.target = '1.6'
