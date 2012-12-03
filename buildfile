@@ -17,14 +17,6 @@ HIBERNATE = [:hibernate_persistence,
              :commons_collections,
              :antlr] + SLF4J
 
-EMF = [:eclipse_uml,
-       :eclipse_common,
-       :eclipse_ecore,
-       :eclipse_emf_common,
-       :eclipse_ecore2xml,
-       :eclipse_ecore_xmi,
-       :eclipse_resources]
-
 layout = Layout::Default.new
 layout[:target, :generated] = "generated"
 
