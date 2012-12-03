@@ -92,7 +92,6 @@ define 'footprints', :layout => layout do
     Dbt.define_database_package(:default, project)
   end
 
-  iml.local_repository_env_override = nil
   iml.add_ejb_facet
   iml.add_jpa_facet
   iml.add_web_facet(:webroots => [_(:source, :main, :webapp),bootstrap_path])
