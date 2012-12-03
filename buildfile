@@ -17,11 +17,8 @@ HIBERNATE = [:hibernate_persistence,
              :commons_collections,
              :antlr] + SLF4J
 
-layout = Layout::Default.new
-layout[:target, :generated] = "generated"
-
 desc "Footprints: See who has been walking all over our code."
-define 'footprints', :layout => layout do
+define 'footprints' do
   project.group = 'org.realityforge.footprints'
 
   compile.options.source = '1.6'
@@ -65,10 +62,6 @@ define 'footprints', :layout => layout do
 
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
-
-  # Remove all generated directories
-  clean { rm_rf _(:target, :generated) }
-  clean { rm_rf "#{File.dirname(__FILE__)}/target" }
 
   jacoco.generate_xml = true
   jacoco.generate_html = true
