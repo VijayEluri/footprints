@@ -30,7 +30,7 @@ layout[:target, :generated] = "generated"
 
 desc "Footprints: See who has been walking all over our code."
 define 'footprints', :layout => layout do
-  project.group = 'org.realityforge.footprints'
+  group = 'org.realityforge.footprints'
 
   compile.options.source = '1.6'
   compile.options.target = '1.6'
@@ -60,7 +60,7 @@ define 'footprints', :layout => layout do
   test.using :testng
   test.compile.with :mockito
 
-  project.package(:war)
+  package(:war)
 
   check package(:war), "should contain resources and generated classes" do
     it.should contain('WEB-INF/web.xml')
@@ -72,14 +72,14 @@ define 'footprints', :layout => layout do
   bootstrap_path = add_bootstrap_media(project)
 
   # Remove generated database directories
-  project.clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
+  clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
 
   # Remove all generated directories
-  project.clean { rm_rf _(:target, :generated) }
-  project.clean { rm_rf "#{File.dirname(__FILE__)}/target" }
+  clean { rm_rf _(:target, :generated) }
+  clean { rm_rf "#{File.dirname(__FILE__)}/target" }
 
-  project.jacoco.generate_xml = true
-  project.jacoco.generate_html = true
+  jacoco.generate_xml = true
+  jacoco.generate_html = true
 
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
