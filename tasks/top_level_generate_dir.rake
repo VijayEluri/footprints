@@ -13,6 +13,8 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
+raise "Use the built in extension" if Buildr::VERSION > '1.4.9'
+
 module Buildr #nodoc
   module TopLevelGenerateDir
     module ProjectExtension
