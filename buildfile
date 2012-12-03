@@ -86,6 +86,7 @@ define 'footprints', :layout => layout do
 
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
+  ipr.extra_modules << '../rhok-fgis/rhok-fgis2.iml'
 
   define 'db', :layout => layout do
     define_dbt_tasks(project)
