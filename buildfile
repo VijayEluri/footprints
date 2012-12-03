@@ -101,6 +101,7 @@ end
 
 Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints'),
                                                            :name => 'footprints',
+                                                           :build_on_make => true,
                                                            :enable_ejb => true,
                                                            :enable_jpa => true,
                                                            :enable_war => true,
