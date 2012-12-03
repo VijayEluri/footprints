@@ -69,6 +69,8 @@ define 'footprints', :layout => layout do
     it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
   end
 
+  bootstrap_path = add_bootstrap_media(project)
+
   # Remove generated database directories
   project.clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
 
@@ -93,7 +95,7 @@ define 'footprints', :layout => layout do
   iml.local_repository_env_override = nil
   iml.add_ejb_facet
   iml.add_jpa_facet
-  iml.add_web_facet
+  iml.add_web_facet(:webroots => [_(:source, :main, :webapp),bootstrap_path])
   iml.add_jruby_facet
 end
 
