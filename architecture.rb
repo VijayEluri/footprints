@@ -4,6 +4,7 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:jackson)
   repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
+  repository.enable_facet(:jms)
   repository.enable_facet(:xml)
   repository.enable_facet(:imit)
 
@@ -67,6 +68,7 @@ Domgen.repository(:Footprints) do |repository|
     data_module.service(:JavaNcss) do |s|
       s.ejb.generate_boundary = true
       s.method(:UploadJavaNcssOutput) do |m|
+        m.jms.mdb = true
         m.text(:Output)
         m.exception(:FormatError)
       end
@@ -140,6 +142,7 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe) do |m|
+        m.jms.mdb = true
         m.text(:SessionID)
       end
 
