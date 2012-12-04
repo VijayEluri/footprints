@@ -1,22 +1,5 @@
 require 'buildr/git_auto_version'
 
-SLF4J = [:slf4j_api, :slf4j_jdk14, :jcl_over_slf4j]
-
-HIBERNATE = [:hibernate_persistence,
-             :hibernate_annotations,
-             :javax_transaction,
-             :javax_validation,
-             :hibernate_validator,
-             :hibernate_entitymanager,
-             :hibernate_core,
-             :hibernate_ehcache,
-             :hibernate_c3p0,
-             :dom4j,
-             :hibernate_commons_annotations,
-             :javassist,
-             :commons_collections,
-             :antlr] + SLF4J
-
 desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
   project.group = 'org.realityforge.footprints'
@@ -34,11 +17,10 @@ define 'footprints' do
     t.verbose = !!ENV['DEBUG_DOMGEN']
   end
 
-  compile.with ::HIBERNATE,
+  compile.with :javax_persistence,
+               :javax_transaction,
+               :eclipselink,
                :ejb_api,
-               :javancss,
-               :jhbasic,
-               :ccl,
                :javaee_api,
                :javax_validation,
                :javax_annotation,
@@ -47,7 +29,6 @@ define 'footprints' do
                :jackson_mapper
 
   test.using :testng
-  test.compile.with :mockito
 
   package(:war)
 
@@ -76,7 +57,7 @@ define 'footprints' do
   define 'db', :layout => layout do
     define_dbt_tasks(project)
     Dbt.define_database_package(:default, project)
-  end
+  end if false
 
   iml.add_ejb_facet
   iml.add_jpa_facet
