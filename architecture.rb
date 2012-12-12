@@ -146,6 +146,11 @@ Domgen.repository(:Footprints) do |repository|
         m.text(:SessionID)
       end
 
+      s.method(:Subscribe2) do |m|
+        m.jms.mdb = true
+        m.struct(:MyParam, :TaskDefinition)
+      end
+
       s.method(:SubscribeWithGuff) do |m|
         m.text(:SessionID)
         m.text(:PermutationName)

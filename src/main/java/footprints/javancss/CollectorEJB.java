@@ -39,6 +39,11 @@ public class CollectorEJB
   }
 
   @Override
+  public void subscribe2( @Nonnull final TaskDefinition myParam )
+  {
+  }
+
+  @Override
   public void subscribeWithGuff(
     @Nonnull final String sessionID, @Nonnull final String permutationName, @Nonnull final Set<String> someOtherParam )
   {
