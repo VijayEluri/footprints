@@ -142,14 +142,14 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe) do |m|
-        m.jms.mdb = true
-        m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
-        m.jms.destination_resource_name = 'Pete.Test'
+        #m.jms.mdb = true
+        #m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
         m.text(:SessionID)
       end
 
       s.method(:Subscribe2) do |m|
-        #m.jms.mdb = true
+        m.jms.mdb = true
+        m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
         m.struct(:MyParam, :TaskDefinition)
       end
 

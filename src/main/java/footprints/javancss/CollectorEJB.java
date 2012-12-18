@@ -22,8 +22,8 @@ import javax.ejb.TransactionAttributeType;
 /**
  * Dummy service implementation so that application can be deployed
  */
-@Stateless( name = Collector.EJB_NAME )
-@TransactionAttribute( TransactionAttributeType.REQUIRED )
+@Stateless(name = Collector.EJB_NAME)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CollectorEJB
   implements Collector
 {
@@ -42,6 +42,7 @@ public class CollectorEJB
   @Override
   public void subscribe2( @Nonnull final TaskDefinition myParam )
   {
+    System.out.println( "CollectorEJB.subscribe2(" + myParam + ")" );
   }
 
   @Override
@@ -71,7 +72,7 @@ public class CollectorEJB
   @Nonnull
   public Set<CloneAction> calculateResultValue3()
   {
-    return new HashSet<CloneAction>(  );
+    return new HashSet<CloneAction>();
   }
 
   @Override
