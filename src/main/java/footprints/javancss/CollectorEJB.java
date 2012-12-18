@@ -36,6 +36,7 @@ public class CollectorEJB
   @Override
   public void subscribe( @Nonnull final String sessionID )
   {
+    System.out.println( "CollectorEJB.subscribe(" + sessionID + ")" );
   }
 
   @Override
