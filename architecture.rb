@@ -68,7 +68,7 @@ Domgen.repository(:Footprints) do |repository|
     data_module.service(:JavaNcss) do |s|
       s.ejb.generate_boundary = true
       s.method(:UploadJavaNcssOutput) do |m|
-        m.jms.mdb = true
+        #m.jms.mdb = true
         m.text(:Output)
         m.exception(:FormatError)
       end
@@ -143,11 +143,13 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:Subscribe) do |m|
         m.jms.mdb = true
+        m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
+        m.jms.destination_name = 'Pete.Test'
         m.text(:SessionID)
       end
 
       s.method(:Subscribe2) do |m|
-        m.jms.mdb = true
+        #m.jms.mdb = true
         m.struct(:MyParam, :TaskDefinition)
       end
 
