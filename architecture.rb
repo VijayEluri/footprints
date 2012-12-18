@@ -144,7 +144,7 @@ Domgen.repository(:Footprints) do |repository|
       s.method(:Subscribe) do |m|
         m.jms.mdb = true
         m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
-        m.jms.destination_name = 'Pete.Test'
+        m.jms.destination_resource_name = 'Pete.Test'
         m.text(:SessionID)
       end
 
