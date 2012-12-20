@@ -26,7 +26,13 @@ define 'footprints' do
                :javax_annotation,
                :json,
                :jackson_core,
-               :jackson_mapper
+               :jackson_mapper,
+               :atmosphere_annotations,
+               :atmosphere_jquery,
+               :atmosphere_runtime,
+               :slf4j_api,
+               :slf4j_jdk14,
+               :infomas_annotation_detector
 
   test.using :testng
 
@@ -40,6 +46,7 @@ define 'footprints' do
   end
 
   bootstrap_path = add_bootstrap_media(project)
+  js_path = add_atmosphere_jquery_js(project)
 
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
@@ -52,7 +59,7 @@ define 'footprints' do
 
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
-  ipr.extra_modules << '../rhok-fgis/rhok-fgis2.iml'
+  ipr.extra_modules << '../atmosphere/samples/chat/chat.iml'
 
   define 'db', :layout => layout do
     define_dbt_tasks(project)
@@ -61,7 +68,7 @@ define 'footprints' do
 
   iml.add_ejb_facet
   iml.add_jpa_facet
-  iml.add_web_facet(:webroots => [_(:source, :main, :webapp),bootstrap_path])
+  iml.add_web_facet(:webroots => [_(:source, :main, :webapp), bootstrap_path, js_path])
   iml.add_jruby_facet
 end
 
@@ -72,4 +79,16 @@ Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints')
                                                            :enable_jpa => true,
                                                            :enable_war => true,
                                                            :output_dir => project('footprints')._(:artifacts, "footprints"),
-                                                           :dependencies => [project('footprints')])
+                                                           :dependencies => [project('footprints'),
+                                                                             :atmosphere_annotations,
+                                                                             :atmosphere_jquery,
+                                                                             :atmosphere_runtime,
+                                                                             :slf4j_api,
+                                                                             :slf4j_jdk14,
+                                                                             :infomas_annotation_detector,
+
+                                                                             # This is horrible. Requires compat libraries
+                                                                             :atmosphere_compat_tomcat,
+                                                                             :atmosphere_compat_tomcat7,
+                                                                             :atmosphere_compat_jbossweb
+                                                           ])

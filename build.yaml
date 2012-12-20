@@ -23,3 +23,14 @@ artifacts:
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
 
+  atmosphere_annotations: org.atmosphere:atmosphere-annotations:jar:1.0.1
+  atmosphere_jquery: org.atmosphere:atmosphere-jquery:war:1.0.1
+  atmosphere_runtime: org.atmosphere:atmosphere-runtime:jar:1.0.1
+
+  atmosphere_compat_tomcat: org.atmosphere:atmosphere-compat-tomcat:jar:1.0.1
+  atmosphere_compat_tomcat7: org.atmosphere:atmosphere-compat-tomcat7:jar:1.0.1
+  atmosphere_compat_jbossweb: org.atmosphere:atmosphere-compat-jbossweb:jar:1.0.1
+
+  slf4j_api: org.slf4j:slf4j-api:jar:1.6.6
+  slf4j_jdk14: org.slf4j:slf4j-jdk14:jar:1.6.6
+  infomas_annotation_detector: eu.infomas:annotation-detector:jar:3.0.0
