@@ -20,6 +20,8 @@ define 'footprints' do
   compile.with :javax_persistence,
                :javax_transaction,
                :eclipselink,
+               :postgresql,
+               :postgis_jdbc,
                :ejb_api,
                :javaee_api,
                :javax_validation,
