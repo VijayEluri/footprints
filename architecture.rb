@@ -9,6 +9,7 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:imit)
 
   repository.jpa.provider = :eclipselink
+  repository.jpa.exclude_unlisted_classes = false
 
   repository.data_module(:CodeMetrics) do |data_module|
 
