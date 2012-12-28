@@ -59,7 +59,6 @@ define 'footprints' do
 
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
-  ipr.extra_modules << '../atmosphere/samples/chat/chat.iml'
 
   define 'db', :layout => layout do
     define_dbt_tasks(project)
