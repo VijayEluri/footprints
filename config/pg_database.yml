@@ -3,8 +3,8 @@
 devhost: &devhost
   adapter: postgresql
   username: postgres
-  password: letmein
-  host: localhost
+  password: Open_Sesame
+  host: 127.0.0.1
   port: 5432
 
 development:
