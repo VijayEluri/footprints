@@ -1,5 +1,7 @@
 require 'buildr/git_auto_version'
 
+download(artifact(:postgis_jdbc) => 'https://github.com/realityforge/repository/raw/master/org/postgis/postgis-jdbc/2.0.2SVN/postgis-jdbc-2.0.2SVN.jar')
+
 desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
   project.group = 'org.realityforge.footprints'
