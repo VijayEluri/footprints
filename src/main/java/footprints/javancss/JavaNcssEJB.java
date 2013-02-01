@@ -6,8 +6,8 @@ import footprints.server.data_type.code_metrics.CollectionDTO;
 import footprints.server.data_type.code_metrics.MethodDTO;
 import footprints.server.entity.code_metrics.Collection;
 import footprints.server.entity.code_metrics.MethodMetric;
-import footprints.server.entity.code_metrics.dao.CollectionDAO;
-import footprints.server.entity.code_metrics.dao.MethodMetricDAO;
+import footprints.server.entity.code_metrics.dao.CollectionRepository;
+import footprints.server.entity.code_metrics.dao.MethodMetricRepository;
 import footprints.server.service.code_metrics.FormatErrorException;
 import footprints.server.service.code_metrics.JavaNcss;
 import java.io.StringReader;
@@ -28,9 +28,9 @@ public class JavaNcssEJB
   implements JavaNcss
 {
   @EJB
-  private CollectionDAO _collectionDAO;
+  private CollectionRepository _collectionDAO;
   @EJB
-  private MethodMetricDAO _methodMetricDAO;
+  private MethodMetricRepository _methodMetricDAO;
 
   public void uploadJavaNcssOutput( @Nonnull final String output )
     throws FormatErrorException
