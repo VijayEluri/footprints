@@ -12,8 +12,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
 import org.postgis.Point;
 
 public class PostgisTest
