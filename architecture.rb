@@ -89,6 +89,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.struct(:TaskDefinition) do |s|
       s.text(:Name)
+      s.point(:Foo)
       s.struct(:Child, :TaskDefinition, :collection_type => :set)
     end
 
