@@ -144,7 +144,7 @@ public class PostgisTest
     @Column( name = "id" )
     private Integer id;
 
-    @Column( name = "geom", columnDefinition = "geometry" )
+    @Column( name = "geom", columnDefinition = "geometry(POINT,-1)" )
     private Point geom;
 
     public Integer getId()
