@@ -78,7 +78,7 @@ Domgen.repository(:Footprints) do |repository|
         m.returns(:struct, :referenced_struct => :CollectionDTO, :collection_type => :sequence)
       end
       s.method(:GetCollection) do |m|
-        m.integer(:ID)
+        m.integer(:ID, "jaxrs.param_type" => :path)
         m.returns(:struct, :referenced_struct => :CollectionDTO)
       end
     end
@@ -136,10 +136,10 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:RunAllTheTests) do |m|
         m.description("All the F#####g time!")
-        m.boolean(:Force) do |p|
+        m.boolean(:Force, :"jaxrs.default_value" => "true") do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
-        m.s_enum(:Zing, %w(X Y), :collection_type => :sequence)
+        m.s_enum(:Zing, %w(X Y), :collection_type => :sequence, :"jaxrs.default_value" => "X")
         m.exception(:TestsFailed)
         m.exception(:Problem)
       end

@@ -1,7 +1,7 @@
-package footprints.javancss;
+package footprints.server;
 
-import footprints.javancss.parse.MethodEntry;
-import footprints.javancss.parse.OutputParser;
+import footprints.server.parse.MethodEntry;
+import footprints.server.parse.OutputParser;
 import footprints.server.data_type.code_metrics.CollectionDTO;
 import footprints.server.data_type.code_metrics.MethodDTO;
 import footprints.server.entity.code_metrics.Collection;

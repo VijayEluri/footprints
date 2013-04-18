@@ -1,4 +1,4 @@
-package footprints.javancss.parse;
+package footprints.server.parse;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;

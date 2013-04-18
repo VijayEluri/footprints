@@ -1,4 +1,4 @@
-package footprints.javancss.parse;
+package footprints.server.parse;
 
 public final class MethodEntry
 {

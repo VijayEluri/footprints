@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

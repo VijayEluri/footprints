@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import java.sql.SQLException;
 import org.eclipse.persistence.internal.helper.DatabaseField;

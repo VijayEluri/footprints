@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import footprints.server.service.code_metrics.FormatErrorException;
 import javax.ws.rs.core.MediaType;

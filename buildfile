@@ -37,7 +37,12 @@ define 'footprints' do
                :atmosphere_runtime,
                :slf4j_api,
                :slf4j_jdk14,
-               :infomas_annotation_detector
+               :infomas_annotation_detector,
+               :gwt_user,
+               :gwt_dev,
+               :gwt_gin,
+               :javax_validation,
+               :javax_validation_sources
 
   test.using :testng
 
@@ -70,29 +75,35 @@ define 'footprints' do
     Dbt.define_database_package(:default, project)
   end if false
 
+  iml.add_gwt_facet({'footprints.FootprintsDev' => true,
+                     'footprints.Footprints' => false},
+                    :settings => {:compilerMaxHeapSize => "1024",
+                                  :additionalCompilerParameters => '-Dgwt.usearchives=false -Dgwt.persistentunitcache=false'})
+
   iml.add_ejb_facet
   iml.add_jpa_facet
   iml.add_web_facet(:webroots => [_(:source, :main, :webapp), bootstrap_path, js_path])
   iml.add_jruby_facet
+
+  ipr.add_exploded_war_artifact(project,
+                                :name => 'footprints',
+                                :build_on_make => true,
+                                :enable_ejb => true,
+                                :enable_jpa => true,
+                                :enable_gwt => true,
+                                :enable_war => true,
+                                :output_dir => _(:artifacts, "footprints"),
+                                :dependencies => [project,
+                                                  :atmosphere_annotations,
+                                                  :atmosphere_jquery,
+                                                  :atmosphere_runtime,
+                                                  :slf4j_api,
+                                                  :slf4j_jdk14,
+                                                  :infomas_annotation_detector,
+
+                                                  # This is horrible. Requires compat libraries
+                                                  :atmosphere_compat_tomcat,
+                                                  :atmosphere_compat_tomcat7,
+                                                  :atmosphere_compat_jbossweb
+                                ])
 end
-
-Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints'),
-                                                           :name => 'footprints',
-                                                           :build_on_make => true,
-                                                           :enable_ejb => true,
-                                                           :enable_jpa => true,
-                                                           :enable_war => true,
-                                                           :output_dir => project('footprints')._(:artifacts, "footprints"),
-                                                           :dependencies => [project('footprints'),
-                                                                             :atmosphere_annotations,
-                                                                             :atmosphere_jquery,
-                                                                             :atmosphere_runtime,
-                                                                             :slf4j_api,
-                                                                             :slf4j_jdk14,
-                                                                             :infomas_annotation_detector,
-
-                                                                             # This is horrible. Requires compat libraries
-                                                                             :atmosphere_compat_tomcat,
-                                                                             :atmosphere_compat_tomcat7,
-                                                                             :atmosphere_compat_jbossweb
-                                                           ])
