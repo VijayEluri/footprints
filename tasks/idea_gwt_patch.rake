@@ -18,8 +18,10 @@ raise "Patch applied in the lastest version of buildr" unless Buildr::VERSION ==
 module Buildr #:nodoc:
   module IntellijIdea
     class IdeaModule
-       def add_gwt_facet(modules = {}, options = {})
+      def add_gwt_facet(modules = {}, options = {})
         name = options[:name] || "GWT"
+        detected_gwt_version = options[:gwt_dev_artifact] ? artifact(options[:gwt_dev_artifact]) : nil
+
         settings =
           {
             :webFacet => "Web",
@@ -28,14 +30,12 @@ module Buildr #:nodoc:
             :gwtScriptOutputStyle => "PRETTY"
           }.merge(options[:settings] || {})
 
-        detected_gwt_version = nil
-
         buildr_project.compile.dependencies.each do |d|
           if d.to_s =~ /\/com\/google\/gwt\/gwt-dev\/(.*)\//
             detected_gwt_version = resolve_path(d.to_s)
             break
           end
-        end
+        end unless detected_gwt_version
 
         if detected_gwt_version
           settings[:gwtSdkUrl] = detected_gwt_version
