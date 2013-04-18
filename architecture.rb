@@ -136,10 +136,10 @@ Domgen.repository(:Footprints) do |repository|
 
       s.method(:RunAllTheTests) do |m|
         m.description("All the F#####g time!")
-        m.boolean(:Force) do |p|
+        m.boolean(:Force, :"jaxrs.default_value" => "true") do |p|
           p.description("Should we run all the tests or stop at first failing?")
         end
-        m.s_enum(:Zing, %w(X Y), :collection_type => :sequence)
+        m.s_enum(:Zing, %w(X Y), :collection_type => :sequence, :"jaxrs.default_value" => "X")
         m.exception(:TestsFailed)
         m.exception(:Problem)
       end
