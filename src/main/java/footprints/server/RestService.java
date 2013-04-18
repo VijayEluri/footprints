@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import footprints.server.data_type.code_metrics.CollectionDTO;
 import footprints.server.service.code_metrics.FormatErrorException;

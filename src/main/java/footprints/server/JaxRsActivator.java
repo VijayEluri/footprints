@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import footprints.server.data_type.test_module.CalculateResultValueZang;
 import footprints.server.data_type.test_module.CloneAction;

@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import java.lang.reflect.Field;
 import java.util.Map;

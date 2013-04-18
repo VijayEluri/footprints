@@ -1,4 +1,4 @@
-package footprints.javancss;
+package footprints.server;
 
 import footprints.server.data_type.code_metrics.CollectionDTO;
 import footprints.server.service.code_metrics.FormatErrorException;
@@ -6,7 +6,6 @@ import footprints.server.service.code_metrics.JavaNcss;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 
 @Stateless
 public class RestServiceImpl
