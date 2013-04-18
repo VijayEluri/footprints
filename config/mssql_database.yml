@@ -10,8 +10,6 @@ devhost: &devhost
   instance: SQLEXPRESS
   force_drop: true
   no_create: false
-  instance_registry_key: MSSQL10_50.SQLEXPRESS
-  restore_from: <%= prefix %>FOOTPRINTS_DEV
 
 development:
   database: <%= prefix %>FOOTPRINTS_DEV
