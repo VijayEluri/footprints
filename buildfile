@@ -84,25 +84,26 @@ define 'footprints' do
   iml.add_jpa_facet
   iml.add_web_facet(:webroots => [_(:source, :main, :webapp), bootstrap_path, js_path])
   iml.add_jruby_facet
+
+  ipr.add_exploded_war_artifact(project,
+                                :name => 'footprints',
+                                :build_on_make => true,
+                                :enable_ejb => true,
+                                :enable_jpa => true,
+                                :enable_gwt => true,
+                                :enable_war => true,
+                                :output_dir => _(:artifacts, "footprints"),
+                                :dependencies => [project,
+                                                  :atmosphere_annotations,
+                                                  :atmosphere_jquery,
+                                                  :atmosphere_runtime,
+                                                  :slf4j_api,
+                                                  :slf4j_jdk14,
+                                                  :infomas_annotation_detector,
+
+                                                  # This is horrible. Requires compat libraries
+                                                  :atmosphere_compat_tomcat,
+                                                  :atmosphere_compat_tomcat7,
+                                                  :atmosphere_compat_jbossweb
+                                ])
 end
-
-Buildr.project('footprints').ipr.add_exploded_war_artifact(project('footprints'),
-                                                           :name => 'footprints',
-                                                           :build_on_make => true,
-                                                           :enable_ejb => true,
-                                                           :enable_jpa => true,
-                                                           :enable_war => true,
-                                                           :output_dir => project('footprints')._(:artifacts, "footprints"),
-                                                           :dependencies => [project('footprints'),
-                                                                             :atmosphere_annotations,
-                                                                             :atmosphere_jquery,
-                                                                             :atmosphere_runtime,
-                                                                             :slf4j_api,
-                                                                             :slf4j_jdk14,
-                                                                             :infomas_annotation_detector,
-
-                                                                             # This is horrible. Requires compat libraries
-                                                                             :atmosphere_compat_tomcat,
-                                                                             :atmosphere_compat_tomcat7,
-                                                                             :atmosphere_compat_jbossweb
-                                                           ])
