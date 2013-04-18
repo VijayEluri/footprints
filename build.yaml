@@ -34,3 +34,9 @@ artifacts:
   infomas_annotation_detector: eu.infomas:annotation-detector:jar:3.0.0
 
   geolatte_common: org.geolatte:geolatte-common:jar:0.5
+
+  gwt_user: com.google.gwt:gwt-user:jar:2.5.1
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.5.1
+  gwt_gin: com.google.gwt.inject:gin:jar:2.0.0
+  javax_validation: javax.validation:validation-api:jar:1.0.0.GA
+  javax_validation_sources: javax.validation:validation-api:jar:sources:1.0.0.GA

@@ -37,7 +37,12 @@ define 'footprints' do
                :atmosphere_runtime,
                :slf4j_api,
                :slf4j_jdk14,
-               :infomas_annotation_detector
+               :infomas_annotation_detector,
+               :gwt_user,
+               :gwt_dev,
+               :gwt_gin,
+               :javax_validation,
+               :javax_validation_sources
 
   test.using :testng
 
@@ -69,6 +74,11 @@ define 'footprints' do
     define_dbt_tasks(project)
     Dbt.define_database_package(:default, project)
   end if false
+
+  iml.add_gwt_facet({'footprints.FootprintsDev' => true,
+                     'footprints.Footprints' => false},
+                    :settings => {:compilerMaxHeapSize => "1024",
+                                  :additionalCompilerParameters => '-Dgwt.usearchives=false -Dgwt.persistentunitcache=false'})
 
   iml.add_ejb_facet
   iml.add_jpa_facet
