@@ -78,7 +78,7 @@ Domgen.repository(:Footprints) do |repository|
         m.returns(:struct, :referenced_struct => :CollectionDTO, :collection_type => :sequence)
       end
       s.method(:GetCollection) do |m|
-        m.integer(:ID)
+        m.integer(:ID, "jaxrs.param_type" => :path)
         m.returns(:struct, :referenced_struct => :CollectionDTO)
       end
     end
