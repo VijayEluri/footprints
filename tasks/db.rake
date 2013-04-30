@@ -3,11 +3,11 @@ def workspace_dir
 end
 
 def is_postgres?
-  ENV['DB_TYPE'] == 'postgres'
+  ENV['DB_TYPE'].nil? || ENV['DB_TYPE'] == 'postgres'
 end
 
 def is_mssql?
-  ENV['DB_TYPE'].nil? || ENV['DB_TYPE'] == 'mssql'
+  ENV['DB_TYPE'] == 'mssql'
 end
 
 $LOAD_PATH.insert(0, "#{workspace_dir}/../dbt/lib")
