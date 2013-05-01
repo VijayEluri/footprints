@@ -1,11 +1,19 @@
 package footprints.server;
 
+import footprints.server.service.FootprintsJaxRsApplication;
+import java.util.Set;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
 
-@ApplicationPath( "/rest" )
+@ApplicationPath( FootprintsJaxRsApplication.APPLICATION_PATH )
 public class JaxRsActivator
-  extends Application
+  extends FootprintsJaxRsApplication
 {
-  /* class body intentionally left blank */
+  @Override
+  public Set<Class<?>> getClasses()
+  {
+    final Set<Class<?>> classes = super.getClasses();
+    classes.add( NoResultExceptionMapper.class );
+    classes.add( FormatErrorExceptionMapper.class );
+    return classes;
+  }
 }
