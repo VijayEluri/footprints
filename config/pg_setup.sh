@@ -1,12 +1,12 @@
 #!/bin/bash
 
-R=`(asadmin list-libraries | grep -q -v postgis-jdbc-2.0.2SVN.jar) && echo yes`
-if [ $R != 'yes' ]; then
+R=`(asadmin list-libraries | grep -q postgis-jdbc-2.0.2SVN.jar) && echo yes`
+if [ "$R" != 'yes' ]; then
   asadmin add-library ~/.m2/repository/org/postgis/postgis-jdbc/2.0.2SVN/postgis-jdbc-2.0.2SVN.jar
 fi
 
-R=`(asadmin list-libraries | grep -q -v postgresql-9.1-901.jdbc4.jar) && echo yes`
-if [ $R != 'yes' ]; then
+R=`(asadmin list-libraries | grep postgresql-9.1-901.jdbc4.jar) && echo yes`
+if [ "$R" != 'yes' ]; then
   asadmin add-library ~/.m2/repository/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar
 fi
 
