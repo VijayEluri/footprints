@@ -38,6 +38,7 @@ define 'footprints' do
                :slf4j_api,
                :slf4j_jdk14,
                :infomas_annotation_detector,
+               :restygwt,
                :gwt_user,
                :gwt_dev,
                :gwt_gin,
