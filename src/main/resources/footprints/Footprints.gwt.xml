@@ -5,7 +5,8 @@
   <!--<inherits name="com.google.gwt.place.Place"/>-->
   <!--<inherits name="com.google.gwt.inject.Inject"/>-->
   <inherits name="com.google.gwt.logging.Logging"/>
-  <!--<inherits name="com.google.web.bindery.autobean.AutoBean"/>-->
+  <inherits name="com.google.web.bindery.autobean.AutoBean"/>
+  <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <inherits name="org.fusesource.restygwt.RestyGWT" />
 
   <entry-point class='footprints.client.Footprints'/>

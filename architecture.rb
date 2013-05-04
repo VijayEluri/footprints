@@ -85,7 +85,7 @@ Domgen.repository(:Footprints) do |repository|
   end
 
   repository.data_module(:TestModule) do |data_module|
-
+    data_module.disable_facet(:auto_bean)
     data_module.sql.schema = "TM"
 
     data_module.struct(:TaskDefinition) do |s|
