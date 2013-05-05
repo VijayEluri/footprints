@@ -25,6 +25,8 @@ define 'footprints' do
                :eclipselink,
                :postgresql,
                :postgis_jdbc,
+               :jts,
+               :geolatte_geom,
                :ejb_api,
                :javaee_api,
                :javax_validation,

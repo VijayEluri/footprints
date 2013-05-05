@@ -11,7 +11,13 @@ import org.eclipse.persistence.mappings.converters.SerializedObjectConverter;
 import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.sessions.SessionEvent;
 import org.eclipse.persistence.sessions.SessionEventAdapter;
-import org.postgis.Point;
+import org.geolatte.geom.LineString;
+import org.geolatte.geom.LinearRing;
+import org.geolatte.geom.MultiLineString;
+import org.geolatte.geom.MultiPoint;
+import org.geolatte.geom.MultiPolygon;
+import org.geolatte.geom.Point;
+import org.geolatte.geom.Polygon;
 
 public class ConverterInitializer
   extends SessionEventAdapter
@@ -38,7 +44,14 @@ public class ConverterInitializer
             final Class type = entry.getKey();
             final String attributeName = dfm.getAttributeName();
             final Field field = getField( type, attributeName );
-            if ( Point.class == field.getType() )
+            final Class<?> fieldType = field.getType();
+            if ( Point.class == fieldType ||
+                 Polygon.class == fieldType ||
+                 LineString.class == fieldType ||
+                 MultiPoint.class == fieldType ||
+                 MultiPolygon.class == fieldType ||
+                 MultiLineString.class == fieldType ||
+                 LinearRing.class == fieldType )
             {
               final Converter converter = new PostgisConverter();
               converter.initialize( mapping, session );
