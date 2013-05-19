@@ -2,7 +2,7 @@
 <% prefix = "#{user_code}_" %>
 devhost: &devhost
   adapter: postgresql
-  username: stock-dev
+  username: <%= user_code %>
   password: letmein
   host: 127.0.0.1
   port: 5432
