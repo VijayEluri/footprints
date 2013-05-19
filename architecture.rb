@@ -84,6 +84,30 @@ Domgen.repository(:Footprints) do |repository|
     end
   end
 
+  repository.data_module(:Geo) do |data_module|
+    data_module.entity(:MobilePOI) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.text(:Name)
+    end
+    data_module.entity(:POITrack) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:MobilePOI)
+      t.point(:Location)
+    end
+    data_module.entity(:Sector) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.text(:Name)
+      t.polygon(:Location)
+    end
+
+    data_module.entity(:OtherGeom) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.geometry(:Location, "geometry.srid" => 3124)
+      t.geometry(:Location2)
+      t.geometry(:Location3, "geometry.dimensions" => 3)
+    end
+  end
+
   repository.data_module(:TestModule) do |data_module|
     data_module.disable_facet(:auto_bean)
     data_module.sql.schema = "TM"
