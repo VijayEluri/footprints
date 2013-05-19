@@ -11,6 +11,7 @@ Domgen.repository(:Footprints) do |repository|
 
   repository.jpa.provider = :eclipselink
   repository.jpa.exclude_unlisted_classes = false
+  repository.jpa.properties["eclipselink.session-event-listener"] = "footprints.server.ConverterInitializer"
 
   repository.data_module(:CodeMetrics) do |data_module|
 
