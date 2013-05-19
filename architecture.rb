@@ -175,8 +175,8 @@ Domgen.repository(:Footprints) do |repository|
       end
 
       s.method(:Subscribe2) do |m|
-        m.jms.mdb = true
-        m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
+        #m.jms.mdb = true
+        #m.jms.destination_resource_name = 'jms/TestModule.Collector.Subscribe'
         m.struct(:MyParam, :TaskDefinition)
       end
 
