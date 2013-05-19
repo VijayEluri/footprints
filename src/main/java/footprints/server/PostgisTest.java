@@ -25,7 +25,7 @@ public class PostgisTest
   public static void main( String[] args )
   {
     String dburl = "jdbc:postgresql://127.0.0.1:5432/peter_Footprints_DEV";
-    String dbuser = "stock-dev";
+    String dbuser = "peter";
     String dbpass = "letmein";
 
     try
