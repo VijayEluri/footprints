@@ -11,6 +11,7 @@ import org.eclipse.persistence.mappings.converters.SerializedObjectConverter;
 import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.sessions.SessionEvent;
 import org.eclipse.persistence.sessions.SessionEventAdapter;
+import org.geolatte.geom.Geometry;
 import org.geolatte.geom.LineString;
 import org.geolatte.geom.LinearRing;
 import org.geolatte.geom.MultiLineString;
@@ -51,6 +52,7 @@ public class ConverterInitializer
                  MultiPoint.class == fieldType ||
                  MultiPolygon.class == fieldType ||
                  MultiLineString.class == fieldType ||
+                 Geometry.class == fieldType ||
                  LinearRing.class == fieldType )
             {
               final Converter converter = new PostgisConverter();
