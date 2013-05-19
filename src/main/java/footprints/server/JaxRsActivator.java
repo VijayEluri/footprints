@@ -13,6 +13,7 @@ public class JaxRsActivator
   {
     final Set<Class<?>> classes = super.getClasses();
     classes.add( NoResultExceptionMapper.class );
+    classes.add( SimpleRestGeoService.class );
     classes.add( FormatErrorExceptionMapper.class );
     return classes;
   }
