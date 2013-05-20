@@ -99,6 +99,8 @@ Domgen.repository(:Footprints) do |repository|
       t.integer(:ID, :primary_key => true)
       t.text(:Name)
       t.polygon(:Location)
+
+      t.sql.index([:Location], :index_type => :gist)
     end
 
     data_module.entity(:OtherGeom) do |t|
