@@ -32,6 +32,7 @@ end
 
 Dbt.add_database(:default,
                  :imports => {:default => {:modules => [:CodeMetrics]}},
+                 :migrations => true,
                  :backup => true,
                  :restore => true) do |database|
   database.search_dirs = ["#{workspace_dir}/databases/generated", "#{workspace_dir}/databases"]
