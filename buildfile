@@ -73,6 +73,7 @@ define 'footprints' do
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
 
+  desc "Database scripts package"
   define 'db', :layout => layout do
     define_dbt_tasks(project)
     Dbt.define_database_package(:default, project)
