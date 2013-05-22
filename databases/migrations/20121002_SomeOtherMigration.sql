@@ -1,0 +1,1 @@
+INSERT INTO "Geo"."tblMobilePOI"("Name") VALUES ('Billy')
