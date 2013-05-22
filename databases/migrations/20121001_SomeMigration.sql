@@ -1,1 +1,1 @@
-INSERT INTO "Geo"."tblMobilePOIIDSeq"("Name") VALUES ('Bobby')
+INSERT INTO "Geo"."tblMobilePOI"("Name") VALUES ('Bobby')
