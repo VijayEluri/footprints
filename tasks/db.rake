@@ -38,6 +38,6 @@ Dbt.add_database(:default,
   database.search_dirs = ["#{workspace_dir}/databases/generated", "#{workspace_dir}/databases"]
   database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
   database.add_import_assert_filters
-  database.enable_import_task_as_part_of_create = false
-  database.enable_separate_import_task = true
+  database.import_task_as_part_of_create = false
+  database.separate_import_task = true
 end
