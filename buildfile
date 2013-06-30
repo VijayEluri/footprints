@@ -1,5 +1,6 @@
 require 'buildr/git_auto_version'
 require 'buildr/top_level_generate_dir'
+require 'buildr/jacoco'
 
 download(artifact(:postgis_jdbc) => 'https://github.com/realityforge/repository/raw/master/org/postgis/postgis-jdbc/2.0.2SVN/postgis-jdbc-2.0.2SVN.jar')
 
