@@ -17,8 +17,8 @@ require 'dbt'
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
 
 if is_postgres?
-  Dbt::Config.driver = 'Postgres'
-  #Dbt::Config.driver = 'Pg'
+  #Dbt::Config.driver = 'Postgres'
+  Dbt::Config.driver = 'Pg'
   Dbt::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
 elsif is_mssql?
   Dbt::Config.driver = 'Mssql'
