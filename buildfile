@@ -49,7 +49,13 @@ define 'footprints' do
 
   test.using :testng
 
-  package(:war)
+  package(:war).tap do |war|
+    project.assets.paths.each do |asset|
+      war.enhance([asset])
+      war.include asset, :as => '.'
+    end
+  end
+
 
   check package(:war), "should contain resources and generated classes" do
     it.should contain('WEB-INF/web.xml')
@@ -58,8 +64,8 @@ define 'footprints' do
     it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
   end
 
-  bootstrap_path = add_bootstrap_media(project)
-  js_path = add_atmosphere_jquery_js(project)
+  add_bootstrap_media(project)
+  add_atmosphere_jquery_js(project)
 
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
@@ -86,7 +92,7 @@ define 'footprints' do
 
   iml.add_ejb_facet
   iml.add_jpa_facet
-  iml.add_web_facet(:webroots => [_(:source, :main, :webapp), bootstrap_path, js_path])
+  iml.add_web_facet(:webroots => [_(:source, :main, :webapp)] + project.assets.paths)
   iml.add_jruby_facet
 
   ipr.add_exploded_war_artifact(project,
