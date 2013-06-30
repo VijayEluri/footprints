@@ -15,7 +15,7 @@ else
   Domgen::Sql.dialect = Domgen::Sql::MssqlDialect
 end
 
-Domgen::GenerateTask.new(:Footprints, "sql", generators, "#{workspace_dir}/databases/generated") do |t|
+Domgen::GenerateTask.new(:Footprints, "sql", generators, "#{workspace_dir}/database/generated") do |t|
   t.verbose = !!ENV['DEBUG_DOMGEN']
 end
 Domgen::Xmi::GenerateXMITask.new(:Footprints, "xmi", "#{workspace_dir}/target/xmi/footprints.xmi")
