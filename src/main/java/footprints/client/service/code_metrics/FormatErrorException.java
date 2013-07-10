@@ -1,4 +1,3 @@
-/* DO NOT EDIT: File is auto-generated */
 package footprints.client.service.code_metrics;
 
 @javax.annotation.Generated( "Domgen" )

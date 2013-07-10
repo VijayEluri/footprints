@@ -1,4 +1,3 @@
-/* DO NOT EDIT: File is auto-generated */
 package footprints.client.service.code_metrics;
 
 import footprints.client.data_type.code_metrics.CollectionDTO;
