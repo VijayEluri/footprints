@@ -10,8 +10,8 @@ if [ "$R" != 'yes' ]; then
   asadmin add-library ~/.m2/repository/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar
 fi
 
-asadmin delete-jdbc-resource jdbc/FootprintsDS
-asadmin delete-jdbc-connection-pool FootprintsSQL
+asadmin delete-jdbc-resource jdbc/Footprints
+asadmin delete-jdbc-connection-pool FootprintsPool
 
 asadmin create-jdbc-connection-pool\
   --datasourceclassname org.postgresql.ds.PGSimpleDataSource\
@@ -20,7 +20,7 @@ asadmin create-jdbc-connection-pool\
   --validationmethod auto-commit\
   --ping true\
   --description "Footprints Connection Pool"\
-  --property "ServerName=127.0.0.1:User=${USER}:Password=letmein:PortNumber=5432:DatabaseName=${USER}_Footprints_DEV" FootprintsSQL
-asadmin create-jdbc-resource --connectionpoolid FootprintsSQL jdbc/FootprintsDS
+  --property "ServerName=127.0.0.1:User=${USER}:Password=letmein:PortNumber=5432:DatabaseName=${USER}_Footprints_DEV" FootprintsPool
+asadmin create-jdbc-resource --connectionpoolid FootprintsPool jdbc/Footprints
 
-asadmin set domain.resources.jdbc-connection-pool.FootprintsSQL.property.JDBC30DataSource=true
+asadmin set domain.resources.jdbc-connection-pool.FootprintsPool.property.JDBC30DataSource=true
