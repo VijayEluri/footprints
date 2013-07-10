@@ -1,9 +1,0 @@
-Investigate Adding GIS types:
-
-http://postgis.refractions.net/documentation/manual-1.5/ch05.html
-http://www.vividsolutions.com/jts/JTSHome.htm
-http://www.eclipse.org/forums/index.php/m/637214/
-http://web.archiveorange.com/archive/v/N2KaoXRTOi9Uk6xATkbN
-http://wiki.eclipse.org/Introduction_to_EclipseLink_Support_for_Oracle_Spatial_(ELUG)
-http://www.eclipse.org/forums/index.php/mv/tree/175054/#page_top
-http://dev.eclipse.org/mhonarc/lists/eclipselink-users/msg03969.html
