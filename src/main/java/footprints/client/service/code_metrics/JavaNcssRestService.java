@@ -14,7 +14,6 @@ import org.fusesource.restygwt.client.RestService;
 public interface JavaNcssRestService
   extends RestService
 {
-
   String PATH = "/java_ncss" ;
 
   @javax.ws.rs.Path("/upload_java_ncss_output")
