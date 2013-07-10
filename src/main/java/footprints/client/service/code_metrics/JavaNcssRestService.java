@@ -2,7 +2,6 @@ package footprints.client.service.code_metrics;
 
 import footprints.client.data_type.code_metrics.CollectionDTO;
 import java.util.List;
-import javax.ws.rs.HttpMethod;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
 
