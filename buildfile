@@ -45,6 +45,7 @@ define 'footprints' do
                :gwt_user,
                :gwt_dev,
                :gwt_gin,
+               :geolatte_geom_eclipselink,
                :javax_validation,
                :javax_validation_sources
 
@@ -110,6 +111,7 @@ define 'footprints' do
                                                   :atmosphere_runtime,
                                                   :jts,
                                                   :geolatte_geom,
+                                                  :geolatte_geom_eclipselink,
                                                   :restygwt,
                                                   :json,
                                                   :slf4j_api,
