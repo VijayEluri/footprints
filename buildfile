@@ -14,7 +14,7 @@ define 'footprints' do
 
   Domgen::GenerateTask.new(:Footprints,
                            "server",
-                           [:ee, :auto_bean],
+                           [:ee, :gwt, :gwt_client_jso, :auto_bean_enumeration],
                            _(:target, :generated, "domgen"),
                            project) do |t|
     t.description = 'Generates the Java code for the persistent objects'
@@ -24,6 +24,7 @@ define 'footprints' do
   compile.with :javax_persistence,
                :javax_transaction,
                :eclipselink,
+               :replicant,
                :postgresql,
                :postgis_jdbc,
                :jts,
@@ -34,6 +35,9 @@ define 'footprints' do
                :javax_annotation,
                :json,
                :jackson_core,
+               :google_guice,
+               :google_guice_assistedinject,
+               :aopalliance,
                :jackson_mapper,
                :atmosphere_annotations,
                :atmosphere_jquery,
@@ -50,6 +54,7 @@ define 'footprints' do
                :javax_validation_sources
 
   test.using :testng
+  test.with :mockito
 
   package(:war).tap do |war|
     project.assets.paths.each do |asset|

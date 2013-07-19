@@ -46,3 +46,11 @@ artifacts:
   jts: com.vividsolutions:jts:jar:1.10
 
   geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.2
+  replicant: org.realityforge:replicant:jar:0.4.7-1-g9cb8f70
+
+  google_guice: com.google.inject:guice:jar:3.0
+  google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
+  aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
+
+  # Mocking library used to mock out UI in planner application
+  mockito: org.mockito:mockito-all:jar:1.8.5
