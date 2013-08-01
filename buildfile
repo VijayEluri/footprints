@@ -56,6 +56,12 @@ define 'footprints' do
   test.using :testng
   test.with :mockito
 
+  gwt(["footprints.Footprints"],
+      :java_args => ["-Xms512M", "-Xmx1024M", "-XX:PermSize=128M", "-XX:MaxPermSize=256M"],
+      :draft_compile => (ENV["FAST_GWT"] == 'true'),
+      # Closure compiler seems to result in an error in GWT/GIN code. Unknown reason
+      :enable_closure_compiler => false)
+
   package(:war).tap do |war|
     project.assets.paths.each do |asset|
       war.enhance([asset])
