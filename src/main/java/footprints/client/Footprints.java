@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import footprints.client.data_type.code_metrics.CollectionDTO;
 import footprints.client.service.code_metrics.JavaNcssRestService;
 import java.util.List;
-import java.util.logging.Logger;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Resource;
@@ -19,8 +18,6 @@ import org.fusesource.restygwt.client.RestServiceProxy;
 public final class Footprints
   implements EntryPoint
 {
-  private static final Logger LOG = Logger.getLogger( Footprints.class.getName() );
-
   public void onModuleLoad()
   {
 
