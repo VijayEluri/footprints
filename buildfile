@@ -25,6 +25,7 @@ define 'footprints' do
                :javax_transaction,
                :eclipselink,
                :replicant,
+               :replicant_sources,
                :postgresql,
                :postgis_jdbc,
                :jts,
