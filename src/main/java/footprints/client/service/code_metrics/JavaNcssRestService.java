@@ -31,5 +31,4 @@ public interface JavaNcssRestService
   @javax.ws.rs.GET
   @javax.annotation.Nonnull void getCollection( @javax.ws.rs.PathParam( "id" ) int id,
                                                 MethodCallback<CollectionDTO> callback );
-
 }
