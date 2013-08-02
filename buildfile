@@ -133,6 +133,7 @@ define 'footprints' do
                                                   :json,
                                                   :slf4j_api,
                                                   :slf4j_jdk14,
+                                                  :gwt_user,
                                                   :infomas_annotation_detector,
 
                                                   # This is horrible. Requires compat libraries
