@@ -82,6 +82,7 @@ define 'footprints' do
   add_atmosphere_jquery_js(project)
 
   # Remove generated database directories
+  clean { rm_rf "#{File.dirname(__FILE__)}/artifacts" }
   clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
 
   jacoco.generate_xml = true
