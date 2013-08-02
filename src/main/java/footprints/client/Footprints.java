@@ -25,7 +25,6 @@ public final class Footprints
     {
       public void onClick( ClickEvent event )
       {
-        Window.alert( "Order Placed" );
         JavaNcssRestService service = GWT.create( JavaNcssRestService.class );
         Resource resource = new Resource( GWT.getHostPageBaseURL() + "api" + JavaNcssRestService.PATH );
         ( (RestServiceProxy) service ).setResource( resource );
@@ -34,15 +33,16 @@ public final class Footprints
           @Override
           public void onFailure( final Method method, final Throwable exception )
           {
-            Window.alert( "Failed" );
+            Window.alert( "Failed - REST" );
           }
 
           @Override
           public void onSuccess( final Method method, final JsArray<JsoCollectionDTO> response )
           {
-            Window.alert( "Success" );
+            Window.alert( "Success - REST" );
           }
         } );
+        Window.alert( "Order Placed via Rest" );
       }
 
     } );
