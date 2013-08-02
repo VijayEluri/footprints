@@ -20,7 +20,6 @@ public final class Footprints
 {
   public void onModuleLoad()
   {
-
     final Button button = new Button( "Place Pizza Order" );
     button.addClickHandler( new ClickHandler()
     {
