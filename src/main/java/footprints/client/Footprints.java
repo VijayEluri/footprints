@@ -6,10 +6,15 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import footprints.client.data_type.code_metrics.JsoCollectionDTO;
 import footprints.client.service.code_metrics.JavaNcssRestService;
+import footprints.shared.service.code_metrics.GwtJavaNcss;
+import footprints.shared.service.code_metrics.GwtJavaNcssAsync;
+import java.util.List;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.OverlayCallback;
 import org.fusesource.restygwt.client.Resource;
@@ -43,6 +48,23 @@ public final class Footprints
           }
         } );
         Window.alert( "Order Placed via Rest" );
+
+        final GwtJavaNcssAsync service2 = GWT.create( GwtJavaNcss.class );
+        service2.getCollections( new AsyncCallback<List<String>>()
+        {
+          @Override
+          public void onFailure( final Throwable caught )
+          {
+            Window.alert( "Failed - RPC" );
+          }
+
+          @Override
+          public void onSuccess( final List<String> result )
+          {
+            Window.alert( "Success - RPC" );
+          }
+        } );
+        Window.alert( "Order Placed via RPC" );
       }
 
     } );
