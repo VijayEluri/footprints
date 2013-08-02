@@ -1,8 +1,10 @@
 package footprints.client.service.code_metrics;
 
-import footprints.client.data_type.code_metrics.CollectionDTO;
+import com.google.gwt.core.client.JsArray;
+import footprints.client.data_type.code_metrics.JsoCollectionDTO;
 import java.util.List;
 import org.fusesource.restygwt.client.MethodCallback;
+import org.fusesource.restygwt.client.OverlayCallback;
 import org.fusesource.restygwt.client.RestService;
 
 @javax.annotation.Generated( "Domgen" )
@@ -24,11 +26,11 @@ public interface JavaNcssRestService
 
   @javax.ws.rs.Path("/get_collections")
   @javax.ws.rs.GET
-  @javax.annotation.Nonnull void getCollections(MethodCallback<List<CollectionDTO>> callback);
+  @javax.annotation.Nonnull void getCollections(OverlayCallback<JsArray<JsoCollectionDTO>> callback);
 
 
   @javax.ws.rs.Path("/get_collection/{id}")
   @javax.ws.rs.GET
   @javax.annotation.Nonnull void getCollection( @javax.ws.rs.PathParam( "id" ) int id,
-                                                MethodCallback<CollectionDTO> callback );
+                                                OverlayCallback<JsoCollectionDTO> callback );
 }
