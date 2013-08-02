@@ -94,6 +94,9 @@ define 'footprints' do
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../dbt_doc/dbt_doc.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
+  ipr.extra_modules << '../resty-gwt/restygwt/restygwt.iml'
+  ipr.extra_modules << '../resty-gwt/restygwt-project.iml'
+  ipr.extra_modules << '../resty-gwt/restygwt-website/restygwt-website.iml'
 
   desc "Database scripts package"
   define 'db', :layout => layout do
