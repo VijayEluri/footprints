@@ -14,7 +14,7 @@ define 'footprints' do
 
   Domgen::GenerateTask.new(:Footprints,
                            "server",
-                           [:ee, :gwt, :gwt_rpc, :auto_bean_enumeration],
+                           [:ee, :gwt, :gwt_rpc, :restygwt, :auto_bean_enumeration],
                            _(:target, :generated, "domgen"),
                            project) do |t|
     t.description = 'Generates the Java code for the persistent objects'
