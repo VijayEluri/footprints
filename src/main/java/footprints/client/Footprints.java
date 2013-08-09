@@ -7,32 +7,29 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import footprints.client.data_type.code_metrics.JsoCollectionDTO;
-import footprints.client.service.code_metrics.JavaNcssRestService;
-import footprints.shared.service.code_metrics.GwtJavaNcss;
+import footprints.client.ioc.FootprintsGinjector;
+import footprints.client.service.code_metrics.RestGwtJavaNcss;
 import footprints.shared.service.code_metrics.GwtJavaNcssAsync;
 import java.util.List;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.OverlayCallback;
-import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.RestServiceProxy;
 
 public final class Footprints
   implements EntryPoint
 {
   public void onModuleLoad()
   {
+    final FootprintsGinjector injector = GWT.create( FootprintsGinjector.class );
+
     final Button button = new Button( "Place Pizza Order" );
     button.addClickHandler( new ClickHandler()
     {
       public void onClick( ClickEvent event )
       {
-        JavaNcssRestService service = GWT.create( JavaNcssRestService.class );
-        Resource resource = new Resource( GWT.getHostPageBaseURL() + "api" + JavaNcssRestService.PATH );
-        ( (RestServiceProxy) service ).setResource( resource );
+        final RestGwtJavaNcss service = injector.getRestGwtJavaNcss();
         service.getCollections( new OverlayCallback<JsArray<JsoCollectionDTO>>()
         {
           @Override
@@ -49,7 +46,7 @@ public final class Footprints
         } );
         Window.alert( "Order Placed via Rest" );
 
-        final GwtJavaNcssAsync service2 = GWT.create( GwtJavaNcss.class );
+        final GwtJavaNcssAsync service2 = injector.getGwtJavaNcss();
         service2.getCollections( new AsyncCallback<List<String>>()
         {
           @Override
