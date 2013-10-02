@@ -1,10 +1,8 @@
 package footprints.client.ioc;
 
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import footprints.client.service.code_metrics.RestGwtJavaNcss;
-import footprints.shared.service.code_metrics.GwtJavaNcss;
 import footprints.shared.service.code_metrics.GwtJavaNcssAsync;
 
 @GinModules( { BasicModule.class, FootprintsRestyGwtServicesModule.class, FootprintsGwtRpcServicesModule.class, FootprintsGwtServicesModule.class } )
