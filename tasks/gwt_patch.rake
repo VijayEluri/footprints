@@ -15,6 +15,8 @@
 
 raise "Patch applied in the lastest version of buildr" unless Buildr::VERSION == '1.4.13'
 
+require 'buildr/gwt'
+
 module Buildr
   module GWT
     module ProjectExtension
@@ -40,4 +42,8 @@ module Buildr
       end
     end
   end
+end
+
+class Buildr::Project
+  include Buildr::GWT::ProjectExtension
 end
