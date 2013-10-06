@@ -8,8 +8,8 @@ desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
   project.group = 'org.realityforge.footprints'
 
-  compile.options.source = '1.6'
-  compile.options.target = '1.6'
+  compile.options.source = '1.7'
+  compile.options.target = '1.7'
   compile.options.lint = 'all'
 
   Domgen::GenerateTask.new(:Footprints,
