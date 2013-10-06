@@ -2,6 +2,12 @@ require 'buildr/git_auto_version'
 require 'buildr/top_level_generate_dir'
 require 'buildr/jacoco'
 
+VALIDATOR_JARS = [
+  'org.hibernate:hibernate-validator:jar:5.0.1.Final',
+  'org.jboss.logging:jboss-logging:jar:3.1.3.GA',
+  'com.fasterxml:classmate:jar:0.9.0'
+]
+
 download(artifact(:postgis_jdbc) => 'https://github.com/realityforge/repository/raw/master/org/postgis/postgis-jdbc/2.0.2SVN/postgis-jdbc-2.0.2SVN.jar')
 
 desc "Footprints: See who has been walking all over our code."
@@ -22,6 +28,7 @@ define 'footprints' do
   end
 
   compile.with :javaee_api,
+               VALIDATOR_JARS,
                :eclipselink,
                :replicant,
                :replicant_sources,
