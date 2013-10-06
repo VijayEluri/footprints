@@ -21,8 +21,7 @@ define 'footprints' do
     t.verbose = !!ENV['DEBUG_DOMGEN']
   end
 
-  compile.with :javax_persistence,
-               :javax_transaction,
+  compile.with :javaee_api,
                :eclipselink,
                :replicant,
                :replicant_sources,
@@ -30,9 +29,6 @@ define 'footprints' do
                :postgis_jdbc,
                :jts,
                :geolatte_geom,
-               :ejb_api,
-               :javaee_api,
-               :javax_validation,
                :javax_annotation,
                :json,
                :jackson_core,
@@ -51,7 +47,6 @@ define 'footprints' do
                :gwt_dev,
                :gwt_gin,
                :geolatte_geom_eclipselink,
-               :javax_validation,
                :javax_validation_sources
 
   test.using :testng
