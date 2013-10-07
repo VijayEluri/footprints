@@ -85,6 +85,22 @@ Domgen.repository(:Footprints) do |repository|
     end
   end
 
+  repository.data_module(:Box) do |data_module|
+    data_module.entity(:Block) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.integer(:A, :nullable => true)
+      t.integer(:B, :nullable => true)
+      t.integer(:C, :nullable => true)
+      t.integer(:D, :nullable => true)
+      t.integer(:E, :nullable => true)
+      t.integer(:F, :nullable => true)
+
+      t.codependent_constraint([:A, :B])
+      t.incompatible_constraint([:C, :D])
+      t.dependency_constraint(:E, [:F])
+    end
+  end
+
   repository.data_module(:Geo) do |data_module|
     data_module.entity(:MobilePOI) do |t|
       t.integer(:ID, :primary_key => true)
