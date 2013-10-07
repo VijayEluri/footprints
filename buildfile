@@ -29,6 +29,7 @@ define 'footprints' do
 
   compile.with :javaee_api,
                VALIDATOR_JARS,
+               :javax_el,
                :eclipselink,
                :replicant,
                :replicant_sources,

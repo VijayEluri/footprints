@@ -15,6 +15,7 @@ artifacts:
   json: org.json:json:jar:20090211
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
+  javax_el: org.glassfish:javax.el:jar:3.0.0
 
   atmosphere_annotations: org.atmosphere:atmosphere-annotations:jar:1.0.1
   atmosphere_jquery: org.atmosphere:atmosphere-jquery:war:1.0.1
