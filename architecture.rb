@@ -92,12 +92,16 @@ Domgen.repository(:Footprints) do |repository|
       t.integer(:B, :nullable => true)
       t.integer(:C, :nullable => true)
       t.integer(:D, :nullable => true)
+      t.integer(:D2, :nullable => true)
       t.integer(:E, :nullable => true)
       t.integer(:F, :nullable => true)
+      t.integer(:G, :nullable => true)
+      t.integer(:H, :nullable => true)
 
       t.codependent_constraint([:A, :B])
-      t.incompatible_constraint([:C, :D])
+      t.incompatible_constraint([:C, :D, :D2])
       t.dependency_constraint(:E, [:F])
+      t.relationship_constraint(:eq, :G, :H)
     end
   end
 
