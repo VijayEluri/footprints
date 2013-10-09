@@ -86,8 +86,16 @@ Domgen.repository(:Footprints) do |repository|
   end
 
   repository.data_module(:Box) do |data_module|
+    data_module.entity(:BlockType) do |t|
+      t.integer(:ID, :primary_key => true)
+    end
+    data_module.entity(:AttributeType) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:BlockType, :immutable => true)
+    end
     data_module.entity(:Block) do |t|
       t.integer(:ID, :primary_key => true)
+      t.reference(:BlockType, :immutable => true)
       t.integer(:A, :nullable => true)
       t.integer(:B, :nullable => true)
       t.integer(:C, :nullable => true)
@@ -102,6 +110,14 @@ Domgen.repository(:Footprints) do |repository|
       t.incompatible_constraint([:C, :D, :D2])
       t.dependency_constraint(:E, [:F])
       t.relationship_constraint(:eq, :G, :H)
+    end
+
+    data_module.entity(:Attribute) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:AttributeType)
+      t.reference(:Block, :immutable => true)
+
+      t.cycle_constraint(:AttributeType, [:Block, :BlockType])
     end
   end
 

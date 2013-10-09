@@ -1,9 +1,9 @@
 package footprints.server.entity.code_metrics;
 
+import footprints.server.entity.box.Attribute;
+import footprints.server.entity.box.AttributeType;
 import footprints.server.entity.box.Block;
-import java.util.Date;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
+import footprints.server.entity.box.BlockType;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -17,7 +17,7 @@ public class MethodEntryTest
   {
     final ValidatorFactory validatorFactory = Validation.byDefaultProvider().configure().buildValidatorFactory();
     final Validator validator = validatorFactory.getValidator();
-    final Block object = new Block();
+    final Block object = new Block( new BlockType() );
     assertValid( validator, object );
     object.setA( 1 );
     assertInvalid( validator, object );
@@ -26,7 +26,6 @@ public class MethodEntryTest
     object.setC( 1 );
     assertValid( validator, object );
     object.setD( 1 );
-    Set<ConstraintViolation<Block>> validate = validator.validate( object );
     assertInvalid( validator, object );
     object.setD( null );
     assertValid( validator, object );
@@ -40,14 +39,21 @@ public class MethodEntryTest
     assertInvalid( validator, object );
     object.setH( 1 );
     assertValid( validator, object );
+    final Attribute attribute = new Attribute( object );
+    final AttributeType attributeType = new AttributeType( object.getBlockType() );
+    attribute.setAttributeType( attributeType );
+    assertValid( validator, attribute );
+    final AttributeType attributeType2 = new AttributeType( new BlockType() );
+    attribute.setAttributeType( attributeType2 );
+    assertInvalid( validator, attribute );
   }
 
-  private void assertValid( final Validator validator, final Block object )
+  private void assertValid( final Validator validator, final Object object )
   {
     assertTrue( validator.validate( object ).isEmpty() );
   }
 
-  private void assertInvalid( final Validator validator, final Block object )
+  private void assertInvalid( final Validator validator, final Object object )
   {
     assertFalse( validator.validate( object ).isEmpty() );
   }
