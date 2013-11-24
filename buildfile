@@ -21,7 +21,7 @@ define 'footprints' do
 
   Domgen::GenerateTask.new(:Footprints,
                            "server",
-                           [:ee, :gwt, :gwt_rpc, :restygwt, :auto_bean_enumeration],
+                           [:ee, :gwt, :gwt_rpc, :auto_bean_enumeration],
                            _(:target, :generated, "domgen")) do |t|
     t.description = 'Generates the Java code for the persistent objects'
     t.verbose = !!ENV['DEBUG_DOMGEN']
@@ -50,7 +50,6 @@ define 'footprints' do
                :slf4j_api,
                :slf4j_jdk14,
                :infomas_annotation_detector,
-               :restygwt,
                :gwt_user,
                :gwt_dev,
                :gwt_gin,
@@ -97,9 +96,6 @@ define 'footprints' do
   ipr.extra_modules << '../dbt/dbt.iml'
   ipr.extra_modules << '../dbt_doc/dbt_doc.iml'
   ipr.extra_modules << '../domgen/domgen.iml'
-  ipr.extra_modules << '../resty-gwt/restygwt/restygwt.iml'
-  ipr.extra_modules << '../resty-gwt/restygwt-project.iml'
-  ipr.extra_modules << '../resty-gwt/restygwt-website/restygwt-website.iml'
 
   desc "Database scripts package"
   define 'db', :layout => layout do
@@ -134,7 +130,6 @@ define 'footprints' do
                                                   :jts,
                                                   :geolatte_geom,
                                                   :geolatte_geom_eclipselink,
-                                                  :restygwt,
                                                   :json,
                                                   :slf4j_api,
                                                   :slf4j_jdk14,

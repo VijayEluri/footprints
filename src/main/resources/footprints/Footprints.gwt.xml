@@ -9,7 +9,6 @@
   <inherits name="org.realityforge.replicant.Replicant"/>
   <inherits name="com.google.web.bindery.autobean.AutoBean"/>
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
-  <inherits name="org.fusesource.restygwt.RestyGWT" />
 
   <entry-point class='footprints.client.Footprints'/>
 
