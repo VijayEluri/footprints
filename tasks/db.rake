@@ -11,16 +11,22 @@ def is_mssql?
 end
 
 $LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../dbt/lib"))
+$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../domgen/lib"))
 
 require 'dbt'
+require 'domgen'
+
+Domgen::LoadSchema.new("#{workspace_dir}/architecture.rb")
+Domgen::GenerateTask.new(:Footprints, "sql", (is_postgres? ? [:pgsql] : [:mssql]), "#{workspace_dir}/database/generated")
 
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
 
 if is_postgres?
-  #Dbt::Config.driver = 'Postgres'
+  Domgen::Sql.dialect = Domgen::Sql::PgDialect
   Dbt::Config.driver = 'postgres'
   Dbt::Config.config_filename = File.expand_path("#{workspace_dir}/config/pg_database.yml")
 elsif is_mssql?
+  Domgen::Sql.dialect = Domgen::Sql::MssqlDialect
   Dbt::Config.driver = 'sql_server'
   Dbt::Config.config_filename = File.expand_path("#{workspace_dir}/config/mssql_database.yml")
 else
