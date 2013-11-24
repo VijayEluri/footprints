@@ -10,7 +10,7 @@ def is_mssql?
   ENV['DB_TYPE'] == 'mssql'
 end
 
-$LOAD_PATH.insert(0, "#{workspace_dir}/../dbt/lib")
+$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../dbt/lib"))
 
 require 'dbt'
 
