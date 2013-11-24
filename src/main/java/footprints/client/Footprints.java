@@ -24,23 +24,6 @@ public final class Footprints
     {
       public void onClick( ClickEvent event )
       {
-        //final RestGwtJavaNcss service = injector.getRestGwtJavaNcss();
-        //service.getCollections( new OverlayCallback<JsArray<JsoCollectionDTO>>()
-        //{
-        //  @Override
-        //  public void onFailure( final Method method, final Throwable exception )
-        //  {
-        //    Window.alert( "Failed - REST" );
-        //  }
-        //
-        //  @Override
-        //  public void onSuccess( final Method method, final JsArray<JsoCollectionDTO> response )
-        //  {
-        //    Window.alert( "Success - REST" );
-        //  }
-        //} );
-        //Window.alert( "Order Placed via Rest" );
-
         final GwtJavaNcssAsync service2 = injector.getGwtJavaNcss();
         service2.getCollections( new AsyncCallback<List<String>>()
         {
