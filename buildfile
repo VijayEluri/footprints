@@ -44,12 +44,6 @@ define 'footprints' do
                :google_guice_assistedinject,
                :aopalliance,
                :jackson_mapper,
-               :atmosphere_annotations,
-               :atmosphere_jquery,
-               :atmosphere_runtime,
-               :slf4j_api,
-               :slf4j_jdk14,
-               :infomas_annotation_detector,
                :gwt_user,
                :gwt_dev,
                :gwt_gin,
@@ -74,9 +68,6 @@ define 'footprints' do
     it.should contain('WEB-INF/classes/META-INF/orm.xml')
     it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
   end
-
-  add_bootstrap_media(project)
-  add_atmosphere_jquery_js(project)
 
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/artifacts" }
@@ -119,21 +110,10 @@ define 'footprints' do
                                 :enable_war => true,
                                 :output_dir => _(:artifacts, "footprints"),
                                 :dependencies => [project,
-                                                  :atmosphere_annotations,
-                                                  :atmosphere_jquery,
-                                                  :atmosphere_runtime,
                                                   :jts,
                                                   :geolatte_geom,
                                                   :geolatte_geom_eclipselink,
                                                   :json,
-                                                  :slf4j_api,
-                                                  :slf4j_jdk14,
-                                                  :gwt_user,
-                                                  :infomas_annotation_detector,
-
-                                                  # This is horrible. Requires compat libraries
-                                                  :atmosphere_compat_tomcat,
-                                                  :atmosphere_compat_tomcat7,
-                                                  :atmosphere_compat_jbossweb
+                                                  :gwt_user
                                 ])
 end
