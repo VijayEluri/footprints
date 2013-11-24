@@ -7,7 +7,6 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:jms)
   repository.enable_facet(:xml)
   repository.enable_facet(:imit)
-  #repository.enable_facet(:restygwt)
 
   repository.jpa.provider = :eclipselink
   repository.jpa.exclude_unlisted_classes = false
