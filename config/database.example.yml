@@ -9,6 +9,8 @@ devhost: &devhost
   host: vw-firesql-104
   instance: mssql01
   force_drop: true
+  reindex_on_import: true
+  shrink_on_import: false
   no_create: false
 
 development:
