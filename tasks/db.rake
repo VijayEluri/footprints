@@ -32,10 +32,7 @@ def define_dbt_tasks(project)
 end
 
 Dbt.add_database(:default,
-                 :imports => {:default => {:modules => [:CodeMetrics]}},
-                 :migrations => true,
-                 :backup => true,
-                 :restore => true) do |database|
+                 :imports => {:default => {:modules => [:CodeMetrics]}}) do |database|
   database.search_dirs = ["#{workspace_dir}/database/generated", "#{workspace_dir}/database"]
   database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
 end
