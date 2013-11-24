@@ -27,12 +27,9 @@ else
   raise "Unknown DB_TYPE = #{ENV['DB_TYPE']}"
 end
 
-def define_dbt_tasks(project)
-  Dbt.database_for_key(:default).version = project.version
-end
-
 Dbt.add_database(:default,
                  :imports => {:default => {:modules => [:CodeMetrics]}}) do |database|
   database.search_dirs = ["#{workspace_dir}/database/generated", "#{workspace_dir}/database"]
   database.enable_domgen(:Footprints, 'domgen:load', 'domgen:sql')
+  database.version = '1'
 end
