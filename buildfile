@@ -90,9 +90,7 @@ define 'footprints' do
 
   iml.add_ejb_facet
   iml.add_jpa_facet
-  webroots = {_(:source, :main, :webapp) => "/"}
-  project.assets.paths.each {|p| webroots[p] = "/"}
-  iml.add_web_facet(:webroots => webroots)
+  iml.add_web_facet
   iml.add_jruby_facet
 
   ipr.add_exploded_war_artifact(project,
