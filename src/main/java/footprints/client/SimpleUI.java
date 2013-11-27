@@ -34,21 +34,14 @@ public class SimpleUI
   @Inject
   private JavaNcss _service;
   private EventBus _eventBus;
+  @Inject
   private SimpleEventBinder _eventBinder;
 
   @Inject
   public void setEventBus( final EventBus eventBus )
   {
     _eventBus = eventBus;
-    bindEvents();
-  }
-
-  @Inject
-  public void setSimpleEventBinder( final SimpleEventBinder eventBinder )
-  {
-    Window.alert( "setSimpleEventBinder" );
-    _eventBinder = eventBinder;
-    bindEvents();
+    _eventBinder.bindEventHandlers( this, _eventBus );
   }
 
   @EventHandler
@@ -90,13 +83,5 @@ public class SimpleUI
     } );
     panel.add( button );
     return panel;
-  }
-
-  private void bindEvents()
-  {
-    if ( null != _eventBinder && null != _eventBus )
-    {
-      _eventBinder.bindEventHandlers( this, _eventBus );
-    }
   }
 }
