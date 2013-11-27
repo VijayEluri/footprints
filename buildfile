@@ -102,13 +102,11 @@ define 'footprints' do
   iml.add_jruby_facet
 
   ipr.add_exploded_war_artifact(project,
-                                :name => 'footprints',
                                 :build_on_make => true,
                                 :enable_ejb => true,
                                 :enable_jpa => true,
                                 :enable_gwt => true,
                                 :enable_war => true,
-                                :output_dir => _(:artifacts, "footprints"),
                                 :dependencies => [project,
                                                   :jts,
                                                   :geolatte_geom,
