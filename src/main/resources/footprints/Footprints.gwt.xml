@@ -6,8 +6,6 @@
   <!--<inherits name="com.google.gwt.place.Place"/>-->
   <inherits name="com.google.gwt.logging.Logging"/>
   <inherits name="org.realityforge.replicant.Replicant"/>
-  <inherits name="com.google.web.bindery.autobean.AutoBean"/>
-  <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <add-linker name="xsiframe"/>
 
   <entry-point class='footprints.client.Footprints'/>
