@@ -2,8 +2,6 @@
 <module rename-to='footprints'>
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.inject.Inject"/>
-  <!--<inherits name="com.google.gwt.activity.Activity"/>-->
-  <!--<inherits name="com.google.gwt.place.Place"/>-->
   <inherits name="com.google.gwt.logging.Logging"/>
   <inherits name="org.realityforge.replicant.Replicant"/>
   <add-linker name="xsiframe"/>
