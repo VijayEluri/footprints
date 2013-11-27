@@ -43,6 +43,7 @@ define 'footprints' do
                :replicant_sources,
                :postgresql,
                :postgis_jdbc,
+               :eventbinder,
                :jts,
                :geolatte_geom,
                :javax_annotation,
