@@ -32,4 +32,10 @@
   <set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
 
+  <inherits name="com.googlecode.mgwt.linker.Linker"/>
+  <add-linker name="permutationmaplinker"/>
+
+  <extend-configuration-property name="html5manifestlinker_files" value="./"/>
+  <extend-configuration-property name="html5manifestlinker_files" value="index.html"/>
+
 </module>
