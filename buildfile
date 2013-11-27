@@ -79,7 +79,7 @@ define 'footprints' do
 
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/artifacts" }
-  clean { rm_rf "#{File.dirname(__FILE__)}/databases/generated" }
+  clean { rm_rf "#{File.dirname(__FILE__)}/database/generated" }
 
   jacoco.generate_xml = true
   jacoco.generate_html = true
