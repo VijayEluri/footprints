@@ -59,6 +59,9 @@ define 'footprints' do
                :geolatte_geom_eclipselink,
                :javax_validation_sources
 
+  gwt_superdev_runner("footprints.FootprintsDev",
+                      :java_args => ["-Xms512M", "-Xmx1024M", "-XX:PermSize=128M", "-XX:MaxPermSize=256M"],
+                      :draft_compile => (ENV["FAST_GWT"] == 'true'))
   gwt(["footprints.Footprints"],
       :java_args => ["-Xms512M", "-Xmx1024M", "-XX:PermSize=128M", "-XX:MaxPermSize=256M"],
       :draft_compile => (ENV["FAST_GWT"] == 'true'))
