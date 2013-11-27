@@ -69,7 +69,6 @@ define 'footprints' do
     end
   end
 
-
   check package(:war), "should contain resources and generated classes" do
     it.should contain('WEB-INF/web.xml')
     it.should contain('WEB-INF/classes/META-INF/persistence.xml')
