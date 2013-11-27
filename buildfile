@@ -30,10 +30,7 @@ define 'footprints' do
                             :imit_json,
                             :imit_jpa,
                             :imit_gwt_proxy],
-                           _(:target, :generated, "domgen")) do |t|
-    t.description = 'Generates the Java code for the persistent objects'
-    t.verbose = !!ENV['DEBUG_DOMGEN']
-  end
+                           _(:target, :generated, "domgen"))
 
   compile.with :javaee_api,
                VALIDATOR_JARS,
