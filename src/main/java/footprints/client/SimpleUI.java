@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 import com.google.web.bindery.event.shared.binder.GenericEvent;
@@ -36,12 +37,22 @@ public class SimpleUI
   private EventBus _eventBus;
   @Inject
   private SimpleEventBinder _eventBinder;
+  private HandlerRegistration _eventRegistration;
 
   @Inject
   public void setEventBus( final EventBus eventBus )
   {
     _eventBus = eventBus;
-    _eventBinder.bindEventHandlers( this, _eventBus );
+    _eventRegistration = _eventBinder.bindEventHandlers( this, _eventBus );
+  }
+
+  public void unbind()
+  {
+    if( null != _eventRegistration )
+    {
+      _eventRegistration.removeHandler();
+      _eventRegistration = null;
+    }
   }
 
   @EventHandler
