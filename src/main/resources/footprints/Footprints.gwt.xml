@@ -26,7 +26,9 @@
   <set-property name="gwt.logging.firebugHandler" value="ENABLED"/>
   <set-property name="gwt.logging.systemHandler" value="ENABLED"/>
 
-  <inherits name="com.googlecode.mgwt.linker.Linker"/>
+  <define-linker name="permutationmaplinker" class="com.googlecode.mgwt.linker.linker.PermutationMapLinker"/>
+  <define-configuration-property name="html5manifestlinker_files" is-multi-valued="true"/>
+
   <add-linker name="permutationmaplinker"/>
 
   <extend-configuration-property name="html5manifestlinker_files" value="./"/>
