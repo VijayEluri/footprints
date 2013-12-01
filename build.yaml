@@ -40,4 +40,3 @@ artifacts:
   mockito: org.mockito:mockito-all:jar:1.8.5
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
-  mgwt: com.googlecode.mgwt:mgwt:jar:1.1.2
