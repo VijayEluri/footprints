@@ -5,7 +5,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -64,7 +66,7 @@ public class SimpleUI
   @Override
   public Widget asWidget()
   {
-    final SimplePanel panel = new SimplePanel();
+    final VerticalPanel panel = new VerticalPanel();
 
     final Button button = new Button( "Place Pizza Order" );
     button.addClickHandler( new ClickHandler()
@@ -93,6 +95,7 @@ public class SimpleUI
 
     } );
     panel.add( button );
+    panel.add( new Login() );
     return panel;
   }
 }
