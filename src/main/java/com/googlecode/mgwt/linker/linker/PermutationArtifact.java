@@ -16,10 +16,10 @@ public class PermutationArtifact
   private final String _permutationName;
   private final Set<BindingProperty> _bindingProperties;
 
-  public PermutationArtifact( Class<? extends Linker> linker,
-                              String permutationName,
-                              Set<String> permutationFiles,
-                              Set<BindingProperty> bindingProperties )
+  public PermutationArtifact( final Class<? extends Linker> linker,
+                              final String permutationName,
+                              final Set<String> permutationFiles,
+                              final Set<BindingProperty> bindingProperties )
   {
     super( linker );
     _permutationName = permutationName;
