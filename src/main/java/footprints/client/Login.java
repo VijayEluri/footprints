@@ -20,7 +20,6 @@ public class Login
   interface LoginUiBinder
     extends UiBinder<Widget, Login>
   {
-
   }
 
   @UiField( provided = true )
