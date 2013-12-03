@@ -29,7 +29,7 @@ artifacts:
   geolatte_geom: org.geolatte:geolatte-geom:jar:0.12-rf
   jts: com.vividsolutions:jts:jar:1.10
 
-  geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.2
+  geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.3
   replicant: org.realityforge:replicant:jar:0.4.13
   replicant_sources: org.realityforge:replicant:jar:sources:0.4.13
 
