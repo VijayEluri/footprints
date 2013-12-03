@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
 public final class PermutationMapLinker
   extends AbstractLinker
 {
-  public static final String EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME = "html5manifestlinker_files";
+  public static final String STATIC_FILES_CONFIGURATION_PROPERTY_NAME = "appcache_static_files";
   public static final String IGNORE_CONFIGURATIONS_CONFIGURATION_PROPERTY_NAME =
     "html5manifestlinker_softperm_runtime_configurations";
   public static final String PERMUTATION_MANIFEST_FILE_ENDING = ".appcache";
@@ -73,7 +73,7 @@ public final class PermutationMapLinker
     }
 
     final ArrayList<PermutationArtifact> permutationArtifacts = getPermutationArtifacts( artifacts );
-    final Set<String> externalFiles = getConfigurationValues( context, EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME );
+    final Set<String> externalFiles = getConfigurationValues( context, STATIC_FILES_CONFIGURATION_PROPERTY_NAME );
     final Set<String> allPermutationFiles = getAllPermutationFiles( permutationArtifacts );
 
     // get all artifacts
