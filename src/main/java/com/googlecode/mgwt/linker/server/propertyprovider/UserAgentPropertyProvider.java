@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserAgentPropertyProvider
   implements PropertyProvider
 {
-  private static final long serialVersionUID = 7773351123106881463L;
-
   @Override
   public String getPropertyValue( final HttpServletRequest request )
   {
