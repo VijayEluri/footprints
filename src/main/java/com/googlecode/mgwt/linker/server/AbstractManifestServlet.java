@@ -94,7 +94,7 @@ public abstract class AbstractManifestServlet
         }
         catch ( final IOException ioe )
         {
-
+          //Ignored
         }
       }
     }
