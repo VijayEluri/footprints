@@ -260,7 +260,6 @@ public abstract class AbstractManifestServlet
     final Matcher matcher = pattern.matcher( request.getServletPath() );
     if ( !matcher.find() )
     {
-      log( "can not calculate module base from url: '" + request.getServletPath() + "'" );
       throw new ServletException( "can not calculate module base from url: '" + request.getServletPath() + "'" );
     }
 
