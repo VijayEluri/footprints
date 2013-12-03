@@ -107,9 +107,7 @@ public abstract class AbstractManifestServlet
     try
     {
       final Set<BindingProperty> computedBindings = new HashSet<BindingProperty>();
-
-      final Set<Entry<String, PropertyProvider>> set = propertyProviders.entrySet();
-      for ( final Entry<String, PropertyProvider> entry : set )
+      for ( final Entry<String, PropertyProvider> entry : propertyProviders.entrySet() )
       {
         final String varValue = entry.getValue().getPropertyValue( req );
         computedBindings.add( new BindingProperty( entry.getKey(), varValue ) );
