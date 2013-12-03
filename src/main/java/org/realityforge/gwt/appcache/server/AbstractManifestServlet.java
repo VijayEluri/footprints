@@ -1,6 +1,6 @@
 package org.realityforge.gwt.appcache.server;
 
-import org.realityforge.gwt.appcache.linker.PermutationMapLinker;
+import org.realityforge.gwt.appcache.linker.AppcacheLinker;
 import org.realityforge.gwt.appcache.linker.XMLPermutationProvider;
 import org.realityforge.gwt.appcache.server.propertyprovider.PropertyProvider;
 import java.io.BufferedReader;
@@ -48,7 +48,7 @@ public abstract class AbstractManifestServlet
     if ( null != strongName )
     {
       final String manifest =
-        readManifest( baseUrl + moduleName + "/" + strongName + PermutationMapLinker.PERMUTATION_MANIFEST_FILE_ENDING );
+        readManifest( baseUrl + moduleName + "/" + strongName + AppcacheLinker.PERMUTATION_MANIFEST_FILE_ENDING );
       serveStringManifest( resp, manifest );
     }
     else
@@ -212,7 +212,7 @@ public abstract class AbstractManifestServlet
     if ( null == _bindingMap )
     {
       final String realPath =
-        getServletContext().getRealPath( baseUrl + moduleName + "/" + PermutationMapLinker.MANIFEST_MAP_FILE_NAME );
+        getServletContext().getRealPath( baseUrl + moduleName + "/" + AppcacheLinker.MANIFEST_MAP_FILE_NAME );
 
       _bindingMap = XMLPermutationProvider.deserialize( new FileInputStream( realPath ) );
     }

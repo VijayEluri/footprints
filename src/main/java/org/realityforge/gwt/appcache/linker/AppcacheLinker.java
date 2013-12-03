@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 @LinkerOrder( LinkerOrder.Order.POST )
 @Shardable
-public final class PermutationMapLinker
+public final class AppcacheLinker
   extends AbstractLinker
 {
   public static final String STATIC_FILES_CONFIGURATION_PROPERTY_NAME = "appcache_static_files";
@@ -38,7 +38,7 @@ public final class PermutationMapLinker
   @Override
   public String getDescription()
   {
-    return "PermutationMapLinker";
+    return "AppcacheLinker";
   }
 
   @Override
@@ -123,7 +123,7 @@ public final class PermutationMapLinker
     }
 
     final ArtifactSet results = new ArtifactSet( artifacts );
-    results.add( new PermutationArtifact( PermutationMapLinker.class, permutations.iterator().next() ) );
+    results.add( new PermutationArtifact( AppcacheLinker.class, permutations.iterator().next() ) );
     return results;
   }
 
