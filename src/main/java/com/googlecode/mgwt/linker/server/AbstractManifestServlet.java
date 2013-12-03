@@ -92,7 +92,7 @@ public abstract class AbstractManifestServlet
         {
           br.close();
         }
-        catch ( IOException e )
+        catch ( final IOException ioe )
         {
 
         }
