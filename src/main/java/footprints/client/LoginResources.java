@@ -21,7 +21,6 @@ public interface LoginResources
     String background();
   }
 
-
   @Source( "Login.css" )
   MyCss style();
 }
