@@ -86,7 +86,7 @@ public abstract class AbstractManifestServlet
     }
     finally
     {
-      if ( br != null )
+      if ( null != br )
       {
         try
         {
