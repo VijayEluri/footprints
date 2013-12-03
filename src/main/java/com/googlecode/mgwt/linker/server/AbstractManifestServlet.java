@@ -4,14 +4,11 @@ import com.googlecode.mgwt.linker.linker.PermutationMapLinker;
 import com.googlecode.mgwt.linker.linker.XMLPermutationProvider;
 import com.googlecode.mgwt.linker.server.propertyprovider.PropertyProvider;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,7 +19,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -147,24 +143,11 @@ public abstract class AbstractManifestServlet
 
     try
     {
-      InputStream is = new ByteArrayInputStream( manifest.getBytes( "UTF-8" ) );
-      ServletOutputStream os = resp.getOutputStream();
-      byte[] buffer = new byte[ 1024 ];
-      int bytesRead;
-
-      while ( ( bytesRead = is.read( buffer ) ) != -1 )
-      {
-        os.write( buffer, 0, bytesRead );
-      }
+      final byte[] data = manifest.getBytes( "UTF-8" );
+      resp.getOutputStream().write( data, 0, data.length );
     }
-    catch ( UnsupportedEncodingException e )
+    catch ( final Exception e )
     {
-      log( "can not write manifest to output stream", e );
-      throw new ServletException( "can not write manifest to output stream", e );
-    }
-    catch ( IOException e )
-    {
-      log( "can not write manifest to output stream", e );
       throw new ServletException( "can not write manifest to output stream", e );
     }
   }
