@@ -14,14 +14,13 @@ public interface LoginResources
   {
     String blackText();
 
-    String redText();
-
     String loginButton();
 
     String box();
 
     String background();
   }
+
 
   @Source( "Login.css" )
   MyCss style();

@@ -5,13 +5,6 @@
    text-align: left;
 }
 
-.redText {
-   font-family: Arial, Sans-serif;
-   color: #ff0000;
-   font-size: 11px;
-   text-align: left;
-}
-
 .loginButton {
    border: 1px solid #3399DD;
    color: #FFFFFF;
