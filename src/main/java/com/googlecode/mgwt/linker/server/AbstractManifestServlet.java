@@ -104,7 +104,6 @@ public abstract class AbstractManifestServlet
   public Set<BindingProperty> calculateBindingPropertiesForClient( final HttpServletRequest req )
     throws ServletException
   {
-
     try
     {
       final Set<BindingProperty> computedBindings = new HashSet<BindingProperty>();
