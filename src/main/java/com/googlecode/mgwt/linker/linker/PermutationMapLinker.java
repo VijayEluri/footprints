@@ -22,10 +22,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
+import javax.annotation.Nonnull;
 
 @LinkerOrder( LinkerOrder.Order.POST )
 @Shardable
-public class PermutationMapLinker
+public final class PermutationMapLinker
   extends AbstractLinker
 {
   public static final String EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME = "html5manifestlinker_files";
@@ -126,7 +127,7 @@ public class PermutationMapLinker
     return results;
   }
 
-  protected Set<String> getAllPermutationFiles( final ArrayList<PermutationArtifact> artifacts )
+  private Set<String> getAllPermutationFiles( final ArrayList<PermutationArtifact> artifacts )
   {
     final Set<String> files = new HashSet<String>();
     for ( final PermutationArtifact artifact : artifacts )
@@ -136,7 +137,7 @@ public class PermutationMapLinker
     return files;
   }
 
-  protected ArrayList<PermutationArtifact> getPermutationArtifacts( final ArtifactSet artifacts )
+  private ArrayList<PermutationArtifact> getPermutationArtifacts( final ArtifactSet artifacts )
   {
     final ArrayList<PermutationArtifact> results = new ArrayList<PermutationArtifact>();
     for ( final PermutationArtifact permutationArtifact : artifacts.find( PermutationArtifact.class ) )
@@ -146,7 +147,7 @@ public class PermutationMapLinker
     return results;
   }
 
-  protected final Set<String> getArtifactsForCompilation( final LinkerContext context, final ArtifactSet artifacts )
+  private Set<String> getArtifactsForCompilation( final LinkerContext context, final ArtifactSet artifacts )
   {
     final Set<String> artifactNames = new HashSet<String>();
     for ( final EmittedArtifact artifact : artifacts.find( EmittedArtifact.class ) )
@@ -173,18 +174,9 @@ public class PermutationMapLinker
    * @param cacheResources  the gwt output artifacts like cache.html files
    * @return the manifest as a string
    */
-  private final String writeManifest( Set<String> staticResources, Set<String> cacheResources )
+  private String writeManifest( @Nonnull final Set<String> staticResources, @Nonnull final Set<String> cacheResources )
   {
-    if ( staticResources == null )
-    {
-      throw new IllegalArgumentException( "staticResources can not be null" );
-    }
-    if ( cacheResources == null )
-    {
-      throw new IllegalArgumentException( "cacheResources can not be null" );
-    }
-
-    StringBuilder sb = new StringBuilder();
+    final StringBuilder sb = new StringBuilder();
     sb.append( "CACHE MANIFEST\n" );
     //build something unique so that the manifest file changes on recompile
     sb.append( "# Unique id #" ).
@@ -231,9 +223,9 @@ public class PermutationMapLinker
     return set;
   }
 
-  protected EmittedArtifact createPermutationMap( final TreeLogger logger,
-                                                  final LinkerContext context,
-                                                  final Collection<PermutationArtifact> permutationArtifacts )
+  private EmittedArtifact createPermutationMap( final TreeLogger logger,
+                                                final LinkerContext context,
+                                                final Collection<PermutationArtifact> permutationArtifacts )
     throws UnableToCompleteException
   {
     try
@@ -308,7 +300,7 @@ public class PermutationMapLinker
     return permutationBindings;
   }
 
-  protected Collection<Permutation> calculatePermutations( final LinkerContext context, final ArtifactSet artifacts )
+  private Collection<Permutation> calculatePermutations( final LinkerContext context, final ArtifactSet artifacts )
     throws UnableToCompleteException
   {
     final HashMap<String, Permutation> map = new HashMap<String, Permutation>();

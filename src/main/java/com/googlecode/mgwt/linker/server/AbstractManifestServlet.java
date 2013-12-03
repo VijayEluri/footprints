@@ -9,8 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +29,12 @@ public abstract class AbstractManifestServlet
 {
   private static final long serialVersionUID = -2540671294104865306L;
 
-  private Map<String, PropertyProvider> propertyProviders = new HashMap<String, PropertyProvider>();
+  private transient ArrayList<PropertyProvider> _providers = new ArrayList<PropertyProvider>();
+  private transient Map<String, List<BindingProperty>> _bindingMap;
 
-  protected void addPropertyProvider( PropertyProvider propertyProvider )
+  protected void addPropertyProvider( final PropertyProvider propertyProvider )
   {
-    propertyProviders.put( propertyProvider.getPropertyName(), propertyProvider );
+    _providers.add( propertyProvider );
   }
 
   @Override
@@ -55,14 +57,14 @@ public abstract class AbstractManifestServlet
     }
   }
 
-  protected String getBaseUrl( final HttpServletRequest req )
+  private String getBaseUrl( final HttpServletRequest request )
   {
-    final String base = req.getServletPath();
+    final String base = request.getServletPath();
     // cut off module
     return base.substring( 0, base.lastIndexOf( "/" ) + 1 );
   }
 
-  public String readManifest( final String filePath )
+  private String readManifest( final String filePath )
     throws ServletException
   {
     final File manifestFile = new File( getServletContext().getRealPath( filePath ) );
@@ -100,16 +102,15 @@ public abstract class AbstractManifestServlet
     }
   }
 
-  public Set<BindingProperty> calculateBindingPropertiesForClient( final HttpServletRequest req )
+  private Set<BindingProperty> calculateBindingPropertiesForClient( final HttpServletRequest request )
     throws ServletException
   {
     try
     {
       final Set<BindingProperty> computedBindings = new HashSet<BindingProperty>();
-      for ( final Entry<String, PropertyProvider> entry : propertyProviders.entrySet() )
+      for ( final PropertyProvider provider : _providers )
       {
-        final String varValue = entry.getValue().getPropertyValue( req );
-        computedBindings.add( new BindingProperty( entry.getKey(), varValue ) );
+        computedBindings.add( new BindingProperty( provider.getPropertyName(), provider.getPropertyValue( request ) ) );
       }
       return computedBindings;
     }
@@ -119,7 +120,7 @@ public abstract class AbstractManifestServlet
     }
   }
 
-  public void serveStringManifest( final HttpServletResponse resp, final String manifest )
+  private void serveStringManifest( final HttpServletResponse resp, final String manifest )
     throws ServletException
   {
     final Date now = new Date();
@@ -147,16 +148,16 @@ public abstract class AbstractManifestServlet
     }
   }
 
-  protected String getPermutationStrongName( final String baseUrl,
-                                             final String moduleName,
-                                             final Set<BindingProperty> computedBindings )
+  private String getPermutationStrongName( @Nonnull final String baseUrl,
+                                                   @Nonnull final String moduleName,
+                                                   @Nonnull final Set<BindingProperty> computedBindings )
     throws ServletException
   {
     try
     {
       String selectedPermutation = null;
       int selectedMatchStrength = 0;
-      final Map<String, List<BindingProperty>> map = getBindingMap( baseUrl, moduleName, computedBindings );
+      final Map<String, List<BindingProperty>> map = getBindingMap( baseUrl, moduleName );
       for ( final Entry<String, List<BindingProperty>> permutationEntry : map.entrySet() )
       {
         int matchStrength = 0;
@@ -204,34 +205,24 @@ public abstract class AbstractManifestServlet
     }
   }
 
-  private Map<String, List<BindingProperty>> getBindingMap( final String baseUrl,
-                                                            final String moduleName,
-                                                            final Set<BindingProperty> computedBindings )
+  private Map<String, List<BindingProperty>> getBindingMap( @Nonnull final String baseUrl,
+                                                            @Nonnull final String moduleName )
     throws Exception
   {
-    if ( null == moduleName )
+    if ( null == _bindingMap )
     {
-      throw new IllegalArgumentException( "moduleName can not be null" );
-    }
-    else if ( null == computedBindings )
-    {
-      throw new IllegalArgumentException( "computedBindings can not be null" );
-    }
+      final String realPath =
+        getServletContext().getRealPath( baseUrl + moduleName + "/" + PermutationMapLinker.MANIFEST_MAP_FILE_NAME );
 
-    final String realPath =
-      getServletContext().getRealPath( baseUrl + moduleName + "/" + PermutationMapLinker.MANIFEST_MAP_FILE_NAME );
-
-    return XMLPermutationProvider.deserialize( new FileInputStream( realPath ) );
+      _bindingMap = XMLPermutationProvider.deserialize( new FileInputStream( realPath ) );
+    }
+    return _bindingMap;
   }
 
-  public String getModuleName( final HttpServletRequest request )
+  @Nonnull
+  private String getModuleName( @Nonnull final HttpServletRequest request )
     throws ServletException
   {
-    if ( null == request )
-    {
-      throw new IllegalArgumentException( "request can not be null" );
-    }
-
     // request url should be something like .../modulename.manifest" within
     // the same folder of your host page...
     final Pattern pattern = Pattern.compile( "/([a-zA-Z0-9]+)\\.manifest$" );
