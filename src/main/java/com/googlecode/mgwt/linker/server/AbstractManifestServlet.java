@@ -82,7 +82,6 @@ public abstract class AbstractManifestServlet
     }
     catch ( final Exception e )
     {
-      log( "error while reading manifest file", e );
       throw new ServletException( "error while reading manifest file", e );
     }
     finally
@@ -116,7 +115,6 @@ public abstract class AbstractManifestServlet
     }
     catch ( final Exception e )
     {
-      log( "can not calculate properties for client", e );
       throw new ServletException( "can not calculate properties for client", e );
     }
   }
