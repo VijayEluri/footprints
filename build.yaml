@@ -29,8 +29,8 @@ artifacts:
   jts: com.vividsolutions:jts:jar:1.10
 
   geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.2
-  replicant: org.realityforge:replicant:jar:0.4.8-8-g97e2168
-  replicant_sources: org.realityforge:replicant:jar:sources:0.4.8-8-g97e2168
+  replicant: org.realityforge:replicant:jar:0.4.13
+  replicant_sources: org.realityforge:replicant:jar:sources:0.4.13
 
   google_guice: com.google.inject:guice:jar:3.0
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
