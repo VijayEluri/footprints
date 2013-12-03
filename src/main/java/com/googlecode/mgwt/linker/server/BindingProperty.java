@@ -6,23 +6,23 @@ public class BindingProperty
   implements Serializable
 {
   private static final long serialVersionUID = -4176373787349662615L;
-  private final String name;
-  private final String value;
+  private final String _name;
+  private final String _value;
 
   public BindingProperty( String name, String value )
   {
-    this.name = name;
-    this.value = value;
+    _name = name;
+    _value = value;
   }
 
   public String getName()
   {
-    return name;
+    return _name;
   }
 
   public String getValue()
   {
-    return value;
+    return _value;
   }
 
   @Override
@@ -30,8 +30,8 @@ public class BindingProperty
   {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
-    result = prime * result + ( ( value == null ) ? 0 : value.hashCode() );
+    result = prime * result + ( ( _name == null ) ? 0 : _name.hashCode() );
+    result = prime * result + ( ( _value == null ) ? 0 : _value.hashCode() );
     return result;
   }
 
@@ -51,25 +51,25 @@ public class BindingProperty
       return false;
     }
     BindingProperty other = (BindingProperty) obj;
-    if ( name == null )
+    if ( _name == null )
     {
-      if ( other.name != null )
+      if ( other._name != null )
       {
         return false;
       }
     }
-    else if ( !name.equals( other.name ) )
+    else if ( !_name.equals( other._name ) )
     {
       return false;
     }
-    if ( value == null )
+    if ( _value == null )
     {
-      if ( other.value != null )
+      if ( other._value != null )
       {
         return false;
       }
     }
-    else if ( !value.equals( other.value ) )
+    else if ( !_value.equals( other._value ) )
     {
       return false;
     }
@@ -79,6 +79,6 @@ public class BindingProperty
   @Override
   public String toString()
   {
-    return "BindingProperty [name=" + name + ", value=" + value + "]";
+    return "BindingProperty [name=" + _name + ", value=" + _value + "]";
   }
 }
