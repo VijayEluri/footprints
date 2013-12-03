@@ -4,6 +4,7 @@
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="com.google.gwt.logging.Logging"/>
   <inherits name="org.realityforge.replicant.Replicant"/>
+  <inherits name="org.realityforge.gwt.appcache.linker.Linker"/>
   <inherits name="com.google.web.bindery.event.EventBinder"/>
   <add-linker name="xsiframe"/>
 
@@ -30,15 +31,7 @@
   <set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
 
-  <define-linker name="permutationmaplinker" class="org.realityforge.gwt.appcache.linker.PermutationMapLinker"/>
-  <define-configuration-property name="appcache_static_files" is-multi-valued="true"/>
-  <define-configuration-property name="appcache_ignorable_permutation_properties" is-multi-valued="true"/>
-  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="audioElementSupport"/>
-  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="canvasElementSupport"/>
-  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="videoElementSupport"/>
-  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="dragEventSupport"/>
-
-  <add-linker name="permutationmaplinker"/>
+  <add-linker name="appcache"/>
 
   <extend-configuration-property name="appcache_static_files" value="./"/>
   <extend-configuration-property name="appcache_static_files" value="index.html"/>
