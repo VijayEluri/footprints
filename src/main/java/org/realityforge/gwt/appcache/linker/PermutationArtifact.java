@@ -1,4 +1,4 @@
-package com.googlecode.mgwt.linker.linker;
+package org.realityforge.gwt.appcache.linker;
 
 import com.google.gwt.core.ext.Linker;
 import com.google.gwt.core.ext.linker.Artifact;

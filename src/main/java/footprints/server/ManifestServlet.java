@@ -1,7 +1,7 @@
 package footprints.server;
 
-import com.googlecode.mgwt.linker.server.AbstractManifestServlet;
-import com.googlecode.mgwt.linker.server.propertyprovider.UserAgentPropertyProvider;
+import org.realityforge.gwt.appcache.server.AbstractManifestServlet;
+import org.realityforge.gwt.appcache.server.propertyprovider.UserAgentPropertyProvider;
 
 public class ManifestServlet
   extends AbstractManifestServlet

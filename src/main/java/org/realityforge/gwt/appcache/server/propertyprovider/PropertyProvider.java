@@ -1,4 +1,4 @@
-package com.googlecode.mgwt.linker.server.propertyprovider;
+package org.realityforge.gwt.appcache.server.propertyprovider;
 
 import javax.servlet.http.HttpServletRequest;
 

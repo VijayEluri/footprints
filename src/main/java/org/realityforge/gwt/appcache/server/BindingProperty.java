@@ -1,4 +1,4 @@
-package com.googlecode.mgwt.linker.server;
+package org.realityforge.gwt.appcache.server;
 
 import java.io.Serializable;
 

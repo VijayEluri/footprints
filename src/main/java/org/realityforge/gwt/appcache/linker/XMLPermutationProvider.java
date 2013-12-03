@@ -1,6 +1,6 @@
-package com.googlecode.mgwt.linker.linker;
+package org.realityforge.gwt.appcache.linker;
 
-import com.googlecode.mgwt.linker.server.BindingProperty;
+import org.realityforge.gwt.appcache.server.BindingProperty;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;

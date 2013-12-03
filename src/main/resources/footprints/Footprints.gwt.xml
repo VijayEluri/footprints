@@ -26,7 +26,7 @@
   <set-property name="gwt.logging.firebugHandler" value="ENABLED"/>
   <set-property name="gwt.logging.systemHandler" value="ENABLED"/>
 
-  <define-linker name="permutationmaplinker" class="com.googlecode.mgwt.linker.linker.PermutationMapLinker"/>
+  <define-linker name="permutationmaplinker" class="org.realityforge.gwt.appcache.linker.PermutationMapLinker"/>
   <define-configuration-property name="html5manifestlinker_files" is-multi-valued="true"/>
   <define-configuration-property name="html5manifestlinker_softperm_runtime_configurations" is-multi-valued="true"/>
   <extend-configuration-property name="html5manifestlinker_softperm_runtime_configurations" value="audioElementSupport"/>

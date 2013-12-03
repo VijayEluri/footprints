@@ -1,8 +1,8 @@
-package com.googlecode.mgwt.linker.server;
+package org.realityforge.gwt.appcache.server;
 
-import com.googlecode.mgwt.linker.linker.PermutationMapLinker;
-import com.googlecode.mgwt.linker.linker.XMLPermutationProvider;
-import com.googlecode.mgwt.linker.server.propertyprovider.PropertyProvider;
+import org.realityforge.gwt.appcache.linker.PermutationMapLinker;
+import org.realityforge.gwt.appcache.linker.XMLPermutationProvider;
+import org.realityforge.gwt.appcache.server.propertyprovider.PropertyProvider;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

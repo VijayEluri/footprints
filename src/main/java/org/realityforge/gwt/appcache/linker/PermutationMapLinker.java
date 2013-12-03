@@ -1,4 +1,4 @@
-package com.googlecode.mgwt.linker.linker;
+package org.realityforge.gwt.appcache.linker;
 
 import com.google.gwt.core.ext.LinkerContext;
 import com.google.gwt.core.ext.TreeLogger;
@@ -12,7 +12,7 @@ import com.google.gwt.core.ext.linker.EmittedArtifact.Visibility;
 import com.google.gwt.core.ext.linker.LinkerOrder;
 import com.google.gwt.core.ext.linker.Shardable;
 import com.google.gwt.core.ext.linker.impl.SelectionInformation;
-import com.googlecode.mgwt.linker.server.BindingProperty;
+import org.realityforge.gwt.appcache.server.BindingProperty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
