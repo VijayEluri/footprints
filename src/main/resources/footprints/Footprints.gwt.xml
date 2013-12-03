@@ -28,11 +28,11 @@
 
   <define-linker name="permutationmaplinker" class="org.realityforge.gwt.appcache.linker.PermutationMapLinker"/>
   <define-configuration-property name="appcache_static_files" is-multi-valued="true"/>
-  <define-configuration-property name="html5manifestlinker_softperm_runtime_configurations" is-multi-valued="true"/>
-  <extend-configuration-property name="html5manifestlinker_softperm_runtime_configurations" value="audioElementSupport"/>
-  <extend-configuration-property name="html5manifestlinker_softperm_runtime_configurations" value="canvasElementSupport"/>
-  <extend-configuration-property name="html5manifestlinker_softperm_runtime_configurations" value="videoElementSupport"/>
-  <extend-configuration-property name="html5manifestlinker_softperm_runtime_configurations" value="dragEventSupport"/>
+  <define-configuration-property name="appcache_ignorable_permutation_properties" is-multi-valued="true"/>
+  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="audioElementSupport"/>
+  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="canvasElementSupport"/>
+  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="videoElementSupport"/>
+  <extend-configuration-property name="appcache_ignorable_permutation_properties" value="dragEventSupport"/>
 
   <add-linker name="permutationmaplinker"/>
 

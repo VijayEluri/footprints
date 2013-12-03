@@ -31,7 +31,7 @@ public final class PermutationMapLinker
 {
   public static final String STATIC_FILES_CONFIGURATION_PROPERTY_NAME = "appcache_static_files";
   public static final String IGNORE_CONFIGURATIONS_CONFIGURATION_PROPERTY_NAME =
-    "html5manifestlinker_softperm_runtime_configurations";
+    "appcache_ignorable_permutation_properties";
   public static final String PERMUTATION_MANIFEST_FILE_ENDING = ".appcache";
   public static final String MANIFEST_MAP_FILE_NAME = "manifest.map";
 
