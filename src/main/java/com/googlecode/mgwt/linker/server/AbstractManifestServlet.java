@@ -27,14 +27,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Html5ManifestServletBase
+public abstract class AbstractManifestServlet
   extends HttpServlet
 {
-
   private static final long serialVersionUID = -2540671294104865306L;
 
   private Map<String, PropertyProvider> propertyProviders = new HashMap<String, PropertyProvider>();
-
 
   protected void addPropertyProvider( PropertyProvider propertyProvider )
   {
@@ -163,8 +161,67 @@ public class Html5ManifestServletBase
     }
   }
 
-  public String getPermutationStrongName( String baseUrl, String moduleName, Set<BindingProperty> computedBindings )
+  protected String getPermutationStrongName( final String baseUrl,
+                                             final String moduleName,
+                                             final Set<BindingProperty> computedBindings )
     throws ServletException
+  {
+    try
+    {
+      String selectedPermutation = null;
+      int selectedMatchStrength = 0;
+      final Map<String, List<BindingProperty>> map = getBindingMap( baseUrl, moduleName, computedBindings );
+      for ( final Entry<String, List<BindingProperty>> permutationEntry : map.entrySet() )
+      {
+        int matchStrength = 0;
+        boolean matched = true;
+        final List<BindingProperty> requiredBindings = permutationEntry.getValue();
+        for ( final BindingProperty requirement : requiredBindings )
+        {
+          boolean propertyMatched = false;
+          for ( final BindingProperty candidate : computedBindings )
+          {
+            if ( requirement.getName().equals( candidate.getName() ) )
+            {
+              final String[] values = requirement.getValue().split( "," );
+              for ( final String value : values )
+              {
+                if ( value.equals( candidate.getValue() ) )
+                {
+                  propertyMatched = true;
+                  break;
+                }
+              }
+            }
+          }
+          if ( !propertyMatched )
+          {
+            matched = false;
+            break;
+          }
+          else
+          {
+            matchStrength = requiredBindings.size();
+          }
+        }
+        if ( matched && matchStrength > selectedMatchStrength )
+        {
+          selectedPermutation = permutationEntry.getKey();
+          selectedMatchStrength = matchStrength;
+        }
+      }
+      return selectedPermutation;
+    }
+    catch ( final Exception e )
+    {
+      throw new ServletException( "can not read permutation information", e );
+    }
+  }
+
+  private Map<String, List<BindingProperty>> getBindingMap( final String baseUrl,
+                                                            final String moduleName,
+                                                            final Set<BindingProperty> computedBindings )
+    throws Exception
   {
     if ( null == moduleName )
     {
@@ -178,26 +235,7 @@ public class Html5ManifestServletBase
     final String realPath =
       getServletContext().getRealPath( baseUrl + moduleName + "/" + PermutationMapLinker.MANIFEST_MAP_FILE_NAME );
 
-    try
-    {
-      final FileInputStream fileInputStream = new FileInputStream( realPath );
-      final Map<String, List<BindingProperty>> map = XMLPermutationProvider.getBindingProperties( fileInputStream );
-      for ( Entry<String, List<BindingProperty>> entry : map.entrySet() )
-      {
-        final List<BindingProperty> value = entry.getValue();
-        if ( value.containsAll( computedBindings ) && value.size() == computedBindings.size() )
-        {
-          return entry.getKey();
-        }
-      }
-      return null;
-    }
-    catch ( final Exception e )
-    {
-      log( "can not read xml file", e );
-      throw new ServletException( "can not read permutation information", e );
-    }
-
+    return XMLPermutationProvider.deserialize( new FileInputStream( realPath ) );
   }
 
   public String getModuleName( final HttpServletRequest request )

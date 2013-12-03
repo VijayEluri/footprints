@@ -8,11 +8,13 @@ import com.google.gwt.core.ext.linker.AbstractLinker;
 import com.google.gwt.core.ext.linker.ArtifactSet;
 import com.google.gwt.core.ext.linker.ConfigurationProperty;
 import com.google.gwt.core.ext.linker.EmittedArtifact;
+import com.google.gwt.core.ext.linker.EmittedArtifact.Visibility;
 import com.google.gwt.core.ext.linker.LinkerOrder;
 import com.google.gwt.core.ext.linker.Shardable;
-import com.google.gwt.core.ext.linker.SyntheticArtifact;
 import com.google.gwt.core.ext.linker.impl.SelectionInformation;
 import com.googlecode.mgwt.linker.server.BindingProperty;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +22,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeMap;
 
 @LinkerOrder( LinkerOrder.Order.POST )
 @Shardable
@@ -28,8 +29,9 @@ public class PermutationMapLinker
   extends AbstractLinker
 {
   public static final String EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME = "html5manifestlinker_files";
+  public static final String IGNORE_CONFIGURATIONS_CONFIGURATION_PROPERTY_NAME =
+    "html5manifestlinker_softperm_runtime_configurations";
   public static final String PERMUTATION_MANIFEST_FILE_ENDING = ".manifest";
-  public static final String PERMUTATION_FILE_ENDING = ".perm.xml";
   public static final String MANIFEST_MAP_FILE_NAME = "manifest.map";
 
   @Override
@@ -47,151 +49,119 @@ public class PermutationMapLinker
   {
     if ( onePermutation )
     {
-      final Map<String, Set<BindingProperty>> permutationMap = buildPermutationMap( artifacts );
-      final Set<Entry<String, Set<BindingProperty>>> entrySet = permutationMap.entrySet();
-
-      // since we are in onePermutation there should be just one
-      // strongName - better make sure..
-      if ( 1 != permutationMap.size() )
-      {
-        logger.log( Type.ERROR,
-                    "There should be only one permutation right now, but there were: '" + permutationMap.size() + "'" );
-        throw new UnableToCompleteException();
-      }
-
-      final Entry<String, Set<BindingProperty>> next = entrySet.iterator().next();
-      final String strongName = next.getKey();
-      final Set<BindingProperty> bindingProperties = next.getValue();
-
-      System.out.println( "bindingProperties = " + bindingProperties );
-      // all artifacts for this compilation
-      final Set<String> artifactsForCompilation = getArtifactsForCompilation( context, artifacts );
-
-      final ArtifactSet toReturn = new ArtifactSet( artifacts );
-      final PermutationArtifact permutationArtifact =
-        new PermutationArtifact( PermutationMapLinker.class, strongName, artifactsForCompilation,
-                                 new HashSet<BindingProperty>() );
-      toReturn.add( permutationArtifact );
-      return toReturn;
+      return perPermutationLink( logger, context, artifacts );
     }
+    else
+    {
+      return perCompileLink( logger, context, artifacts );
+    }
+  }
 
-    final ArtifactSet toReturn = new ArtifactSet( artifacts );
-    final Map<String, Set<BindingProperty>> map = buildPermutationMap( artifacts );
+  private ArtifactSet perCompileLink( final TreeLogger logger,
+                                      final LinkerContext context,
+                                      final ArtifactSet artifacts )
+    throws UnableToCompleteException
+  {
+    final ArtifactSet results = new ArtifactSet( artifacts );
+    final Collection<Permutation> permutations = calculatePermutations( context, artifacts );
 
-    if ( map.size() == 0 )
+    if ( 0 == permutations.size() )
     {
       // hosted mode
-      return toReturn;
+      return results;
     }
 
-    final Map<String, PermutationArtifact> permutationArtifactAsMap = getPermutationArtifactAsMap( artifacts );
-    final Set<String> externalFiles = getExternalFiles( context );
-    final Set<String> allPermutationFiles = getAllPermutationFiles( permutationArtifactAsMap );
+    final ArrayList<PermutationArtifact> permutationArtifacts = getPermutationArtifacts( artifacts );
+    final Set<String> externalFiles = getConfigurationValues( context, EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME );
+    final Set<String> allPermutationFiles = getAllPermutationFiles( permutationArtifacts );
 
     // get all artifacts
     final Set<String> allArtifacts = getArtifactsForCompilation( context, artifacts );
 
-    for ( final Entry<String, PermutationArtifact> entry : permutationArtifactAsMap.entrySet() )
+    for ( final PermutationArtifact permutation : permutationArtifacts )
     {
-      PermutationArtifact permutationArtifact = entry.getValue();
       // make a copy of all artifacts
-      HashSet<String> filesForCurrentPermutation = new HashSet<String>( allArtifacts );
+      final HashSet<String> filesForCurrentPermutation = new HashSet<String>( allArtifacts );
       // remove all permutations
       filesForCurrentPermutation.removeAll( allPermutationFiles );
       // add files of the one permutation we are interested in
       // leaving the common stuff for all permutations in...
-      filesForCurrentPermutation.addAll( entry.getValue().getPermutationFiles() );
-
-      String permXml = buildPermXml( logger, permutationArtifact, filesForCurrentPermutation, externalFiles );
-
-      // emit permutation information file
-      SyntheticArtifact emitString =
-        emitString( logger, permXml, permutationArtifact.getPermutationName() + PERMUTATION_FILE_ENDING );
-      toReturn.add( emitString );
+      final Set<String> permutationFiles = permutation.getPermutation().getPermutationFiles();
+      for ( final String permutationFile : permutationFiles )
+      {
+        if ( allArtifacts.contains( permutationFile ) )
+        {
+          filesForCurrentPermutation.add( permutationFile );
+        }
+      }
 
       // build manifest
-      String maniFest = writeManifest( externalFiles, filesForCurrentPermutation );
-      toReturn.add( emitString( logger, maniFest, entry.getKey() + PERMUTATION_MANIFEST_FILE_ENDING ) );
-
+      final String maniFest = writeManifest( externalFiles, filesForCurrentPermutation );
+      final String filename = permutation.getPermutation().getPermutationName() + PERMUTATION_MANIFEST_FILE_ENDING;
+      results.add( emitString( logger, maniFest, filename ) );
     }
 
-    toReturn.add( createPermutationMap( logger, map ) );
-    return toReturn;
-
+    results.add( createPermutationMap( logger, context, permutationArtifacts ) );
+    return results;
   }
 
-  protected String buildPermXml( final TreeLogger logger,
-                                 final PermutationArtifact permutationArtifact,
-                                 final Set<String> gwtCompiledFiles,
-                                 final Set<String> otherResources )
+  private ArtifactSet perPermutationLink( final TreeLogger logger,
+                                          final LinkerContext context,
+                                          final ArtifactSet artifacts )
     throws UnableToCompleteException
   {
-    final HashSet<String> namesForPermXml = new HashSet<String>( gwtCompiledFiles );
-    namesForPermXml.addAll( otherResources );
+    final Collection<Permutation> permutations = calculatePermutations( context, artifacts );
 
-    try
+    // since we are in onePermutation there should be just one
+    // strongName - better make sure..
+    if ( 1 != permutations.size() )
     {
-      return XMLPermutationProvider.writePermutationInformation( permutationArtifact.getPermutationName(),
-                                                                 permutationArtifact.getBindingProperties(),
-                                                                 namesForPermXml );
-    }
-    catch ( final Exception e )
-    {
-      logger.log( Type.ERROR, "can not build xml for permutation file", e );
+      logger.log( Type.ERROR,
+                  "There should be only one permutation right now, but there were: '" + permutations.size() + "'" );
       throw new UnableToCompleteException();
     }
+
+    final ArtifactSet results = new ArtifactSet( artifacts );
+    results.add( new PermutationArtifact( PermutationMapLinker.class, permutations.iterator().next() ) );
+    return results;
   }
 
-  protected Set<String> getAllPermutationFiles( final Map<String, PermutationArtifact> permutationArtifactAsMap )
+  protected Set<String> getAllPermutationFiles( final ArrayList<PermutationArtifact> artifacts )
   {
-    final Set<String> allPermutationFiles = new HashSet<String>();
-    for ( final Entry<String, PermutationArtifact> entry : permutationArtifactAsMap.entrySet() )
+    final Set<String> files = new HashSet<String>();
+    for ( final PermutationArtifact artifact : artifacts )
     {
-      allPermutationFiles.addAll( entry.getValue().getPermutationFiles() );
+      files.addAll( artifact.getPermutation().getPermutationFiles() );
     }
-    return allPermutationFiles;
+    return files;
   }
 
-  protected Map<String, PermutationArtifact> getPermutationArtifactAsMap( final ArtifactSet artifacts )
+  protected ArrayList<PermutationArtifact> getPermutationArtifacts( final ArtifactSet artifacts )
   {
-    final Map<String, PermutationArtifact> hashMap = new HashMap<String, PermutationArtifact>();
+    final ArrayList<PermutationArtifact> results = new ArrayList<PermutationArtifact>();
     for ( final PermutationArtifact permutationArtifact : artifacts.find( PermutationArtifact.class ) )
     {
-      hashMap.put( permutationArtifact.getPermutationName(), permutationArtifact );
+      results.add( permutationArtifact );
     }
-    return hashMap;
+    return results;
   }
 
-  protected boolean shouldArtifactBeInManifest( final String pathName )
-  {
-    return !( pathName.endsWith( "symbolMap" ) ||
-              pathName.endsWith( ".xml.gz" ) ||
-              pathName.endsWith( "rpc.log" ) ||
-              pathName.endsWith( "gwt.rpc" ) ||
-              pathName.endsWith( "manifest.txt" ) ||
-              pathName.startsWith( "rpcPolicyManifest" ) ||
-              pathName.startsWith( "soycReport" ) ||
-              pathName.endsWith( ".cssmap" ) );
-
-  }
-
-  protected Set<String> getArtifactsForCompilation( final LinkerContext context, final ArtifactSet artifacts )
+  protected final Set<String> getArtifactsForCompilation( final LinkerContext context, final ArtifactSet artifacts )
   {
     final Set<String> artifactNames = new HashSet<String>();
     for ( final EmittedArtifact artifact : artifacts.find( EmittedArtifact.class ) )
     {
-      final String pathName = artifact.getPartialPath();
-      System.out.println( "pathName = " + pathName  );
-      System.out.println( "artifact.getVisibility() = " + artifact.getVisibility() );
-      System.out.println( "shouldArtifactBeInManifest( pathName ) = " + shouldArtifactBeInManifest( pathName ) );
-      if ( shouldArtifactBeInManifest( pathName ) )
+      if ( Visibility.Public == artifact.getVisibility() && shouldAddToManifest( artifact.getPartialPath() ) )
       {
-        artifactNames.add( context.getModuleName() + "/" + pathName );
+        artifactNames.add( context.getModuleName() + "/" + artifact.getPartialPath() );
       }
     }
-
     return artifactNames;
+  }
 
+  private boolean shouldAddToManifest( final String path )
+  {
+    return !( path.equals( "compilation-mappings.txt" ) || path.endsWith( ".devmode.js" ) );
   }
 
   /**
@@ -203,7 +173,7 @@ public class PermutationMapLinker
    * @param cacheResources  the gwt output artifacts like cache.html files
    * @return the manifest as a string
    */
-  final String writeManifest( Set<String> staticResources, Set<String> cacheResources )
+  private final String writeManifest( Set<String> staticResources, Set<String> cacheResources )
   {
     if ( staticResources == null )
     {
@@ -243,13 +213,13 @@ public class PermutationMapLinker
     return sb.toString();
   }
 
-  protected Set<String> getExternalFiles( final LinkerContext context )
+  private Set<String> getConfigurationValues( final LinkerContext context, final String propertyName )
   {
     final HashSet<String> set = new HashSet<String>();
     final SortedSet<ConfigurationProperty> properties = context.getConfigurationProperties();
     for ( final ConfigurationProperty configurationProperty : properties )
     {
-      if ( EXTERNAL_FILES_CONFIGURATION_PROPERTY_NAME.equals( configurationProperty.getName() ) )
+      if ( propertyName.equals( configurationProperty.getName() ) )
       {
         for ( final String value : configurationProperty.getValues() )
         {
@@ -261,12 +231,14 @@ public class PermutationMapLinker
     return set;
   }
 
-  protected EmittedArtifact createPermutationMap( final TreeLogger logger, final Map<String, Set<BindingProperty>> map )
+  protected EmittedArtifact createPermutationMap( final TreeLogger logger,
+                                                  final LinkerContext context,
+                                                  final Collection<PermutationArtifact> permutationArtifacts )
     throws UnableToCompleteException
   {
     try
     {
-      final String string = XMLPermutationProvider.serializeMap( map );
+      final String string = XMLPermutationProvider.serialize( calculateBindings( context, permutationArtifacts ) );
       return emitString( logger, string, MANIFEST_MAP_FILE_NAME );
     }
     catch ( final Exception e )
@@ -276,28 +248,94 @@ public class PermutationMapLinker
     }
   }
 
-  protected Map<String, Set<BindingProperty>> buildPermutationMap( final ArtifactSet artifacts )
+  private Map<String, Set<BindingProperty>> calculateBindings( final LinkerContext context,
+                                                               final Collection<PermutationArtifact> permutationArtifacts )
+  {
+    final Set<String> ignoreConfigs =
+      getConfigurationValues( context, IGNORE_CONFIGURATIONS_CONFIGURATION_PROPERTY_NAME );
+    final Map<String, Set<BindingProperty>> permutationBindings = new HashMap<String, Set<BindingProperty>>();
+    for ( final PermutationArtifact permutationArtifact : permutationArtifacts )
+    {
+      final Permutation permutation = permutationArtifact.getPermutation();
+      final HashSet<BindingProperty> calculatedBindings = new HashSet<BindingProperty>();
+      permutationBindings.put( permutation.getPermutationName(), calculatedBindings );
+
+      final Map<Integer, Set<BindingProperty>> bindings = permutation.getBindingProperties();
+      final Set<BindingProperty> firstBindingProperties = bindings.values().iterator().next();
+      if ( 1 == bindings.size() )
+      {
+        // No soft permutations
+        for ( final BindingProperty b : firstBindingProperties )
+        {
+          calculatedBindings.add( new BindingProperty( b.getName(), b.getValue() ) );
+        }
+      }
+      else
+      {
+        for ( final BindingProperty p : firstBindingProperties )
+        {
+          if ( ignoreConfigs.contains( p.getName() ) )
+          {
+            continue;
+          }
+          final HashSet<String> values = new HashSet<String>();
+          for ( final Set<BindingProperty> properties : bindings.values() )
+          {
+            for ( final BindingProperty property : properties )
+            {
+              if ( property.getName().equals( p.getName() ) )
+              {
+                values.add( property.getValue() );
+              }
+            }
+          }
+          if ( values.size() > 1 )
+          {
+            final StringBuilder sb = new StringBuilder();
+            for ( final String value : values )
+            {
+              if ( 0 != sb.length() )
+              {
+                sb.append( "," );
+              }
+              sb.append( value );
+            }
+            calculatedBindings.add( new BindingProperty( p.getName(), sb.toString() ) );
+          }
+        }
+      }
+    }
+    return permutationBindings;
+  }
+
+  protected Collection<Permutation> calculatePermutations( final LinkerContext context, final ArtifactSet artifacts )
     throws UnableToCompleteException
   {
-    final HashMap<String, Set<BindingProperty>> map = new HashMap<String, Set<BindingProperty>>();
-
+    final HashMap<String, Permutation> map = new HashMap<String, Permutation>();
     for ( final SelectionInformation result : artifacts.find( SelectionInformation.class ) )
     {
+      final String strongName = result.getStrongName();
+      Permutation permutation = map.get( strongName );
+      if ( null == permutation )
+      {
+        permutation = new Permutation( strongName );
+        final Set<String> artifactsForCompilation = getArtifactsForCompilation( context, artifacts );
+        permutation.getPermutationFiles().addAll( artifactsForCompilation );
+        map.put( strongName, permutation );
+      }
+      final Map<Integer, Set<BindingProperty>> bindings = permutation.getBindingProperties();
+      final int softPermutationId = result.getSoftPermutationId();
+      if ( bindings.containsKey( softPermutationId ) )
+      {
+        throw new UnableToCompleteException();
+      }
       final Set<BindingProperty> list = new HashSet<BindingProperty>();
-      map.put( result.getStrongName(), list );
-
-      final TreeMap<String, String> propMap = result.getPropMap();
-      final Set<Entry<String, String>> set = propMap.entrySet();
-      System.out.println( "getStrongName() = " + result.getStrongName() );
-      System.out.println( "getSoftPermutationId() = " + result.getSoftPermutationId() );
-      System.out.println( "getPropMap() = " + result.getPropMap() );
-
-      for ( final Entry<String, String> entry : set )
+      bindings.put( softPermutationId, list );
+      for ( final Entry<String, String> entry : result.getPropMap().entrySet() )
       {
         list.add( new BindingProperty( entry.getKey(), entry.getValue() ) );
       }
     }
-
-    return map;
+    return map.values();
   }
 }

@@ -3,8 +3,6 @@ package com.googlecode.mgwt.linker.linker;
 import com.google.gwt.core.ext.Linker;
 import com.google.gwt.core.ext.linker.Artifact;
 import com.google.gwt.core.ext.linker.Transferable;
-import com.googlecode.mgwt.linker.server.BindingProperty;
-import java.util.Set;
 
 @Transferable
 public class PermutationArtifact
@@ -12,31 +10,25 @@ public class PermutationArtifact
 {
   private static final long serialVersionUID = -2097933260935878782L;
 
-  private final Set<String> _permutationFiles;
-  private final String _permutationName;
-  private final Set<BindingProperty> _bindingProperties;
+  private final Permutation _permutation;
 
   public PermutationArtifact( final Class<? extends Linker> linker,
-                              final String permutationName,
-                              final Set<String> permutationFiles,
-                              final Set<BindingProperty> bindingProperties )
+                              final Permutation permutation )
   {
     super( linker );
-    _permutationName = permutationName;
-    _permutationFiles = permutationFiles;
-    _bindingProperties = bindingProperties;
+    _permutation = permutation;
   }
 
   @Override
   public int hashCode()
   {
-    return _permutationFiles.hashCode();
+    return getPermutation().hashCode();
   }
 
   @Override
   protected int compareToComparableArtifact( final PermutationArtifact o )
   {
-    return _permutationName.compareTo( o._permutationName );
+    return getPermutation().getPermutationName().compareTo( o.getPermutation().getPermutationName() );
   }
 
   @Override
@@ -45,18 +37,8 @@ public class PermutationArtifact
     return PermutationArtifact.class;
   }
 
-  public Set<String> getPermutationFiles()
+  public Permutation getPermutation()
   {
-    return _permutationFiles;
-  }
-
-  public String getPermutationName()
-  {
-    return _permutationName;
-  }
-
-  public Set<BindingProperty> getBindingProperties()
-  {
-    return _bindingProperties;
+    return _permutation;
   }
 }

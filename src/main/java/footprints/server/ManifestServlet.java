@@ -2,8 +2,8 @@ package footprints.server;
 
 import com.googlecode.mgwt.linker.linker.PermutationMapLinker;
 import com.googlecode.mgwt.linker.linker.XMLPermutationProvider;
+import com.googlecode.mgwt.linker.server.AbstractManifestServlet;
 import com.googlecode.mgwt.linker.server.BindingProperty;
-import com.googlecode.mgwt.linker.server.Html5ManifestServletBase;
 import com.googlecode.mgwt.linker.server.propertyprovider.UserAgentPropertyProvider;
 import java.io.FileInputStream;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.servlet.ServletException;
 
 public class ManifestServlet
-  extends Html5ManifestServletBase
+  extends AbstractManifestServlet
 {
   public ManifestServlet()
   {
@@ -36,7 +36,7 @@ public class ManifestServlet
       try
       {
         final FileInputStream fileInputStream = new FileInputStream( realPath );
-        final Map<String, List<BindingProperty>> map = XMLPermutationProvider.getBindingProperties( fileInputStream );
+        final Map<String, List<BindingProperty>> map = XMLPermutationProvider.deserialize( fileInputStream );
         if ( 1 == map.size() )
         {
           return map.entrySet().iterator().next().getKey();
