@@ -78,6 +78,12 @@ define 'footprints' do
     it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
   end
 
+  desc "DB Archive"
+  define 'db' do
+    project.no_iml
+    Dbt.define_database_package(:default, project, :include_code => false)
+  end
+
   # Remove generated database directories
   clean { rm_rf "#{File.dirname(__FILE__)}/artifacts" }
   clean { rm_rf "#{File.dirname(__FILE__)}/database/generated" }
