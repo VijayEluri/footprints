@@ -1,6 +1,7 @@
 repositories:
   remote:
    - http://repo.fire.dse.vic.gov.au/content/groups/fisg
+   - http://repo.fire.dse.vic.gov.au/content/repositories/osgeo
    - http://repo1.maven.org/maven2
    - http://download.eclipse.org/rt/eclipselink/maven.repo
    - http://repository.codehaus.org
@@ -28,7 +29,7 @@ artifacts:
   geolatte_geom: org.geolatte:geolatte-geom:jar:0.12-rf
   jts: com.vividsolutions:jts:jar:1.10
 
-  geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.2
+  geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.3
   replicant: org.realityforge:replicant:jar:0.4.13
   replicant_sources: org.realityforge:replicant:jar:sources:0.4.13
 
@@ -41,4 +42,4 @@ artifacts:
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
 
-  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:0.1
+  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:0.2
