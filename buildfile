@@ -46,6 +46,8 @@ define 'footprints' do
                :javax_annotation,
                :json,
                :gwt_appcache_server,
+               :gwt_appcache_linker,
+               :gwt_appcache_client,
                :jackson_core,
                :google_guice,
                :google_guice_assistedinject,
