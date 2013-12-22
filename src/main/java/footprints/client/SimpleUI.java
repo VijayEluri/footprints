@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import org.realityforge.gwt.performance_timeline.client.PerformanceEntry;
 import org.realityforge.gwt.performance_timeline.client.PerformanceEntry.EntryType;
 import org.realityforge.gwt.performance_timeline.client.PerformanceTimeline;
+import org.realityforge.gwt.performance_timeline.client.ResourceTiming;
 import org.realityforge.replicant.client.AsyncCallback;
 import org.realityforge.replicant.client.AsyncErrorCallback;
 
@@ -115,11 +116,11 @@ public class SimpleUI
           }
           else
           {
-            final List<PerformanceEntry> entries =
+            final List<ResourceTiming> entries =
               timeline.getEntriesByType( EntryType.resource );
-            for ( final PerformanceEntry entry : entries )
+            for ( final ResourceTiming entry : entries )
             {
-              LOG.severe( entry.getName() + " Duration: " + entry.getDuration() );
+              LOG.severe( entry.getName() + " Duration: " + entry.getDuration()+ " InitiatorType: " + entry.getInitiatorType() );
             }
           }
         }
