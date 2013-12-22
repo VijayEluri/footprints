@@ -108,37 +108,20 @@ public class SimpleUI
       {
         public void onClick( ClickEvent event )
         {
-          _service.getCollections( new AsyncCallback<List<CollectionDTO>>()
-                                   {
-                                     @Override
-                                     public void onSuccess( final List<CollectionDTO> result )
-                                     {
-                                       Window.alert( "Success - RPC" );
-                                       final PerformanceTimeline timeline = PerformanceTimeline.get();
-                                       if ( null == timeline )
-                                       {
-                                         Window.alert( "No timeline!" );
-                                       }
-                                       else
-                                       {
-                                         final List<PerformanceEntry> entries =
-                                           timeline.getEntriesByType( EntryType.resource );
-                                         for ( final PerformanceEntry entry : entries )
-                                         {
-                                           LOG.severe( entry.getName() + " Duration: " + entry.getDuration() );
-                                         }
-                                         Window.alert( entries.toString() );
-                                       }
-                                     }
-                                   }, new AsyncErrorCallback()
-                                   {
-                                     @Override
-                                     public void onFailure( final Throwable caught )
-                                     {
-                                       Window.alert( "Failure - RPC" );
-                                     }
-                                   }
-          );
+          final PerformanceTimeline timeline = PerformanceTimeline.get();
+          if ( null == timeline )
+          {
+            Window.alert( "No timeline!" );
+          }
+          else
+          {
+            final List<PerformanceEntry> entries =
+              timeline.getEntriesByType( EntryType.resource );
+            for ( final PerformanceEntry entry : entries )
+            {
+              LOG.severe( entry.getName() + " Duration: " + entry.getDuration() );
+            }
+          }
         }
 
       } );
