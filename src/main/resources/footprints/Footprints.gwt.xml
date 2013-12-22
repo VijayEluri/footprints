@@ -6,7 +6,7 @@
   <inherits name="org.realityforge.replicant.Replicant"/>
   <inherits name="org.realityforge.gwt.appcache.Appcache"/>
   <inherits name="org.realityforge.gwt.appcache.linker.Linker"/>
-  <inherits name="org.realityforge.gwt.timing.resource.Timing"/>
+  <inherits name="org.realityforge.gwt.performance_timeline.PerformanceTimeline"/>
   <inherits name="com.google.web.bindery.event.EventBinder"/>
   <add-linker name="xsiframe"/>
 

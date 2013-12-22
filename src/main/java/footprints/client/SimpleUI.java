@@ -17,9 +17,9 @@ import footprints.client.service.code_metrics.JavaNcss;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import org.realityforge.gwt.timing.resource.client.PerformanceEntry;
-import org.realityforge.gwt.timing.resource.client.PerformanceEntry.EntryType;
-import org.realityforge.gwt.timing.resource.client.PerformanceTimeline;
+import org.realityforge.gwt.performance_timeline.client.PerformanceEntry;
+import org.realityforge.gwt.performance_timeline.client.PerformanceEntry.EntryType;
+import org.realityforge.gwt.performance_timeline.client.PerformanceTimeline;
 import org.realityforge.replicant.client.AsyncCallback;
 import org.realityforge.replicant.client.AsyncErrorCallback;
 
