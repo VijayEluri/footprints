@@ -5,8 +5,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
@@ -17,13 +15,19 @@ import com.google.web.bindery.event.shared.binder.GenericEvent;
 import footprints.client.data_type.code_metrics.CollectionDTO;
 import footprints.client.service.code_metrics.JavaNcss;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.inject.Inject;
+import org.realityforge.gwt.timing.resource.client.PerformanceEntry;
+import org.realityforge.gwt.timing.resource.client.PerformanceEntry.EntryType;
+import org.realityforge.gwt.timing.resource.client.PerformanceTimeline;
 import org.realityforge.replicant.client.AsyncCallback;
 import org.realityforge.replicant.client.AsyncErrorCallback;
 
 public class SimpleUI
   extends Composite
 {
+  private static final Logger LOG = Logger.getLogger( Footprints.class.getName() );
+
   public interface SimpleEventBinder
     extends EventBinder<SimpleUI>
   {
@@ -50,7 +54,7 @@ public class SimpleUI
 
   public void unbind()
   {
-    if( null != _eventRegistration )
+    if ( null != _eventRegistration )
     {
       _eventRegistration.removeHandler();
       _eventRegistration = null;
@@ -68,33 +72,79 @@ public class SimpleUI
   {
     final VerticalPanel panel = new VerticalPanel();
 
-    final Button button = new Button( "Place Pizza Order" );
-    button.addClickHandler( new ClickHandler()
     {
-      public void onClick( ClickEvent event )
+      final Button button = new Button( "Place Pizza Order" );
+      button.addClickHandler( new ClickHandler()
       {
-        _service.getCollections( new AsyncCallback<List<CollectionDTO>>()
-                                 {
-                                   @Override
-                                   public void onSuccess( final List<CollectionDTO> result )
+        public void onClick( ClickEvent event )
+        {
+          _service.getCollections( new AsyncCallback<List<CollectionDTO>>()
                                    {
-                                     Window.alert( "Success - RPC" );
-                                     _eventBus.fireEvent( new ResponseEvent() );
-                                   }
-                                 }, new AsyncErrorCallback()
-                                 {
-                                   @Override
-                                   public void onFailure( final Throwable caught )
+                                     @Override
+                                     public void onSuccess( final List<CollectionDTO> result )
+                                     {
+                                       Window.alert( "Success - RPC" );
+                                       _eventBus.fireEvent( new ResponseEvent() );
+                                     }
+                                   }, new AsyncErrorCallback()
                                    {
-                                     Window.alert( "Failure - RPC" );
+                                     @Override
+                                     public void onFailure( final Throwable caught )
+                                     {
+                                       Window.alert( "Failure - RPC" );
+                                     }
                                    }
-                                 }
-        );
-        Window.alert( "Order Placed via RPC" );
-      }
+          );
+          Window.alert( "Order Placed via RPC" );
+        }
 
-    } );
-    panel.add( button );
+      } );
+      panel.add( button );
+    }
+
+    {
+      final Button button = new Button( "Place Pizza Order" );
+      button.addClickHandler( new ClickHandler()
+      {
+        public void onClick( ClickEvent event )
+        {
+          _service.getCollections( new AsyncCallback<List<CollectionDTO>>()
+                                   {
+                                     @Override
+                                     public void onSuccess( final List<CollectionDTO> result )
+                                     {
+                                       Window.alert( "Success - RPC" );
+                                       final PerformanceTimeline timeline = PerformanceTimeline.get();
+                                       if ( null == timeline )
+                                       {
+                                         Window.alert( "No timeline!" );
+                                       }
+                                       else
+                                       {
+                                         final List<PerformanceEntry> entries =
+                                           timeline.getEntriesByType( EntryType.resource );
+                                         for ( final PerformanceEntry entry : entries )
+                                         {
+                                           LOG.severe( entry.getName() + " Duration: " + entry.getDuration() );
+                                         }
+                                         Window.alert( entries.toString() );
+                                       }
+                                     }
+                                   }, new AsyncErrorCallback()
+                                   {
+                                     @Override
+                                     public void onFailure( final Throwable caught )
+                                     {
+                                       Window.alert( "Failure - RPC" );
+                                     }
+                                   }
+          );
+        }
+
+      } );
+      panel.add( button );
+    }
+
     panel.add( new Login() );
     return panel;
   }
