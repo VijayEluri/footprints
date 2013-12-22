@@ -46,4 +46,4 @@ artifacts:
   gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:0.5
   gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:0.5
 
-  gwt_performance_timeline: org.realityforge.gwt.performance_timeline:gwt-performance-timeline:jar:96e676c
+  gwt_performance_timeline: org.realityforge.gwt.performance_timeline:gwt-performance-timeline:jar:e2611c4
