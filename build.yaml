@@ -42,8 +42,8 @@ artifacts:
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
 
-  gwt_appcache_client: org.realityforge.gwt.appcache:gwt-appcache-client:jar:0.5
-  gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:0.5
-  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:0.5
+  gwt_appcache_client: org.realityforge.gwt.appcache:gwt-appcache-client:jar:0.5-21-ge27f8ca
+  gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:0.5-21-ge27f8ca
+  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:0.5-21-ge27f8ca
 
   gwt_performance_timeline: org.realityforge.gwt.performance_timeline:gwt-performance-timeline:jar:e2611c4

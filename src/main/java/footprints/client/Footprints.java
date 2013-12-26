@@ -2,8 +2,12 @@ package footprints.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import footprints.client.ioc.FootprintsGinjector;
 import java.util.logging.Logger;
 import javax.annotation.Nonnull;
@@ -37,7 +41,7 @@ public final class Footprints
         @Override
         public void onCachedEvent( @Nonnull final CachedEvent event )
         {
-          log( "onCachedEvent(" + event + ")" );
+          LOG.info( "onCachedEvent(" + event + ")" );
         }
       } );
       cache.addCheckingHandler( new CheckingEvent.Handler()
@@ -45,7 +49,7 @@ public final class Footprints
         @Override
         public void onCheckingEvent( @Nonnull final CheckingEvent event )
         {
-          log( "onCheckingEvent(" + event + ")" );
+          LOG.info( "onCheckingEvent(" + event + ")" );
         }
       } );
       cache.addDownloadingHandler( new DownloadingEvent.Handler()
@@ -53,7 +57,7 @@ public final class Footprints
         @Override
         public void onDownloadingEvent( @Nonnull final DownloadingEvent event )
         {
-          log( "onDownloadingEvent(" + event + ")" );
+          LOG.info( "onDownloadingEvent(" + event + ")" );
         }
       } );
       cache.addErrorHandler( new ErrorEvent.Handler()
@@ -61,7 +65,7 @@ public final class Footprints
         @Override
         public void onErrorEvent( @Nonnull final ErrorEvent event )
         {
-          log( "onErrorEvent(" + event + ")" );
+          LOG.info( "onErrorEvent(" + event + ")" );
         }
       } );
       cache.addNoUpdateHandler( new NoUpdateEvent.Handler()
@@ -69,7 +73,7 @@ public final class Footprints
         @Override
         public void onNoUpdateEvent( @Nonnull final NoUpdateEvent event )
         {
-          log( "onNoUpdateEvent(" + event + ")" );
+          LOG.info( "onNoUpdateEvent(" + event + ")" );
         }
       } );
       cache.addObsoleteHandler( new ObsoleteEvent.Handler()
@@ -77,7 +81,7 @@ public final class Footprints
         @Override
         public void onObsoleteEvent( @Nonnull final ObsoleteEvent event )
         {
-          log( "onObsoleteEvent(" + event + ")" );
+          LOG.info( "onObsoleteEvent(" + event + ")" );
         }
       } );
       cache.addProgressHandler( new ProgressEvent.Handler()
@@ -85,7 +89,7 @@ public final class Footprints
         @Override
         public void onProgressEvent( @Nonnull final ProgressEvent event )
         {
-          log( "onProgressEvent(" + event + ")" );
+          LOG.info( "onProgressEvent(" + event.getLoaded() + "," + event.getTotal() + ")" );
         }
       } );
       cache.addUpdateReadyHandler( new UpdateReadyEvent.Handler()
@@ -93,17 +97,38 @@ public final class Footprints
         @Override
         public void onUpdateReadyEvent( @Nonnull final UpdateReadyEvent event )
         {
-          log( "onUpdateReadyEvent(" + event + ")" );
+          LOG.info( "onUpdateReadyEvent(" + event + ")" );
         }
       } );
       cache.update();
     }
-    final FootprintsGinjector injector = GWT.create( FootprintsGinjector.class );
-    RootPanel.get().add( injector.getSimpleUI().asWidget() );
-  }
+    final VerticalPanel panel = new VerticalPanel();
+    if( null != cache )
+    {
+      final Button button = new Button( "Update from Cache" );
+      button.addClickHandler( new ClickHandler()
+      {
+        @Override
+        public void onClick( final ClickEvent event )
+        {
+          cache.update();
+        }
+      } );
+      panel.add( button );
+      final Button button2 = new Button( "Remove from Cache" );
+      button2.addClickHandler( new ClickHandler()
+      {
+        @Override
+        public void onClick( final ClickEvent event )
+        {
+          cache.removeCache();
+        }
+      } );
+      panel.add( button2 );
 
-  private void log( final String msg )
-  {
-    LOG.info( msg );
+    }
+    final FootprintsGinjector injector = GWT.create( FootprintsGinjector.class );
+    panel.add( injector.getSimpleUI().asWidget() );
+    RootPanel.get().add( panel );
   }
 }
