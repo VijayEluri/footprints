@@ -17,7 +17,7 @@ import footprints.client.service.code_metrics.JavaNcss;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import org.realityforge.gwt.performance_timeline.client.PerformanceEntry;
+import org.realityforge.gwt.performance_timeline.client.NavigationTiming;
 import org.realityforge.gwt.performance_timeline.client.PerformanceEntry.EntryType;
 import org.realityforge.gwt.performance_timeline.client.PerformanceTimeline;
 import org.realityforge.gwt.performance_timeline.client.ResourceTiming;
@@ -116,11 +116,17 @@ public class SimpleUI
           }
           else
           {
-            final List<ResourceTiming> entries =
-              timeline.getEntriesByType( EntryType.resource );
-            for ( final ResourceTiming entry : entries )
+            for ( final ResourceTiming entry : timeline.<ResourceTiming>getEntriesByType( EntryType.resource ) )
             {
-              LOG.severe( entry.getName() + " Duration: " + entry.getDuration()+ " InitiatorType: " + entry.getInitiatorType() );
+              LOG.severe( entry.getName() +
+                          " Duration: " + entry.getDuration() +
+                          " InitiatorType: " + entry.getInitiatorType() );
+            }
+            for ( final NavigationTiming entry : timeline.<NavigationTiming>getEntriesByType( EntryType.navigation ) )
+            {
+              LOG.severe( entry.getName() +
+                          " Duration: " + entry.getDuration() +
+                          " InitiatorType: " + entry.getType() );
             }
           }
         }
