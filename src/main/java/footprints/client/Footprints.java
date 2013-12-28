@@ -100,7 +100,7 @@ public final class Footprints
           LOG.info( "onUpdateReadyEvent(" + event + ")" );
         }
       } );
-      cache.update();
+      cache.requestUpdate();
     }
     final VerticalPanel panel = new VerticalPanel();
     if( null != cache )
@@ -111,7 +111,7 @@ public final class Footprints
         @Override
         public void onClick( final ClickEvent event )
         {
-          cache.update();
+          cache.requestUpdate();
         }
       } );
       panel.add( button );
