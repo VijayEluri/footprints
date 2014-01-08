@@ -48,6 +48,7 @@ define 'footprints' do
                :gwt_appcache_server,
                :gwt_appcache_linker,
                :gwt_appcache_client,
+               :gwt_online,
                :jackson_core,
                :google_guice,
                :google_guice_assistedinject,
