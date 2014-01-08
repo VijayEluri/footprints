@@ -13,6 +13,8 @@ import com.google.web.bindery.event.shared.binder.EventBinder;
 import com.google.web.bindery.event.shared.binder.EventHandler;
 import com.google.web.bindery.event.shared.binder.GenericEvent;
 import footprints.client.data_type.code_metrics.CollectionDTO;
+import footprints.client.service.FootprintsAsyncCallback;
+import footprints.client.service.FootprintsAsyncErrorCallback;
 import footprints.client.service.code_metrics.JavaNcss;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,8 +23,6 @@ import org.realityforge.gwt.performance_timeline.client.NavigationTiming;
 import org.realityforge.gwt.performance_timeline.client.PerformanceEntry.EntryType;
 import org.realityforge.gwt.performance_timeline.client.PerformanceTimeline;
 import org.realityforge.gwt.performance_timeline.client.ResourceTiming;
-import org.realityforge.replicant.client.AsyncCallback;
-import org.realityforge.replicant.client.AsyncErrorCallback;
 
 public class SimpleUI
   extends Composite
@@ -79,7 +79,7 @@ public class SimpleUI
       {
         public void onClick( ClickEvent event )
         {
-          _service.getCollections( new AsyncCallback<List<CollectionDTO>>()
+          _service.getCollections( new FootprintsAsyncCallback<List<CollectionDTO>>()
                                    {
                                      @Override
                                      public void onSuccess( final List<CollectionDTO> result )
@@ -87,7 +87,7 @@ public class SimpleUI
                                        Window.alert( "Success - RPC" );
                                        _eventBus.fireEvent( new ResponseEvent() );
                                      }
-                                   }, new AsyncErrorCallback()
+                                   }, new FootprintsAsyncErrorCallback()
                                    {
                                      @Override
                                      public void onFailure( final Throwable caught )
