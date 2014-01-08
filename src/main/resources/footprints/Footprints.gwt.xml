@@ -4,8 +4,6 @@
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="com.google.gwt.logging.Logging"/>
   <inherits name="org.realityforge.replicant.Replicant"/>
-  <inherits name="org.realityforge.gwt.appcache.Appcache"/>
-  <inherits name="org.realityforge.gwt.appcache.linker.Linker"/>
   <inherits name="org.realityforge.gwt.performance_timeline.PerformanceTimeline"/>
   <inherits name="com.google.web.bindery.event.EventBinder"/>
   <add-linker name="xsiframe"/>
@@ -32,10 +30,4 @@
   <set-property name="gwt.logging.systemHandler" value="ENABLED"/>
   <set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
-
-  <add-linker name="appcache"/>
-
-  <extend-configuration-property name="appcache_static_files" value="./"/>
-  <extend-configuration-property name="appcache_static_files" value="index.html"/>
-
 </module>
