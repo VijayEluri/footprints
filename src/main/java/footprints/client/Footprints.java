@@ -21,9 +21,6 @@ import org.realityforge.gwt.appcache.client.event.NoUpdateEvent;
 import org.realityforge.gwt.appcache.client.event.ObsoleteEvent;
 import org.realityforge.gwt.appcache.client.event.ProgressEvent;
 import org.realityforge.gwt.appcache.client.event.UpdateReadyEvent;
-import org.realityforge.gwt.online.client.OnlineIndicator;
-import org.realityforge.gwt.online.client.event.OffLineEvent;
-import org.realityforge.gwt.online.client.event.OnLineEvent;
 
 public final class Footprints
   implements EntryPoint
@@ -32,31 +29,6 @@ public final class Footprints
 
   public void onModuleLoad()
   {
-    final OnlineIndicator indicator = OnlineIndicator.getOnlineIndicatorIfSupported();
-    if( null == indicator )
-    {
-      Window.alert( "No OnlineIndicator!" );
-    }
-    else
-    {
-      indicator.addOnLineEventHandler( new OnLineEvent.Handler()
-      {
-        @Override
-        public void onOnLineEvent( @Nonnull final OnLineEvent event )
-        {
-          LOG.info( "onOnLineEvent(" + event + ")" );
-        }
-      } );
-      indicator.addOffLineEventHandler( new OffLineEvent.Handler()
-      {
-        @Override
-        public void onOffLineEvent( @Nonnull final OffLineEvent event )
-        {
-          LOG.info( "onOffLineEvent(" + event + ")" );
-        }
-      } );
-      LOG.info( "OnLine?: " + indicator.isOnLine() );
-    }
     final ApplicationCache cache = ApplicationCache.get();
     if ( null == cache )
     {

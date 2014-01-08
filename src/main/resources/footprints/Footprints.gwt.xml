@@ -8,7 +8,6 @@
   <inherits name="org.realityforge.gwt.appcache.linker.Linker"/>
   <inherits name="org.realityforge.gwt.performance_timeline.PerformanceTimeline"/>
   <inherits name="com.google.web.bindery.event.EventBinder"/>
-  <inherits name="org.realityforge.gwt.online.Online"/>
   <add-linker name="xsiframe"/>
 
   <entry-point class='footprints.client.Footprints'/>
