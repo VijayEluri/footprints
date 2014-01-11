@@ -48,7 +48,6 @@ define 'footprints' do
                :jackson_core,
                :google_guice,
                :google_guice_assistedinject,
-               :gwt_performance_timeline,
                :aopalliance,
                :jackson_mapper,
                :gwt_user,

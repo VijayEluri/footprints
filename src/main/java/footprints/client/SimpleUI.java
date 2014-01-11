@@ -17,18 +17,11 @@ import footprints.client.service.FootprintsAsyncCallback;
 import footprints.client.service.FootprintsAsyncErrorCallback;
 import footprints.client.service.code_metrics.JavaNcss;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.inject.Inject;
-import org.realityforge.gwt.performance_timeline.client.NavigationTiming;
-import org.realityforge.gwt.performance_timeline.client.PerformanceEntry.EntryType;
-import org.realityforge.gwt.performance_timeline.client.PerformanceTimeline;
-import org.realityforge.gwt.performance_timeline.client.ResourceTiming;
 
 public class SimpleUI
   extends Composite
 {
-  private static final Logger LOG = Logger.getLogger( Footprints.class.getName() );
-
   public interface SimpleEventBinder
     extends EventBinder<SimpleUI>
   {
@@ -102,39 +95,6 @@ public class SimpleUI
       } );
       panel.add( button );
     }
-
-    {
-      final Button button = new Button( "Place Pizza Order" );
-      button.addClickHandler( new ClickHandler()
-      {
-        public void onClick( ClickEvent event )
-        {
-          final PerformanceTimeline timeline = PerformanceTimeline.get();
-          if ( null == timeline )
-          {
-            Window.alert( "No timeline!" );
-          }
-          else
-          {
-            for ( final ResourceTiming entry : timeline.<ResourceTiming>getEntriesByType( EntryType.resource ) )
-            {
-              LOG.severe( entry.getName() +
-                          " Duration: " + entry.getDuration() +
-                          " InitiatorType: " + entry.getInitiatorType() );
-            }
-            for ( final NavigationTiming entry : timeline.<NavigationTiming>getEntriesByType( EntryType.navigation ) )
-            {
-              LOG.severe( entry.getName() +
-                          " Duration: " + entry.getDuration() +
-                          " InitiatorType: " + entry.getType() );
-            }
-          }
-        }
-
-      } );
-      panel.add( button );
-    }
-
     panel.add( new Login() );
     return panel;
   }

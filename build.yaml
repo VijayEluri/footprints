@@ -38,5 +38,3 @@ artifacts:
   mockito: org.mockito:mockito-all:jar:1.8.5
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
-
-  gwt_performance_timeline: org.realityforge.gwt.performance_timeline:gwt-performance-timeline:jar:a3b38df

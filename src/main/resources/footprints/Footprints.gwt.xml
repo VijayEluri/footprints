@@ -4,7 +4,6 @@
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="com.google.gwt.logging.Logging"/>
   <inherits name="org.realityforge.replicant.Replicant"/>
-  <inherits name="org.realityforge.gwt.performance_timeline.PerformanceTimeline"/>
   <inherits name="com.google.web.bindery.event.EventBinder"/>
   <add-linker name="xsiframe"/>
 
