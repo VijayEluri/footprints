@@ -34,7 +34,7 @@ public class OutputParser
                                                            final XPath xPath )
     throws XPathExpressionException
   {
-    final LinkedList<MethodEntry> methods = new LinkedList<MethodEntry>();
+    final LinkedList<MethodEntry> methods = new LinkedList<>();
     final NodeList methodElements =
       (NodeList) xPath.compile( "//functions/function" ).evaluate( element, XPathConstants.NODESET );
     final int length = methodElements.getLength();
@@ -97,7 +97,7 @@ public class OutputParser
   private HashSet<String> extractPackageNames( final Element element, final XPath xPath )
     throws XPathExpressionException
   {
-    final HashSet<String> packages = new HashSet<String>();
+    final HashSet<String> packages = new HashSet<>();
 
     final NodeList packageNames =
       (NodeList) xPath.compile( "//packages/package/name" ).evaluate( element, XPathConstants.NODESET );
