@@ -123,5 +123,4 @@ public class OutputParser
     element.normalize();
     return element;
   }
-
 }
