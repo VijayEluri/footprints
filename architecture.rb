@@ -17,7 +17,9 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:CollectedAt, :immutable => true)
+      t.datetime(:CollectedAt, :immutable => true) do |a|
+        a.disable_facet(:imit)
+      end
     end
 
     data_module.entity(:MethodMetric) do |t|
