@@ -1,6 +1,7 @@
 require 'buildr/git_auto_version'
 require 'buildr/top_level_generate_dir'
 require 'buildr/jacoco'
+require 'buildr/single_intermediate_layout'
 
 VALIDATOR_JARS = [
   'org.hibernate:hibernate-validator:jar:5.0.1.Final',

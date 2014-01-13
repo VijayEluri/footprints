@@ -2,9 +2,7 @@
 /database/generated
 /artifacts
 /target
-/db/target
 /reports
-/db/reports
 /*.iws
 /*.ipr
 /*.iml
