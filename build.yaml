@@ -36,6 +36,6 @@ artifacts:
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
 
   # Mocking library used to mock out UI in planner application
-  mockito: org.mockito:mockito-all:jar:1.8.5
+  mockito: org.mockito:mockito-all:jar:1.9.5
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
