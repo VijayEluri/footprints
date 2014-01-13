@@ -11,3 +11,4 @@
 /**/*.iml
 /config/database.yml
 /Gemfile.lock
+/tmp
