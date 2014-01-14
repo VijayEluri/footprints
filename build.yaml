@@ -6,7 +6,6 @@ repositories:
 artifacts:
   eclipselink: org.eclipse.persistence:eclipselink:jar:2.5.1
   postgresql: postgresql:postgresql:jar:9.1-901.jdbc4
-  jtds: net.sourceforge.jtds:jtds:jar:1.2.4
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
   json: org.json:json:jar:20090211
