@@ -4,8 +4,6 @@ repositories:
    - http://repository.codehaus.org
 
 artifacts:
-  eclipselink: org.eclipse.persistence:eclipselink:jar:2.5.1
-  postgresql: postgresql:postgresql:jar:9.1-901.jdbc4
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
