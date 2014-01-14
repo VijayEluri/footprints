@@ -38,7 +38,6 @@ define 'footprints' do
                :postgresql,
                :eventbinder,
                :javax_annotation,
-               :json,
                :jackson_core,
                :google_guice,
                :google_guice_assistedinject,
@@ -108,7 +107,6 @@ define 'footprints' do
                                 :enable_gwt => true,
                                 :enable_war => true,
                                 :dependencies => [project,
-                                                  :json,
                                                   :gwt_user
                                 ])
 end

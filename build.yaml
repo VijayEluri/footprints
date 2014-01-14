@@ -8,7 +8,6 @@ artifacts:
   postgresql: postgresql:postgresql:jar:9.1-901.jdbc4
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
-  json: org.json:json:jar:20090211
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
 
