@@ -9,8 +9,6 @@ VALIDATOR_JARS = [
   'com.fasterxml:classmate:jar:0.9.0'
 ]
 
-download(artifact(:postgis_jdbc) => 'https://github.com/realityforge/repository/raw/master/org/postgis/postgis-jdbc/2.0.2SVN/postgis-jdbc-2.0.2SVN.jar')
-
 desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
   project.group = 'org.realityforge.footprints'
@@ -38,10 +36,7 @@ define 'footprints' do
                :eclipselink,
                :replicant,
                :postgresql,
-               :postgis_jdbc,
                :eventbinder,
-               :jts,
-               :geolatte_geom,
                :javax_annotation,
                :json,
                :jackson_core,
@@ -53,7 +48,6 @@ define 'footprints' do
                :gwt_user,
                :gwt_dev,
                :gwt_gin,
-               :geolatte_geom_eclipselink,
                :javax_validation_sources
 
   gwt_superdev_runner("footprints.FootprintsDev",
@@ -114,9 +108,6 @@ define 'footprints' do
                                 :enable_gwt => true,
                                 :enable_war => true,
                                 :dependencies => [project,
-                                                  :jts,
-                                                  :geolatte_geom,
-                                                  :geolatte_geom_eclipselink,
                                                   :json,
                                                   :gwt_user
                                 ])

@@ -6,7 +6,6 @@ repositories:
 artifacts:
   eclipselink: org.eclipse.persistence:eclipselink:jar:2.5.1
   postgresql: postgresql:postgresql:jar:9.1-901.jdbc4
-  postgis_jdbc: org.postgis:postgis-jdbc:jar:1.3.3
   jtds: net.sourceforge.jtds:jtds:jar:1.2.4
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
@@ -14,18 +13,12 @@ artifacts:
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
 
-  geolatte_common: org.geolatte:geolatte-common:jar:0.5
-
   gwt_user: com.google.gwt:gwt-user:jar:2.6.0-rc4
   gwt_dev: com.google.gwt:gwt-dev:jar:2.6.0-rc4
   gwt_gin: com.google.gwt.inject:gin:jar:2.1.2
   javax_validation: javax.validation:validation-api:jar:1.0.0.GA
   javax_validation_sources: javax.validation:validation-api:jar:sources:1.0.0.GA
 
-  geolatte_geom: org.geolatte:geolatte-geom:jar:0.12-rf
-  jts: com.vividsolutions:jts:jar:1.10
-
-  geolatte_geom_eclipselink: org.realityforge.jeo.geolatte.jpa.eclipselink:geolatte-geom-eclipselink:jar:0.3
   replicant: org.realityforge.replicant:replicant:jar:0.5.1
   replicant_sources: org.realityforge.replicant:replicant:jar:sources:0.5.1
 
