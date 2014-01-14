@@ -9,6 +9,18 @@ VALIDATOR_JARS = [
   'com.fasterxml:classmate:jar:0.9.0'
 ]
 
+PROVIDED_DEPS = [:javaee_api, :javax_annotation, :jackson_mapper, :jackson_core] + VALIDATOR_JARS
+GWT_DEPS = [:gwt_datatypes,
+            :google_guice,
+            :google_guice_assistedinject,
+            :aopalliance,
+            :gwt_user,
+            :gwt_dev,
+            :gwt_gin,
+            :eventbinder,
+            :javax_validation_sources]
+COMPILE_DEPS = [:gwt_user, :replicant]
+
 desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
   project.group = 'org.realityforge.footprints'
@@ -31,21 +43,9 @@ define 'footprints' do
                             :imit_gwt_proxy],
                            _(:target, :generated, "domgen"))
 
-  compile.with :javaee_api,
-               VALIDATOR_JARS,
-               :replicant,
-               :eventbinder,
-               :javax_annotation,
-               :jackson_core,
-               :google_guice,
-               :google_guice_assistedinject,
-               :aopalliance,
-               :jackson_mapper,
-               :gwt_datatypes,
-               :gwt_user,
-               :gwt_dev,
-               :gwt_gin,
-               :javax_validation_sources
+  compile.with PROVIDED_DEPS,
+               COMPILE_DEPS,
+               GWT_DEPS
 
   gwt_superdev_runner("footprints.FootprintsDev",
                       :java_args => ["-Xms512M", "-Xmx1024M", "-XX:PermSize=128M", "-XX:MaxPermSize=256M"],
@@ -104,7 +104,5 @@ define 'footprints' do
                                 :enable_jpa => true,
                                 :enable_gwt => true,
                                 :enable_war => true,
-                                :dependencies => [project,
-                                                  :gwt_user
-                                ])
+                                :dependencies => [project, COMPILE_DEPS])
 end
