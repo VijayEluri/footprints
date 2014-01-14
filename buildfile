@@ -90,9 +90,8 @@ define 'footprints' do
 
   iml.add_gwt_facet({'footprints.FootprintsDev' => true,
                      'footprints.Footprints' => false},
-                    :settings => {:compilerMaxHeapSize => "1024",
-                                  :additionalCompilerParameters => '-Dgwt.usearchives=false -Dgwt.persistentunitcache=false'})
-
+                    :settings => {:compilerMaxHeapSize => "1024"},
+                    :gwt_dev_artifact => :gwt_dev)
   iml.add_ejb_facet
   iml.add_jpa_facet
   iml.add_web_facet
