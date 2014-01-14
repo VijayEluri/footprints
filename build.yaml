@@ -19,7 +19,6 @@ artifacts:
   javax_validation_sources: javax.validation:validation-api:jar:sources:1.0.0.GA
 
   replicant: org.realityforge.replicant:replicant:jar:0.5.1
-  replicant_sources: org.realityforge.replicant:replicant:jar:sources:0.5.1
 
   gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.1
 
