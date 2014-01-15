@@ -33,7 +33,7 @@ public class SessionFilter
   @Override
   public SessionManager getSessionManager()
   {
-    return null;
+    return _sessionManager;
   }
 
   @Override
