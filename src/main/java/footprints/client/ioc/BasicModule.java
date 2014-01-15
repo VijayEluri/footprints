@@ -7,6 +7,8 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import footprints.client.GlobalAsyncCallback;
 import footprints.client.SimpleUI;
+import org.realityforge.replicant.client.EntityChangeBroker;
+import org.realityforge.replicant.client.EntityChangeBrokerImpl;
 import org.realityforge.replicant.client.EntityRepository;
 import org.realityforge.replicant.client.EntityRepositoryImpl;
 
@@ -18,6 +20,7 @@ public class BasicModule
   {
     bindNamedService( "GLOBAL", AsyncCallback.class, GlobalAsyncCallback.class );
     bind( EntityRepository.class ).to( EntityRepositoryImpl.class ).asEagerSingleton();
+    bind( EntityChangeBroker.class ).to( EntityChangeBrokerImpl.class ).asEagerSingleton();
     bind( SimpleUI.class ).asEagerSingleton();
     bind( EventBus.class ).to( SimpleEventBus.class ).asEagerSingleton();
   }
