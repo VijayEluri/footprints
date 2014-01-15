@@ -27,6 +27,7 @@ public class JaxRsActivator
   {
     final Set<Class<?>> classes = new HashSet<Class<?>>();
     classes.addAll( super.getClasses() );
+    classes.add( AuthenticationService.class );
     classes.add( MvcFeature.class );
     classes.add( JspMvcFeature.class );
     return classes;
