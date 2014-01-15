@@ -19,7 +19,7 @@ artifacts:
 
   gwt_cache_filter: org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.3
 
-  replicant: org.realityforge.replicant:replicant:jar:0.5.1
+  replicant: org.realityforge.replicant:replicant:jar:0.5.1-4-gb5c9b4f
 
   gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.1
 
