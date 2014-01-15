@@ -55,10 +55,6 @@ define 'footprints' do
                 :draft_compile => (ENV["FAST_GWT"] == 'true'))
 
   package(:war).tap do |war|
-    project.assets.paths.each do |asset|
-      war.enhance([asset])
-      war.include asset, :as => '.'
-    end
   end
 
   check package(:war), "should contain resources and generated classes" do
