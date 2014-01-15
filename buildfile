@@ -48,6 +48,9 @@ define 'footprints' do
                COMPILE_DEPS,
                GWT_DEPS
 
+  test.using :testng
+  test.with :mockito
+
   gwt_superdev_runner("footprints.FootprintsDev",
                       :java_args => ["-Xms512M", "-Xmx1024M", "-XX:PermSize=128M", "-XX:MaxPermSize=256M"],
                       :draft_compile => (ENV["FAST_GWT"] == 'true'))
