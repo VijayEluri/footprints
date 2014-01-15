@@ -20,6 +20,7 @@ GWT_DEPS = [:gwt_datatypes,
             :eventbinder,
             :javax_validation_sources]
 COMPILE_DEPS = [:gwt_user, :replicant]
+PACKAGE_DEPS = [:gwt_cache_filter] + COMPILE_DEPS
 
 desc "Footprints: See who has been walking all over our code."
 define 'footprints' do
@@ -55,6 +56,8 @@ define 'footprints' do
                 :draft_compile => (ENV["FAST_GWT"] == 'true'))
 
   package(:war).tap do |war|
+    war.libs.clear
+    war.libs.concat PACKAGE_DEPS
   end
 
   check package(:war), "should contain resources and generated classes" do
@@ -105,5 +108,5 @@ define 'footprints' do
                                 :enable_jpa => true,
                                 :enable_gwt => true,
                                 :enable_war => true,
-                                :dependencies => [project, COMPILE_DEPS])
+                                :dependencies => [project, PACKAGE_DEPS])
 end
