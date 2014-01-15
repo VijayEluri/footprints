@@ -95,7 +95,6 @@ public class SimpleUI
       } );
       panel.add( button );
     }
-    panel.add( new Login() );
     return panel;
   }
 }
