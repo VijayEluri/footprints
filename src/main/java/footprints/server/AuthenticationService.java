@@ -21,6 +21,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.realityforge.ssf.HttpUtil;
+import org.realityforge.ssf.SessionInfo;
+import org.realityforge.ssf.SessionManager;
 
 @Path("/auth")
 @Produces({ MediaType.TEXT_HTML })

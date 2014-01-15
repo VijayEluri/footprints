@@ -19,7 +19,7 @@ GWT_DEPS = [:gwt_datatypes,
             :gwt_gin,
             :eventbinder,
             :javax_validation_sources]
-COMPILE_DEPS = [:gwt_user, :replicant]
+COMPILE_DEPS = [:gwt_user, :replicant, :simple_session_filter]
 PACKAGE_DEPS = [:gwt_cache_filter] + COMPILE_DEPS
 
 desc "Footprints: See who has been walking all over our code."

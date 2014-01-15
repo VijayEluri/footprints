@@ -31,3 +31,5 @@ artifacts:
   mockito: org.mockito:mockito-all:jar:1.9.5
 
   eventbinder: com.google.gwt.eventbinder:eventbinder:jar:1.0.1
+
+  simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:564f779

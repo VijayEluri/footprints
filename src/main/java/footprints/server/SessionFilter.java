@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.realityforge.ssf.AbstractSessionFilter;
+import org.realityforge.ssf.HttpUtil;
+import org.realityforge.ssf.SessionManager;
 
 @WebFilter( urlPatterns = "/*" )
 @Priority( 100 )
@@ -18,17 +21,28 @@ public class SessionFilter
   private SessionManager _sessionManager;
 
   @Override
-  protected void handleInvalid( final HttpServletRequest request,
+  protected boolean handleInvalid( final HttpServletRequest request,
                                 final HttpServletResponse response,
                                 final FilterChain chain )
     throws IOException, ServletException
   {
     response.sendRedirect( HttpUtil.getContextURL( request ).append( "/api/auth/login" ).toString() );
+    return true;
   }
 
-  @SuppressWarnings( { "all" } )
-  protected boolean isResourceProtected( final String method, final String requestURI )
+  @Override
+  public SessionManager getSessionManager()
   {
+    return null;
+  }
+
+  @Override
+  @SuppressWarnings( { "all" } )
+  protected boolean isSessionCheckRequired( final HttpServletRequest request )
+    throws IOException, ServletException
+  {
+    final String method = request.getMethod();
+    final String requestURI = HttpUtil.getContextLocalPath( request );
     if ( "GET".equals( method ) )
     {
       if ( requestURI.startsWith( "/images/" ) ||
