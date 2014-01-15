@@ -24,6 +24,12 @@ public class SessionManagerImpl
   }
 
   @Override
+  public boolean invalidateSession( @Nonnull final String sessionID )
+  {
+    return null != _sessions.remove( sessionID );
+  }
+
+  @Override
   @Nullable
   public SessionInfo getSession( @Nonnull final String sessionID )
   {

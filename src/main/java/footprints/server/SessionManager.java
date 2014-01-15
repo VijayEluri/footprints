@@ -13,6 +13,8 @@ public interface SessionManager
   @Nullable
   SessionInfo getSession( @Nonnull String sessionID );
 
+  boolean invalidateSession( @Nonnull String sessionID );
+
   @Nonnull
   SessionInfo createSession( @Nonnull String username );
 }
