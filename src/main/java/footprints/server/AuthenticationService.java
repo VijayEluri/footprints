@@ -3,11 +3,9 @@ package footprints.server;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.ejb.EJB;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -35,7 +33,7 @@ public class AuthenticationService
   private SessionManager _sessionManager;
 
   @GET
-  @Path( "/login" )
+  @Path("/login")
   public Response showLogin()
   {
     return Response.ok( new Viewable( "/auth/login.jsp" ) ).build();
@@ -57,18 +55,17 @@ public class AuthenticationService
   }
 
   @POST
-  @Path( "/login" )
-  @Consumes( MediaType.APPLICATION_FORM_URLENCODED )
-  public Response authenticate( @FormParam( "j_username" ) final String username,
-                                @FormParam( "j_password" ) final String password,
+  @Path("/login")
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  public Response authenticate( @FormParam("j_username") final String username,
+                                @FormParam("j_password") final String password,
                                 @Nonnull @Context final HttpServletRequest request )
     throws IOException, URISyntaxException
   {
     if ( authenticate( request, username, password ) )
     {
       final SessionInfo sessionInfo = _sessionManager.createSession( username );
-      final StringBuffer url = HttpUtil.getContextURL( request ).append( getStartLocation() );
-      final URI uri = new URI( url.toString() );
+      final URI uri = HttpUtil.getContextURI( request, getStartLocation() );
       final NewCookie newCookie =
         newCookie( request, _sessionManager.getSessionKey(), sessionInfo.getSessionID(), true );
       return Response.seeOther( uri ).cookie( newCookie ).build();
@@ -100,24 +97,15 @@ public class AuthenticationService
 
   private boolean authenticate( final HttpServletRequest request, final String username, final String password )
   {
-    try
+    final boolean authenticate = HttpUtil.authenticate( request, username, password );
+    if ( authenticate )
     {
-      request.login( username, password );
       LOG.info( "Successful authentication: " + username );
-      try
-      {
-        request.logout();
-      }
-      catch ( ServletException e1 )
-      {
-        LOG.log( Level.WARNING, "Failed to logout after successful authentication: " + username, e1 );
-      }
-      return true;
     }
-    catch ( final ServletException se )
+    else
     {
       LOG.info( "Failed authentication: " + username );
-      return false;
     }
+    return authenticate;
   }
 }
