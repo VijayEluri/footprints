@@ -17,7 +17,6 @@ GWT_DEPS = [:gwt_datatypes,
             :gwt_user,
             :gwt_dev,
             :gwt_gin,
-            :eventbinder,
             :javax_validation_sources]
 COMPILE_DEPS = [:gwt_user, :replicant, :simple_session_filter]
 PACKAGE_DEPS = [:gwt_cache_filter] + COMPILE_DEPS
