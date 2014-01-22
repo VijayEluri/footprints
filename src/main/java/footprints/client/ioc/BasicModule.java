@@ -7,10 +7,6 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import footprints.client.GlobalAsyncCallback;
 import footprints.client.SimpleUI;
-import org.realityforge.replicant.client.EntityChangeBroker;
-import org.realityforge.replicant.client.EntityChangeBrokerImpl;
-import org.realityforge.replicant.client.EntityRepository;
-import org.realityforge.replicant.client.EntityRepositoryImpl;
 
 public class BasicModule
   extends AbstractGinModule
