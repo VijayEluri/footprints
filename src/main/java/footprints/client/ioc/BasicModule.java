@@ -19,8 +19,6 @@ public class BasicModule
   protected void configure()
   {
     bindNamedService( "GLOBAL", AsyncCallback.class, GlobalAsyncCallback.class );
-    bind( EntityRepository.class ).to( EntityRepositoryImpl.class ).asEagerSingleton();
-    bind( EntityChangeBroker.class ).to( EntityChangeBrokerImpl.class ).asEagerSingleton();
     bind( SimpleUI.class ).asEagerSingleton();
     bind( EventBus.class ).to( SimpleEventBus.class ).asEagerSingleton();
   }
