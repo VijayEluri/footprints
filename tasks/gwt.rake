@@ -171,3 +171,4 @@ end
 class Buildr::Project
   include Buildr::GWT::ProjectExtension
 end
+
