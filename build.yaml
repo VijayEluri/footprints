@@ -27,7 +27,6 @@ artifacts:
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
 
-  # Mocking library used to mock out UI in planner application
   mockito: org.mockito:mockito-all:jar:1.9.5
 
   simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:21ed76c
