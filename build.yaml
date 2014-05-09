@@ -29,4 +29,4 @@ artifacts:
 
   mockito: org.mockito:mockito-all:jar:1.9.5
 
-  simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:21ed76c
+  simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:0.3
