@@ -64,7 +64,7 @@ public class AuthenticationService
   {
     if ( authenticate( request, username, password ) )
     {
-      final SessionInfo sessionInfo = _sessionManager.createSession( username );
+      final SessionInfo sessionInfo = _sessionManager.createSession();
       final URI uri = HttpUtil.getContextURI( request, getStartLocation() );
       final NewCookie newCookie =
         newCookie( request, _sessionManager.getSessionKey(), sessionInfo.getSessionID(), true );
