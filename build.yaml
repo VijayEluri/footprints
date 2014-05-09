@@ -6,8 +6,8 @@ repositories:
 artifacts:
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
-  jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.4
-  jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.4
+  jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.13
+  jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13
   jersey_mvc: org.glassfish.jersey.ext:jersey-mvc:jar:2.5
   jersey_mvc_jsp: org.glassfish.jersey.ext:jersey-mvc-jsp:jar:2.5
 
