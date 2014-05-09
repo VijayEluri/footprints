@@ -5,7 +5,6 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:ejb)
   repository.enable_facet(:jaxrs)
   repository.enable_facet(:jms)
-  repository.enable_facet(:imit)
 
   repository.jpa.provider = :eclipselink
 
@@ -13,9 +12,7 @@ Domgen.repository(:Footprints) do |repository|
 
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
-      t.datetime(:CollectedAt, :immutable => true) do |a|
-        a.disable_facet(:imit)
-      end
+      t.datetime(:CollectedAt, :immutable => true)
     end
 
     data_module.entity(:MethodMetric) do |t|
