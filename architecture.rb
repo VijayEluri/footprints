@@ -5,6 +5,7 @@ Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:ejb)
   repository.enable_facet(:jaxrs)
   repository.enable_facet(:jms)
+  repository.enable_facet(:gwt_rpc)
 
   repository.jpa.provider = :eclipselink
 

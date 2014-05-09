@@ -30,7 +30,7 @@ define 'footprints' do
   compile.options.target = '1.7'
   compile.options.lint = 'all'
 
-  Domgen::GenerateTask.new(:Footprints, 'server', [:ee, :gwt], _(:target, :generated, 'domgen'))
+  Domgen::GenerateTask.new(:Footprints, 'server', [:ee, :gwt, :gwt_rpc], _(:target, :generated, 'domgen'))
 
   compile.with PROVIDED_DEPS,
                COMPILE_DEPS,
