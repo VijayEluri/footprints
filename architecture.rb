@@ -66,7 +66,6 @@ Domgen.repository(:Footprints) do |repository|
     data_module.service(:JavaNcss) do |s|
       s.ejb.generate_boundary = true
       s.method(:UploadJavaNcssOutput) do |m|
-        #m.jms.mdb = true
         m.text(:Output)
         m.exception(:FormatError)
       end
