@@ -10,7 +10,7 @@ VALIDATOR_JARS = [
   'com.fasterxml:classmate:jar:0.9.0'
 ]
 
-PROVIDED_DEPS = [:javaee_api, :javax_annotation, :jackson_mapper, :jackson_core, :jersey_mvc, :jersey_mvc_jsp] + VALIDATOR_JARS
+PROVIDED_DEPS = [:javaee_api, :javax_annotation, :jackson_mapper, :jackson_core, :jersey_mvc, :jersey_mvc_jsp, :metro_webservices_rt] + VALIDATOR_JARS
 GWT_DEPS = [:gwt_datatypes,
             :google_guice,
             :google_guice_assistedinject,

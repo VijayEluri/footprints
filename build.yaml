@@ -11,6 +11,9 @@ artifacts:
   jersey_mvc: org.glassfish.jersey.ext:jersey-mvc:jar:2.5
   jersey_mvc_jsp: org.glassfish.jersey.ext:jersey-mvc-jsp:jar:2.5
 
+  # For validation
+  metro_webservices_rt: org.glassfish.metro:webservices-rt:jar:2.3
+
   gwt_user: com.google.gwt:gwt-user:jar:2.6.1
   gwt_dev: com.google.gwt:gwt-dev:jar:2.6.1
   gwt_gin: com.google.gwt.inject:gin:jar:2.1.2
