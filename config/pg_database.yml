@@ -17,4 +17,3 @@ test:
 import:
   database: <%= prefix %>Footprints_DEV
   <<: *devhost
-
