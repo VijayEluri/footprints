@@ -48,7 +48,7 @@ define 'footprints' do
 
   package(:war).tap do |war|
     war.libs.clear
-    war.libs.concat PACKAGE_DEPS
+    war.libs.concat Buildr.artifacts(PACKAGE_DEPS)
   end
 
   check package(:war), 'should contain resources and generated classes' do
