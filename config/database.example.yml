@@ -4,8 +4,11 @@ devhost: &devhost
   username: <%= user_code %>
   #username: stock-dev
   password: letmein
-  host: vw-firesql-104
-  instance: mssql01
+  host: <%= ENV['DB_SERVER_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['DB_SERVER_PORT'] || '5432' %>
+  #host: <%= ENV['DB_SERVER_HOST'] || 'DEVsql02.fire.dse.vic.gov.au' %>
+  #port: <%= ENV['DB_SERVER_PORT'] || '2222' %>
+  #instance: <%= ENV['DB_SERVER_INSTANCE'] || 'mssql01' %>
   force_drop: true
 
 development:
