@@ -10,8 +10,8 @@ def is_mssql?
   ENV['DB_TYPE'] == 'mssql'
 end
 
-$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../dbt/lib"))
-$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/../domgen/lib"))
+$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/vendor/plugins/dbt/lib"))
+$LOAD_PATH.unshift(File.expand_path("#{workspace_dir}/vendor/plugins/domgen/lib"))
 
 require 'dbt'
 require 'domgen'
