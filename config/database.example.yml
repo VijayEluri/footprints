@@ -20,5 +20,5 @@ test:
   <<: *devhost
 
 import:
-  database: <%= prefix %>FOOTPRINTS_DEV
+  database: PROD_CLONE_FOOTPRINTS
   <<: *devhost
