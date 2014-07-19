@@ -74,10 +74,6 @@ define 'footprints' do
   doc.using :javadoc,
             {:tree => false, :since => false, :deprecated => false, :index => false, :help => false}
 
-  ipr.extra_modules << '../dbt/dbt.iml'
-  ipr.extra_modules << '../dbt_doc/dbt_doc.iml'
-  ipr.extra_modules << '../domgen/domgen.iml'
-
   iml.add_gwt_facet({'footprints.FootprintsDev' => true,
                      'footprints.Footprints' => false},
                     :settings => {:compilerMaxHeapSize => '1024'},
