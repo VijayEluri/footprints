@@ -2,7 +2,7 @@
 <module rename-to='footprints'>
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.inject.Inject"/>
-  <inherits name="com.google.gwt.logging.Logging"/>
+  <inherits name="com.google.gwt.logging.LoggingDisabled"/>
   <inherits name="org.realityforge.gwt.datatypes.Datatypes"/>
 
   <add-linker name="xsiframe"/>
@@ -11,22 +11,4 @@
 
   <source path='client'/>
   <source path='shared'/>
-
-  <set-property name="gwt.logging.enabled" value="FALSE"/>
-
-  <!-- To change the default logLevel -->
-  <set-property name="gwt.logging.logLevel" value="ALL"/>
-  <!-- TRUE or FALSE to enable logging at all -->
-  <set-property name="gwt.logging.enabled" value="TRUE"/>
-  <!-- ENABLED OR DISABLED for different Handlers -->
-
-  <set-property name="gwt.logging.enabled" value="TRUE"/>
-  <set-property name="gwt.logging.logLevel" value="INFO"/>
-  <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
-  <set-property name="gwt.logging.developmentModeHandler" value="ENABLED"/>
-  <set-property name="gwt.logging.firebugHandler" value="ENABLED"/>
-  <set-property name="gwt.logging.popupHandler" value="DISABLED"/>
-  <set-property name="gwt.logging.systemHandler" value="ENABLED"/>
-  <set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
-  <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
 </module>
