@@ -17,7 +17,7 @@ require 'dbt'
 require 'domgen'
 
 Domgen::LoadSchema.new("#{workspace_dir}/architecture.rb")
-Domgen::GenerateTask.new(:Footprints, "sql", (is_postgres? ? [:pgsql] : [:mssql]), "#{workspace_dir}/database/generated")
+Domgen::GenerateTask.new(:Footprints, 'sql', (is_postgres? ? [:pgsql] : [:mssql]), "#{workspace_dir}/database/generated")
 
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
 
