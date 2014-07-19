@@ -16,7 +16,7 @@ development:
   <<: *devhost
 
 test:
-  database: <%= prefix %>FOOTPRINTS_TES
+  database: <%= prefix %>FOOTPRINTS_TEST
   <<: *devhost
 
 import:
