@@ -12,7 +12,7 @@ import org.realityforge.ssf.AbstractSessionFilter;
 import org.realityforge.ssf.HttpUtil;
 import org.realityforge.ssf.SessionManager;
 
-@WebFilter( urlPatterns = "/*" )
+@WebFilter( urlPatterns = "/*", asyncSupported = true )
 @Priority( 100 )
 public class SessionFilter
   extends AbstractSessionFilter
