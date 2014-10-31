@@ -61,7 +61,7 @@ define 'footprints' do
   desc 'DB Archive'
   define 'db' do
     project.no_iml
-    Dbt.define_database_package(:default, nil, :include_code => false)
+    Dbt.define_database_package(:default, :include_code => false)
   end
 
   # Remove generated database directories
