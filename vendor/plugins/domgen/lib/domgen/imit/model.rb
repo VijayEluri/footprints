@@ -39,6 +39,15 @@ module Domgen
         @cacheable = cacheable
       end
 
+      def external_cache_management?
+        raise "external_cache_management? invoked on #{qualified_name} when not cacheable" unless cacheable?
+        @external_cache_management.nil? ? true : !!@external_cache_management
+      end
+
+      def external_cache_management=(external_cache_management)
+        @external_cache_management = external_cache_management
+      end
+
       def instance_root?
         !@instance_root.nil?
       end
@@ -191,17 +200,19 @@ module Domgen
       java_artifact :message_generator, :comm, :server, :imit, '#{repository.name}EntityMessageGenerator'
       java_artifact :graph_encoder, :comm, :server, :imit, '#{repository.name}GraphEncoder'
       java_artifact :change_recorder, :comm, :server, :imit, '#{repository.name}ChangeRecorder'
+      java_artifact :change_recorder_impl, :comm, :server, :imit, '#{repository.name}ChangeRecorderImpl'
+      java_artifact :change_listener, :comm, :server, :imit, '#{repository.name}EntityChangeListener'
       java_artifact :replication_interceptor, :comm, :server, :imit, '#{repository.name}ReplicationInterceptor'
       java_artifact :graph_encoder_impl, :comm, :server, :imit, '#{repository.name}GraphEncoderImpl'
       java_artifact :services_module, :ioc, :client, :imit, '#{repository.name}ImitServicesModule'
       java_artifact :mock_services_module, :ioc, :client, :imit, '#{repository.name}MockImitServicesModule'
 
-      def auto_register_change_recorder=(auto_register_change_recorder)
-        @auto_register_change_recorder = !!auto_register_change_recorder
+      def auto_register_change_listener=(auto_register_change_listener)
+        @auto_register_change_listener = !!auto_register_change_listener
       end
 
-      def auto_register_change_recorder?
-        @auto_register_change_recorder.nil? ? true : @auto_register_change_recorder
+      def auto_register_change_listener?
+        @auto_register_change_listener.nil? ? true : @auto_register_change_listener
       end
 
       def graphs
@@ -216,6 +227,81 @@ module Domgen
         graph = graph_map[name.to_s]
         Domgen.error("Unable to locate graph #{name}") unless graph
         graph
+      end
+
+      def subscription_manager=(subscription_manager)
+        @subscription_manager = subscription_manager
+      end
+
+      def subscription_manager
+        @subscription_manager
+      end
+
+      def invalid_session_exception=(invalid_session_exception)
+        @invalid_session_exception = invalid_session_exception
+      end
+
+      def invalid_session_exception
+        @invalid_session_exception
+      end
+
+      def pre_verify
+        raise "subscription_manager not specified" if self.subscription_manager.nil? && self.graphs.size > 0
+        begin
+          repository.service_by_name(self.subscription_manager)
+        rescue
+          raise "Bad subscription_manager specified"
+        end
+        raise "invalid_session_exception not specified" if self.invalid_session_exception.nil? && self.graphs.size > 0
+        begin
+          repository.exception_by_name(self.invalid_session_exception)
+        rescue
+          raise "Bad invalid_session_exception specified"
+        end
+        repository.service_by_name(self.subscription_manager).tap do |s|
+          repository.imit.graphs.each do |graph|
+            if graph.instance_root?
+              filter_options = {}
+              if graph.filtered? && graph.filter_parameter.filter_type == :struct
+                filter_options[:referenced_struct] = graph.filter_parameter.referenced_struct
+              end
+              s.method(:"SubscribeTo#{graph.name}") do |m|
+                m.string(:ClientID, 50)
+                m.reference(graph.instance_root)
+                m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options) if graph.filtered?
+                m.exception(self.invalid_session_exception)
+              end
+              if graph.filtered?
+                s.method(:"Update#{graph.name}Subscription") do |m|
+                  m.string(:ClientID, 50)
+                  m.reference(graph.instance_root)
+                  m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options)
+                  m.exception(self.invalid_session_exception)
+                end
+              end
+              s.method(:"UnsubscribeFrom#{graph.name}") do |m|
+                m.string(:ClientID, 50)
+                m.reference(graph.instance_root)
+                m.exception(self.invalid_session_exception)
+              end
+
+            else
+              s.method(:"SubscribeTo#{graph.name}") do |m|
+                m.text(:ClientID)
+                if graph.cacheable?
+                  m.imit.graph_to_subscribe = graph.name
+                  m.text(:ETag, :nullable => true)
+                  m.returns(:boolean)
+                end
+                m.exception(self.invalid_session_exception)
+              end
+              s.method(:"UnsubscribeFrom#{graph.name}") do |m|
+                m.string(:ClientID, 50)
+                m.exception(self.invalid_session_exception)
+              end
+            end
+          end
+        end
       end
 
       def post_verify
@@ -384,15 +470,19 @@ module Domgen
       end
 
       def post_verify
-        if entity.data_module.repository.imit.auto_register_change_recorder? && entity.jpa?
-          entity.jpa.entity_listeners << entity.data_module.repository.imit.qualified_change_recorder_name
+        if entity.data_module.repository.imit.auto_register_change_listener? && entity.jpa?
+          entity.jpa.entity_listeners << entity.data_module.repository.imit.qualified_change_listener_name
         end
       end
     end
 
     facet.enhance(Attribute) do
+      def client_side=(client_side)
+        @client_side = client_side
+      end
+
       def client_side?
-        !attribute.reference? || attribute.referenced_entity.imit?
+        @client_side.nil? ? (!attribute.reference? || attribute.referenced_entity.imit?) : @client_side
       end
 
       def filter_in_graphs=(filter_in_graphs)
