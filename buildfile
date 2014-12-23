@@ -20,9 +20,6 @@ define 'footprints' do
   compile.with PROVIDED_DEPS,
                COMPILE_DEPS
 
-  test.using :testng
-  test.with :mockito
-
   package(:war).tap do |war|
     war.libs.clear
     war.libs.concat Buildr.artifacts(PACKAGE_DEPS)
