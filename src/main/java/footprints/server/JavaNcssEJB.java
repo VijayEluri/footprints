@@ -1,13 +1,13 @@
 package footprints.server;
 
-import footprints.server.parse.MethodEntry;
-import footprints.server.parse.OutputParser;
 import footprints.server.data_type.code_metrics.CollectionDTO;
 import footprints.server.data_type.code_metrics.MethodDTO;
 import footprints.server.entity.code_metrics.Collection;
 import footprints.server.entity.code_metrics.MethodMetric;
 import footprints.server.entity.code_metrics.dao.CollectionRepository;
 import footprints.server.entity.code_metrics.dao.MethodMetricRepository;
+import footprints.server.parse.MethodEntry;
+import footprints.server.parse.OutputParser;
 import footprints.server.service.code_metrics.FormatErrorException;
 import footprints.server.service.code_metrics.JavaNcss;
 import java.io.StringReader;
@@ -42,7 +42,7 @@ public class JavaNcssEJB
   @Nonnull
   public List<CollectionDTO> getCollections()
   {
-    final ArrayList<CollectionDTO> collections = new ArrayList<CollectionDTO>();
+    final ArrayList<CollectionDTO> collections = new ArrayList<>();
     for( final Collection collection : _collectionDAO.findAll() )
     {
       collections.add( toCollection( collection ) );
@@ -60,7 +60,7 @@ public class JavaNcssEJB
 
   private CollectionDTO toCollection( final Collection collection )
   {
-    final ArrayList<MethodDTO> methods = new ArrayList<MethodDTO>();
+    final ArrayList<MethodDTO> methods = new ArrayList<>();
     for( final MethodMetric methodMetric : collection.getMethodMetrics() )
     {
       final MethodDTO dto =
