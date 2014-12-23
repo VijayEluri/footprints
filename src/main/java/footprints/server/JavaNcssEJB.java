@@ -22,7 +22,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import org.xml.sax.InputSource;
 
-@Stateless( name = JavaNcss.EJB_NAME )
+@Stateless( name = JavaNcss.NAME )
 @TransactionAttribute( TransactionAttributeType.REQUIRED )
 public class JavaNcssEJB
   implements JavaNcss
@@ -43,7 +43,7 @@ public class JavaNcssEJB
   public List<CollectionDTO> getCollections()
   {
     final ArrayList<CollectionDTO> collections = new ArrayList<>();
-    for( final Collection collection : _collectionDAO.findAll() )
+    for ( final Collection collection : _collectionDAO.findAll() )
     {
       collections.add( toCollection( collection ) );
     }
@@ -61,7 +61,7 @@ public class JavaNcssEJB
   private CollectionDTO toCollection( final Collection collection )
   {
     final ArrayList<MethodDTO> methods = new ArrayList<>();
-    for( final MethodMetric methodMetric : collection.getMethodMetrics() )
+    for ( final MethodMetric methodMetric : collection.getMethodMetrics() )
     {
       final MethodDTO dto =
         new MethodDTO( methodMetric.getPackageName(),
@@ -83,7 +83,7 @@ public class JavaNcssEJB
     {
       return new OutputParser().parse( new InputSource( new StringReader( output ) ) );
     }
-    catch( final Exception e )
+    catch ( final Exception e )
     {
       throw new FormatErrorException( "MyFile.xml", 1, "Error parsing the output supplied", e );
     }
@@ -95,7 +95,7 @@ public class JavaNcssEJB
     final Collection collection = new Collection( new Timestamp( System.currentTimeMillis() ) );
     _collectionDAO.persist( collection );
 
-    for( final MethodEntry entry : entries )
+    for ( final MethodEntry entry : entries )
     {
       final MethodMetric metric =
         new MethodMetric( collection,
