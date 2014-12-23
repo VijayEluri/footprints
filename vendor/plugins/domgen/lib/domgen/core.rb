@@ -17,6 +17,10 @@ module Domgen
   Logger.level = ::Logger::WARN
   Logger.datetime_format = ''
 
+  def self.warn(message)
+    Logger.warn(message)
+  end
+
   def self.error(message)
     Logger.error(message)
     raise message
@@ -47,7 +51,13 @@ module Domgen
       @tags ||= {}
     end
 
-    def description(value)
+    def description=(description)
+      tags[:Description] = description
+    end
+
+    def description(value = nil)
+      return tags[:Description] if value.nil?
+      # Assume an old style "setter"
       tags[:Description] = value
     end
 
