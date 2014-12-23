@@ -3,7 +3,7 @@ require 'buildr/top_level_generate_dir'
 require 'buildr/jacoco'
 require 'buildr/single_intermediate_layout'
 
-PROVIDED_DEPS = [:javaee_api, :javax_annotation]
+PROVIDED_DEPS = [:javaee_api, :javax_jsr305, :findbugs_annotations]
 COMPILE_DEPS = []
 PACKAGE_DEPS = [] + COMPILE_DEPS
 
