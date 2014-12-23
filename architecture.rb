@@ -1,12 +1,7 @@
 Domgen.repository(:Footprints) do |repository|
   repository.enable_facet(:jpa)
-  repository.enable_facet(:jackson)
-  repository.enable_facet(:ruby)
   repository.enable_facet(:ejb)
-  repository.enable_facet(:jaxrs)
-  repository.enable_facet(:jms)
-  repository.enable_facet(:jws)
-  repository.enable_facet(:gwt_rpc)
+  repository.enable_facet(:pgsql)
 
   repository.jpa.provider = :eclipselink
 
@@ -73,7 +68,7 @@ Domgen.repository(:Footprints) do |repository|
         m.returns(:struct, :referenced_struct => :CollectionDTO, :collection_type => :sequence)
       end
       s.method(:GetCollection) do |m|
-        m.integer(:ID, 'jaxrs.param_type' => :path)
+        m.integer(:ID)
         m.returns(:struct, :referenced_struct => :CollectionDTO)
       end
     end
