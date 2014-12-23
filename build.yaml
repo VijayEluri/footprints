@@ -1,33 +1,7 @@
 repositories:
   remote:
    - http://repo1.maven.org/maven2
-   - http://repository.codehaus.org
 
 artifacts:
   javaee_api: javax:javaee-api:jar:7.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
-  jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.13
-  jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13
-  jersey_mvc: org.glassfish.jersey.ext:jersey-mvc:jar:2.5
-  jersey_mvc_jsp: org.glassfish.jersey.ext:jersey-mvc-jsp:jar:2.5
-
-  # For validation
-  metro_webservices_rt: org.glassfish.metro:webservices-rt:jar:2.3
-
-  gwt_user: com.google.gwt:gwt-user:jar:2.6.1
-  gwt_dev: com.google.gwt:gwt-dev:jar:2.6.1
-  gwt_gin: com.google.gwt.inject:gin:jar:2.1.2
-  javax_validation: javax.validation:validation-api:jar:1.0.0.GA
-  javax_validation_sources: javax.validation:validation-api:jar:sources:1.0.0.GA
-
-  gwt_cache_filter: org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.3
-
-  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.4
-
-  google_guice: com.google.inject:guice:jar:3.0
-  google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
-  aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
-
-  mockito: org.mockito:mockito-all:jar:1.9.5
-
-  simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:0.3
