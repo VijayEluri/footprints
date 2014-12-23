@@ -49,6 +49,26 @@ Domgen.repository(:Footprints) do |repository|
       s.struct(:Method, :MethodDTO, :collection_type => :sequence)
     end
 
+    data_module.struct(:CollectionResultDTO) do |s|
+      s.integer(:ID)
+      s.datetime(:CollectedAt)
+    end
+
+    data_module.dao(:MyDAO) do |d|
+      d.query(:FindAllCollection, 'jpa.jpql' => 'SELECT O From CodeMetrics_Collection O') do |q|
+        q.result_entity = :Collection
+      end
+      d.query(:FindCollectionResult, 'jpa.sql' => 'SELECT ID, CollectedAt FROM CodeMetrics.tblCollection') do |q|
+        q.result_struct = :CollectionResultDTO
+      end
+      d.query(:FindCollectionCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O') do |q|
+        q.result_type = :integer
+      end
+      d.query(:FindAllPackageCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O JOIN O.methodMetrics M GROUP BY M.packageName') do |q|
+        q.result_type = :integer
+      end
+    end
+
     data_module.exception(:BaseFormatError, :final => false) do |e|
       e.text(:File)
     end
