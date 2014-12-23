@@ -17,8 +17,7 @@ define 'footprints' do
 
   Domgen::Build.define_generate_task([:ee])
 
-  compile.with PROVIDED_DEPS,
-               COMPILE_DEPS
+  compile.with PROVIDED_DEPS, COMPILE_DEPS
 
   package(:war).tap do |war|
     war.libs.clear
