@@ -93,7 +93,7 @@ class TestRepository < Dbt::TestCase
   def test_database_configuration_load
     repository = Dbt::Repository.new
 
-    database_yml = create_file("database.yml", <<-DATABASE_YML)
+    database_yml = create_file('database.yml', <<-DATABASE_YML)
 development:
   database: DBT_TEST
   username: <%= 'postgres' %>
@@ -114,5 +114,21 @@ development:
     assert_equal config.catalog_name, 'DBT_TEST'
     assert_equal config.username, 'postgres'
     assert_equal config.password, 'mypass'
+  end
+
+  def test_database_configuration_reset_when_config_filename_changed
+    database_yml = create_file('database.yml', <<-DATABASE_YML)
+development:
+  database: DBT_TEST
+  username: <%= 'postgres' %>
+  password: <%= 'mypass' %>
+  host: 127.0.0.1
+  port: 5432
+    DATABASE_YML
+
+    Dbt.repository.configuration_data = {'production' => {}}
+    assert_equal Dbt.repository.is_configuration_data_loaded?, true
+    Dbt::Config.config_filename = database_yml
+    assert_equal Dbt.repository.is_configuration_data_loaded?, false
   end
 end

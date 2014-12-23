@@ -37,6 +37,17 @@ class Dbt # nodoc
     @default_import_dir = nil
 
     class << self
+      attr_writer :base_directory
+
+      def base_directory
+        return @base_directory unless @base_directory.nil?
+        if defined?(::Buildr)
+          File.dirname(::Buildr.application.buildfile.to_s)
+        else
+          '.'
+        end
+      end
+
       attr_writer :environment
 
       def environment
@@ -114,18 +125,24 @@ class Dbt # nodoc
       end
 
       # config_file is where the yaml config file is located
-      attr_writer :config_filename
+      def config_filename=(config_filename)
+        if @config_filename != config_filename || config_filename.nil?
+          Dbt.repository.configuration_data = {}
+        end
+        @config_filename = config_filename
+      end
 
+      # Return the filename to load configuration from
+      # This defaults to 'config/database.yml' relative to the base directory unless assigned
       def config_filename
-        raise "config_filename not specified" unless @config_filename
-        @config_filename
+        @config_filename || 'config/database.yml'
       end
 
       # search_dirs is an array of paths that are searched in order for artifacts for each module
       attr_writer :default_search_dirs
 
       def default_search_dirs
-        raise "default_search_dirs not specified" unless @default_search_dirs
+        raise 'default_search_dirs not specified' unless @default_search_dirs
         @default_search_dirs
       end
 
