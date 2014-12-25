@@ -6,3 +6,8 @@ artifacts:
   javax_jsr305: com.google.code.findbugs:jsr305:jar:3.0.0
   findbugs_annotations: com.google.code.findbugs:annotations:jar:3.0.0
   javaee_api: javax:javaee-api:jar:7.0
+
+  google_guice: com.google.inject:guice:jar:3.0
+  google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
+  aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.48

@@ -6,6 +6,7 @@ require 'buildr/single_intermediate_layout'
 PROVIDED_DEPS = [:javaee_api, :javax_jsr305, :findbugs_annotations]
 COMPILE_DEPS = []
 PACKAGE_DEPS = [] + COMPILE_DEPS
+TEST_DEPS = [:google_guice, :google_guice_assistedinject, :aopalliance, :guiceyloops]
 
 desc 'Footprints: See who has been walking all over our code.'
 define 'footprints' do
@@ -15,9 +16,12 @@ define 'footprints' do
   compile.options.target = '1.7'
   compile.options.lint = 'all'
 
-  Domgen::Build.define_generate_task([:ee])
+  Domgen::Build.define_generate_task([:ee, :jpa_test_dao_test, :jpa_test_module, :jpa_test_entity_test, :jpa_test_persistent_test_module])
 
   compile.with PROVIDED_DEPS, COMPILE_DEPS
+
+  test.using :testng
+  test.with TEST_DEPS
 
   package(:war).tap do |war|
     war.libs.clear
