@@ -10,4 +10,4 @@ artifacts:
   google_guice: com.google.inject:guice:jar:3.0
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.48
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.49
