@@ -6,7 +6,7 @@ require 'buildr/single_intermediate_layout'
 PROVIDED_DEPS = [:javaee_api, :javax_jsr305, :findbugs_annotations]
 COMPILE_DEPS = []
 PACKAGE_DEPS = [] + COMPILE_DEPS
-TEST_DEPS = [:google_guice, :google_guice_assistedinject, :aopalliance, :guiceyloops]
+TEST_DEPS = [:google_guice, :google_guice_assistedinject, :aopalliance, :guiceyloops, :mockito, :glassfish_embedded]
 
 desc 'Footprints: See who has been walking all over our code.'
 define 'footprints' do
@@ -32,7 +32,7 @@ define 'footprints' do
     it.should contain('WEB-INF/web.xml')
     it.should contain('WEB-INF/classes/META-INF/persistence.xml')
     it.should contain('WEB-INF/classes/META-INF/orm.xml')
-    it.should contain('WEB-INF/classes/footprints/server/entity/code_metrics/Collection.class')
+    it.should contain('WEB-INF/classes/footprints/server/entity/Collection.class')
   end
 
   desc 'DB Archive'
