@@ -6,7 +6,7 @@ Domgen.repository(:Footprints) do |repository|
   repository.jpa.provider = :eclipselink
   repository.jpa.base_entity_test_name = repository.jpa.abstract_entity_test_name
 
-  repository.data_module(:CodeMetrics) do |data_module|
+  repository.data_module(:Footprints) do |data_module|
     data_module.entity(:Collection) do |t|
       t.integer(:ID, :primary_key => true)
       t.datetime(:CollectedAt, :immutable => true)

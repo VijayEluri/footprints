@@ -14,7 +14,7 @@ Domgen::Build.define_load_task
 Domgen::Build.define_generate_task([:pgsql], :key => :sql, :target_dir => 'database/generated')
 
 Dbt.add_database(:default,
-                 :imports => {:default => {:modules => [:CodeMetrics]}}) do |database|
+                 :imports => {:default => {:modules => [:Footprints]}}) do |database|
   database.search_dirs = %w(database/generated database)
   database.enable_domgen
   database.version = '1'
