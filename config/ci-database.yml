@@ -1,0 +1,15 @@
+<% prefix = "#{ENV['USER']}_#{ENV['JOB_NAME']}_" %>
+devhost: &devhost
+  username: <%= ENV['DB_USER'] || ENV['USER'] %>
+  password: letmein
+  password: letmein
+  host: <%= ENV['DB_SERVER_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['DB_SERVER_PORT'] || '5432' %>
+
+#
+# Test configurations
+#
+
+test: &test
+  database: <%= prefix %>FOOTPRINTS_TEST
+  <<: *devhost

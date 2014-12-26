@@ -8,4 +8,4 @@ install:
   - rvm use 1.9.3
   - gem install bundler
   - bundle install
-script: buildr clean package
+script: buildr ci:package
