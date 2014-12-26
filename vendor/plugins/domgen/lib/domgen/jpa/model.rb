@@ -120,6 +120,10 @@ module Domgen
       java_artifact :abstract_entity_test, :test, :server, :jpa, 'Abstract#{repository.name}EntityTest', :sub_package => 'util'
       java_artifact :ejb_module, :test, :server, :jpa, '#{repository.name}RepositoryModule', :sub_package => 'util'
 
+      def extra_test_modules
+        @extra_test_modules ||= []
+      end
+
       def qualified_base_entity_test_name
         "#{server_util_test_package}.#{base_entity_test_name}"
       end
