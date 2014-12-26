@@ -14,6 +14,24 @@
 
 module Domgen
   FacetManager.facet(:ejb => [:ee]) do |facet|
+    facet.enhance(Repository) do
+      include Domgen::Java::BaseJavaGenerator
+      include Domgen::Java::JavaClientServerApplication
+
+      java_artifact :services_module, :test, :server, :jpa, '#{repository.name}ServicesModule', :sub_package => 'util'
+      java_artifact :abstract_service_test, :test, :server, :jpa, 'Abstract#{repository.name}ServiceTest', :sub_package => 'util'
+
+      def qualified_base_service_test_name
+        "#{server_util_test_package}.#{base_service_test_name}"
+      end
+
+      attr_writer :base_service_test_name
+
+      def base_service_test_name
+        @base_service_test_name || abstract_service_test_name.gsub(/^Abstract/,'')
+      end
+    end
+
     facet.enhance(DataModule) do
       include Domgen::Java::EEClientServerJavaPackage
     end

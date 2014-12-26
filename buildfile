@@ -16,7 +16,7 @@ define 'footprints' do
   compile.options.target = '1.7'
   compile.options.lint = 'all'
 
-  Domgen::Build.define_generate_task([:ee, :jpa_test_dao_test, :jpa_test_module, :jpa_test_entity_test, :jpa_test_persistent_test_module])
+  Domgen::Build.define_generate_task([:ee, :jpa_test_dao_test, :jpa_test_module, :jpa_test_entity_test, :ejb_test_service_test, :jpa_test_persistent_test_module])
 
   compile.with PROVIDED_DEPS, COMPILE_DEPS
 
