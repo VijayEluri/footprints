@@ -75,9 +75,6 @@ fi
 
 asadmin set-log-levels javax.enterprise.resource.resourceadapter.com.sun.gjc.spi=WARNING
 
-asadmin set configs.config.server-config.network-config.protocols.protocol.http-listener-1.http.websockets-support-enabled=true
-asadmin set configs.config.server-config.network-config.protocols.protocol.http-listener-1.http.comet-support-enabled=true
-
 if [ "$STOP_DOMAIN" == 'true' ]; then
   asadmin stop-domain footprints
 fi
