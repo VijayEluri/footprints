@@ -60,7 +60,7 @@ Domgen.repository(:Footprints) do |repository|
       d.query(:FindAllCollection, 'jpa.jpql' => 'SELECT O From CodeMetrics_Collection O') do |q|
         q.result_entity = :Collection
       end
-      d.query(:FindCollectionResult, 'jpa.sql' => 'SELECT ID, CollectedAt FROM CodeMetrics.tblCollection') do |q|
+      d.query(:FindCollectionResult, 'jpa.sql' => 'SELECT "ID", "CollectedAt" FROM "Footprints"."tblCollection"') do |q|
         q.result_struct = :CollectionResultDTO
       end
       d.query(:FindCollectionCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O') do |q|
