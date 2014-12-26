@@ -8,10 +8,15 @@ public abstract class <%= dao.jpa.dao_test_name %>
 {
 <% dao.queries.select{|q|!q.jpa.standard_query?}.each do |query| -%>
   public abstract void <%= Domgen::Naming.camelize(query.name) %>();
-<% end -%>
 
+<% end -%>
   protected final <%= dao.jpa.qualified_dao_service_name %> service()
   {
     return s( <%= dao.jpa.qualified_dao_service_name %>.class );
+  }
+
+  protected final <%= dao.jpa.qualified_dao_name %> ejb()
+  {
+    return toObject( <%= dao.jpa.qualified_dao_name %>.class, service() );
   }
 }
