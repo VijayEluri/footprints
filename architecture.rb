@@ -64,10 +64,10 @@ Domgen.repository(:Footprints) do |repository|
         q.result_struct = :CollectionResultDTO
       end
       d.query(:FindCollectionCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O') do |q|
-        q.result_type = :integer
+        q.result_type = :long
       end
       d.query(:FindAllPackageCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O JOIN O.methodMetrics M GROUP BY M.packageName') do |q|
-        q.result_type = :integer
+        q.result_type = :long
       end
     end
 
