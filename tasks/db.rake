@@ -7,7 +7,6 @@ require 'domgen'
 
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
 Dbt::Config.driver = 'postgres'
-Dbt::Config.config_filename = 'config/pg_database.yml'
 
 Domgen::Build.define_load_task
 
