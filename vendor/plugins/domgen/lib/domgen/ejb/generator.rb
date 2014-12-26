@@ -82,6 +82,12 @@ Domgen.template_set(:ejb_test_service_test) do |template_set|
                         "#{Domgen::Generator::EJB::TEMPLATE_DIRECTORY}/services_module.java.erb",
                         'test/java/#{repository.ejb.qualified_services_module_name.gsub(".","/")}.java',
                         Domgen::Generator::EJB::HELPERS)
+  template_set.template(Domgen::Generator::EJB::FACETS,
+                        :service,
+                        "#{Domgen::Generator::EJB::TEMPLATE_DIRECTORY}/service_test.java.erb",
+                        'test/java/#{service.ejb.qualified_service_test_name.gsub(".","/")}.java',
+                        Domgen::Generator::EJB::HELPERS,
+                        :guard => 'service.ejb.standard_implementation?')
 end
 
 Domgen.template_set(:ejb => [:ejb_service_facades, :jpa_ejb_dao])
