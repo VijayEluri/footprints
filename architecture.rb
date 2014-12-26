@@ -57,16 +57,16 @@ Domgen.repository(:Footprints) do |repository|
     end
 
     data_module.dao(:MyDAO) do |d|
-      d.query(:FindAllCollection, 'jpa.jpql' => 'SELECT O From CodeMetrics_Collection O') do |q|
+      d.query(:FindAllCollection, 'jpa.jpql' => 'SELECT O From Footprints_Collection O') do |q|
         q.result_entity = :Collection
       end
       d.query(:FindCollectionResult, 'jpa.sql' => 'SELECT "ID", "CollectedAt" FROM "Footprints"."tblCollection"') do |q|
         q.result_struct = :CollectionResultDTO
       end
-      d.query(:FindCollectionCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O') do |q|
+      d.query(:FindCollectionCount, 'jpa.jpql' => 'SELECT COUNT(O) From Footprints_Collection O') do |q|
         q.result_type = :long
       end
-      d.query(:FindAllPackageCount, 'jpa.jpql' => 'SELECT COUNT(*) From CodeMetrics_Collection O JOIN O.methodMetrics M GROUP BY M.packageName') do |q|
+      d.query(:FindAllPackageCount, 'jpa.jpql' => 'SELECT COUNT(O) From Footprints_Collection O JOIN O.methodMetrics M GROUP BY M.packageName') do |q|
         q.result_type = :long
       end
     end
