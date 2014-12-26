@@ -61,4 +61,6 @@ define 'footprints' do
                                 :enable_jpa => true,
                                 :enable_war => true,
                                 :dependencies => [project, PACKAGE_DEPS])
+
+  ipr.add_default_testng_configuration(:jvm_args => "-ea -Xmx2024M -XX:MaxPermSize=364m -Dtest.db.url=#{Dbt.jdbc_url_with_credentials(:default, 'test')}")
 end
