@@ -10,7 +10,7 @@ artifacts:
   google_guice: com.google.inject:guice:jar:3.0
   google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.50
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.53
   mockito: org.mockito:mockito-all:jar:1.9.5
   glassfish_embedded: org.glassfish.main.extras:glassfish-embedded-all:jar:4.0
   postgresql: postgresql:postgresql:jar:9.1-901.jdbc4
