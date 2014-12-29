@@ -314,7 +314,8 @@ module Domgen
       java_artifact :router_impl, :comm, :server, :imit, '#{repository.name}RouterImpl'
       java_artifact :jpa_encoder, :comm, :server, :imit, '#{repository.name}JpaEncoder'
       java_artifact :message_constants, :comm, :server, :imit, '#{repository.name}MessageConstants'
-      java_artifact :message_generator, :comm, :server, :imit, '#{repository.name}EntityMessageGenerator'
+      java_artifact :message_generator_interface, :comm, :server, :imit, '#{repository.name}EntityMessageGenerator'
+      java_artifact :message_generator, :comm, :server, :imit, '#{repository.name}EntityMessageGeneratorImpl'
       java_artifact :graph_encoder, :comm, :server, :imit, '#{repository.name}GraphEncoder'
       java_artifact :change_recorder, :comm, :server, :imit, '#{repository.name}ChangeRecorder'
       java_artifact :change_recorder_impl, :comm, :server, :imit, '#{repository.name}ChangeRecorderImpl'
@@ -322,7 +323,15 @@ module Domgen
       java_artifact :replication_interceptor, :comm, :server, :imit, '#{repository.name}ReplicationInterceptor'
       java_artifact :graph_encoder_impl, :comm, :server, :imit, '#{repository.name}GraphEncoderImpl'
       java_artifact :services_module, :ioc, :client, :imit, '#{repository.name}ImitServicesModule'
-      java_artifact :mock_services_module, :ioc, :client, :imit, '#{repository.name}MockImitServicesModule'
+      java_artifact :mock_services_module, :test, :client, :imit, '#{repository.name}MockImitServicesModule', :sub_package => 'util'
+      java_artifact :callback_success_answer, :test, :client, :imit, '#{repository.name}CallbackSuccessAnswer', :sub_package => 'util'
+      java_artifact :callback_failure_answer, :test, :client, :imit, '#{repository.name}CallbackFailureAnswer', :sub_package => 'util'
+      java_artifact :abstract_client_test, :test, :client, :imit, 'Abstract#{repository.name}ClientTest', :sub_package => 'util'
+      java_artifact :server_net_module, :test, :server, :imit, '#{repository.name}ImitNetModule', :sub_package => 'util'
+
+      def extra_test_modules
+        @extra_test_modules ||= []
+      end
 
       def multi_session=(multi_session)
         Domgen.error("multi_session '#{multi_session}' is invalid. Must be a boolean value") unless multi_session.is_a?(TrueClass) || multi_session.is_a?(FalseClass)
@@ -405,6 +414,7 @@ module Domgen
       end
 
       def pre_verify
+        repository.ejb.extra_test_modules << self.qualified_server_net_module_name if repository.ejb?
         if self.graphs.size == 0
           Domgen.error('subscription_manager specified when no graphs defined') unless self.subscription_manager.nil?
           Domgen.error('invalid_session_exception specified when no graphs defined') unless self.invalid_session_exception.nil?
@@ -445,6 +455,7 @@ module Domgen
           end
         end
         repository.service_by_name(self.subscription_manager).tap do |s|
+          s.ejb.standard_implementation = false
           repository.imit.graphs.each do |graph|
             filter_options = {}
             if graph.filtered? && graph.filter_parameter.filter_type == :struct
